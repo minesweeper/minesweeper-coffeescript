@@ -20,14 +20,14 @@ dir = "";
 var mines = [];
 var shown = [];
 var gridx, gridy, maxmines;
-gridx = window.prompt("Please enter a width.","8");
+gridx = 8; //window.prompt("Please enter a width.","8");
 gridxverify();
 function gridxaccept(){
-gridy = window.prompt("Please enter a height.","8");
+gridy = 8; //window.prompt("Please enter a height.","8");
 gridyverify();
 }
 function gridyaccept(){
-maxmines = window.prompt("Please enter the number of mines you want.","10");
+maxmines = 10; //window.prompt("Please enter the number of mines you want.","10");
 maxminesverify();
 }
 function gridxverify(){
@@ -336,8 +336,8 @@ var s = "";
 var x, y;
 for(y = 0; y < gridy; ++y) {
 for(x = 0; x < gridx; ++x) {
-s = s + '<a href="javascript:gridclick(' + y + ',' + x +');">' +
-'<img src="' + dir + 'sqt0.gif" name="grd'+y+'_'+x+'" border=0></a>'
+s = s + // '<a href="#" onmousedown="return false" onmouseup="return false" oncontextmenu="return false" >' +
+'<img src="' + dir + 'sqt0.gif" name="grd'+y+'_'+x+'" border=0 onmousedown="return false" onclick="return false" oncontextmenu="return false" onmouseup="return gridclick(' + y + ',' + x +',event);">'
 }
 s = s + "<br>";
 }
@@ -438,10 +438,10 @@ playing = false;
 clicked = false;
 }
 // handler called whenever the grid is clicked
-function gridclick(y, x) {
+function gridclick(y, x, event) {
 if (playing) {
 clicked = true;
-if (placeflag) {
+if (event.button == 2) {
 if (shown[y][x] < 3) {
 var s = shown[y][x];
 var change = true;
