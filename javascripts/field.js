@@ -1,7 +1,6 @@
 (function() {
-  var Field;
 
-  Field = (function() {
+  window.Field = (function() {
 
     function Field(width, height, mines) {
       this.width = width;

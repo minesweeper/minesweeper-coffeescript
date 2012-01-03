@@ -1,2 +1,4 @@
-class Field
-	constructor: (@width, @height, @mines) ->
+class window.Field
+  constructor: (@width, @height, @mines) ->
+
+	
