@@ -1,4 +1,4 @@
-guard 'coffeescript', :output => 'public/javascripts/compiled' do
+guard 'coffeescript', :output => 'javascripts' do
   watch /^coffeescripts\/.*[.]coffee/
 end
 
