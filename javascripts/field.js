@@ -2,27 +2,23 @@
 
   window.Field = (function() {
 
-    function Field(width, height, mines) {
-      this.width = width;
-      this.height = height;
-      this.mines = mines;
+    function Field(opts) {
+      this.opts = opts;
     }
 
     Field.prototype.render = function(locator) {
-      var col, content, height, row, template, width;
+      var col, content, row, template;
       template = "<table>        {{#rows}}  	  <tr>  	    {{#cells}}  	      <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>  	    {{/cells}}  	  </tr>  	  {{/rows}}  	</table>";
-      height = 8;
-      width = 12;
       content = $.mustache(template, {
         rows: (function() {
-          var _results;
+          var _ref, _results;
           _results = [];
-          for (col = 1; 1 <= height ? col <= height : col >= height; 1 <= height ? col++ : col--) {
+          for (col = 1, _ref = this.opts.height; 1 <= _ref ? col <= _ref : col >= _ref; 1 <= _ref ? col++ : col--) {
             _results.push({
               cells: (function() {
-                var _results2;
+                var _ref2, _results2;
                 _results2 = [];
-                for (row = 1; 1 <= width ? row <= width : row >= width; 1 <= width ? row++ : row--) {
+                for (row = 1, _ref2 = this.opts.width; 1 <= _ref2 ? row <= _ref2 : row >= _ref2; 1 <= _ref2 ? row++ : row--) {
                   _results2.push({
                     state: 'unclicked',
                     row: row,
@@ -30,11 +26,11 @@
                   });
                 }
                 return _results2;
-              })()
+              }).call(this)
             });
           }
           return _results;
-        })()
+        }).call(this)
       });
       return $(locator).html(content);
     };
