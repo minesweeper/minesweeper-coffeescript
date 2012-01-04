@@ -3,7 +3,14 @@
   $(function() {
     var renderField;
     renderField = function(opts) {
-      return $('#minesweeper').html((new Field(opts)).render());
+      $('#minesweeper').html((new Field(opts)).render());
+      return $('.unclicked').mouseup(function(event) {
+        if (event.which === 1) {
+          return $(this).attr('class', 'clicked');
+        } else {
+          return $(this).attr('class', 'marked');
+        }
+      });
     };
     $('#beginner').click(function() {
       return renderField({

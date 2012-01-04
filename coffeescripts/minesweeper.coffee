@@ -1,6 +1,11 @@
 $ ->
 	renderField = (opts) ->
-		$('#minesweeper').html (new Field opts).render() 
+		$('#minesweeper').html (new Field opts).render()
+		$('.unclicked').mouseup (event) ->
+			if event.which == 1
+			  $(this).attr 'class', 'clicked'
+			else
+			  $(this).attr 'class', 'marked'
 
 	$('#beginner').click ->
 		renderField height: 9,  width: 9,  mines: 10
