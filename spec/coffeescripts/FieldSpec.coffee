@@ -1,13 +1,4 @@
 describe 'Field', ->
-  field = new Field 8, 15, 10
-
-  it 'should expose width', ->
-    expect(field.width).toEqual 8
-
-  it 'should expose height', ->
-    expect(field.height).toEqual 15
-
-  it 'should produce game',->
-    game = field.generate
-    expect(game.mines).toEqual 10
- 
+  it 'should render content', ->
+    f = new Field width: 1, height: 1
+    expect(f.render()).toEqual '<table>          	  <tr>  	      	      <td class="unclicked" id="r1c1"></td>  	    </tr>  	  </table>'

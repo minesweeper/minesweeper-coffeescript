@@ -1,18 +1,13 @@
 (function() {
 
   describe('Field', function() {
-    var field;
-    field = new Field(8, 15, 10);
-    it('should expose width', function() {
-      return expect(field.width).toEqual(8);
-    });
-    it('should expose height', function() {
-      return expect(field.height).toEqual(15);
-    });
-    return it('should produce game', function() {
-      var game;
-      game = field.generate;
-      return expect(game.mines).toEqual(10);
+    return it('should render content', function() {
+      var f;
+      f = new Field({
+        width: 1,
+        height: 1
+      });
+      return expect(f.render()).toEqual('<table>          	  <tr>  	      	      <td class="unclicked" id="r1c1"></td>  	    </tr>  	  </table>');
     });
   });
 
