@@ -6,3 +6,8 @@ describe 'Field', ->
 
   it 'should expose height', ->
     expect(field.height).toEqual 15
+
+  it 'should produce game',->
+    game = field.generate
+    expect(game.mines).toEqual 10
+ 
