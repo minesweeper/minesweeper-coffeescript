@@ -7,7 +7,7 @@
         width: 1,
         height: 1
       });
-      return expect(f.render()).toEqual('<table>          	  <tr>  	      	      <td class="unclicked" id="r1c1"></td>  	    </tr>  	  </table>');
+      return expect(f.render()).toEqual("<table>\n  <tr>\n      <td class=\"unclicked\" id=\"r1c1\"></td>\n  </tr>\n</table>");
     });
   });
 

@@ -8,7 +8,7 @@
 
     Field.prototype.render = function() {
       var col, row, template;
-      template = "<table>        {{#rows}}  	  <tr>  	    {{#cells}}  	      <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>  	    {{/cells}}  	  </tr>  	  {{/rows}}  	</table>";
+      template = "<table>\n{{#rows}}\n  <tr>\n  {{#cells}}\n    <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n  {{/cells}}\n  </tr>\n{{/rows}}\n</table>";
       return Mustache.to_html(template, {
         rows: (function() {
           var _ref, _results;
