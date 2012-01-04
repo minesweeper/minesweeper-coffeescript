@@ -1,7 +1,7 @@
 class window.Field
   constructor: (@opts) ->
 
-  render: (locator) ->
+  render: ->
   	template = "<table>
         {{#rows}}
   	  <tr>
@@ -11,5 +11,5 @@ class window.Field
   	  </tr>
   	  {{/rows}}
   	</table>"
-  	$(locator).html Mustache.to_html template,
+  	Mustache.to_html template,
   		rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [1..@opts.width]) } for col in [1..@opts.height])

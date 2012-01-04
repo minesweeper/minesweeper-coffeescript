@@ -6,10 +6,10 @@
       this.opts = opts;
     }
 
-    Field.prototype.render = function(locator) {
+    Field.prototype.render = function() {
       var col, row, template;
       template = "<table>        {{#rows}}  	  <tr>  	    {{#cells}}  	      <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>  	    {{/cells}}  	  </tr>  	  {{/rows}}  	</table>";
-      return $(locator).html(Mustache.to_html(template, {
+      return Mustache.to_html(template, {
         rows: (function() {
           var _ref, _results;
           _results = [];
@@ -31,7 +31,7 @@
           }
           return _results;
         }).call(this)
-      }));
+      });
     };
 
     return Field;

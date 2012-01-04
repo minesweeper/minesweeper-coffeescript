@@ -3,7 +3,7 @@
   $(function() {
     var renderField;
     renderField = function(opts) {
-      return (new Field(opts)).render('#minesweeper');
+      return $('#minesweeper').html((new Field(opts)).render());
     };
     $('#beginner').click(function() {
       return renderField({

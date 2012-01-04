@@ -1,6 +1,6 @@
 $ ->
 	renderField = (opts) ->
-		(new Field opts).render '#minesweeper'
+		$('#minesweeper').html (new Field opts).render() 
 
 	$('#beginner').click ->
 		renderField height: 9,  width: 9,  mines: 10
