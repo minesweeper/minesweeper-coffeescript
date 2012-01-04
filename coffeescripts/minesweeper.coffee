@@ -1,17 +1,3 @@
 $ ->
-	template = "<table>
-      {{#rows}}
-	  <tr>
-	    {{#cols}}
-	      <td class=\"{{.}}\"></td>
-	    {{/cols}}
-	  </tr>
-	  {{/rows}}
-	</table>"
-	data =
-		name: "foo"
-		rows: []
-	data.rows.push { cols: ['unclicked','unclicked'] }
-	data.rows.push { cols: ['unclicked','unclicked'] }
-	content = $.mustache template, data
-	$('#minesweeper').html content
+	f = new Field 8, 10, 8
+	f.render '#minesweeper'
