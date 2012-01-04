@@ -11,7 +11,5 @@ class window.Field
   	  </tr>
   	  {{/rows}}
   	</table>"
-  	content = $.mustache template,
+  	$(locator).html Mustache.to_html template,
   		rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [1..@opts.width]) } for col in [1..@opts.height])
-  	$(locator).html content
-    

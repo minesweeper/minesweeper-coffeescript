@@ -1,13 +1,4 @@
 /*
-Shameless port of a shameless port
-@defunkt => @janl => @aq
- 
-See http://github.com/defunkt/mustache for more info.
-*/
- 
-;(function($) {
-
-/*
   mustache.js — Logic-less templates in JavaScript
 
   See http://mustache.github.com/ for more info.
@@ -443,9 +434,3 @@ var Mustache = function () {
     }
   });
 }();
-
-  $.mustache = function(template, view, partials) {
-    return Mustache.to_html(template, view, partials);
-  };
-
-})(jQuery);

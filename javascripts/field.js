@@ -7,9 +7,9 @@
     }
 
     Field.prototype.render = function(locator) {
-      var col, content, row, template;
+      var col, row, template;
       template = "<table>        {{#rows}}  	  <tr>  	    {{#cells}}  	      <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>  	    {{/cells}}  	  </tr>  	  {{/rows}}  	</table>";
-      content = $.mustache(template, {
+      return $(locator).html(Mustache.to_html(template, {
         rows: (function() {
           var _ref, _results;
           _results = [];
@@ -31,8 +31,7 @@
           }
           return _results;
         }).call(this)
-      });
-      return $(locator).html(content);
+      }));
     };
 
     return Field;
