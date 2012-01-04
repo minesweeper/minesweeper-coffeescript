@@ -1,6 +1,8 @@
 $ ->
 	renderField = (opts) ->
 		$('#minesweeper').html (new Field opts).render()
+		$('.unclicked').bind 'contextmenu', ->
+			false
 		$('.unclicked').mouseup (event) ->
 			if event.which == 1
 			  $(this).attr 'class', 'clicked'

@@ -7,7 +7,7 @@ class window.Field
     {{#rows}}
       <tr>
       {{#cells}}
-        <td oncontextmenu=\"return false;\" class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>
+        <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>
       {{/cells}}
       </tr>
     {{/rows}}

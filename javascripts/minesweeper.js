@@ -4,6 +4,9 @@
     var renderField;
     renderField = function(opts) {
       $('#minesweeper').html((new Field(opts)).render());
+      $('.unclicked').bind('contextmenu', function() {
+        return false;
+      });
       return $('.unclicked').mouseup(function(event) {
         if (event.which === 1) {
           return $(this).attr('class', 'clicked');
