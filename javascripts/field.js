@@ -63,7 +63,25 @@
     };
 
     Field.prototype.hasMine = function(row, col) {
-      if (!this.opts.mines) this.opts.mines = [[1, 1]];
+      var addMine, field, randomIndex;
+      if (!this.opts.mines) {
+        field = this;
+        this.opts.mines = [];
+        randomIndex = function(max) {
+          return Math.floor(Math.random() * max);
+        };
+        addMine = function() {
+          var c, r;
+          r = randomIndex(field.opts.height);
+          c = randomIndex(field.opts.width);
+          if (!((row === r && col === c) || field.hasMine(r, c))) {
+            return field.opts.mines.push([r, c]);
+          }
+        };
+        while (field.opts.mines.length !== field.opts.mineCount) {
+          addMine();
+        }
+      }
       return _.any(this.opts.mines, function(mine) {
         return mine[0] === row && mine[1] === col;
       });

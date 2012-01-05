@@ -34,5 +34,13 @@ class window.Field
 
   hasMine: (row, col) ->
     unless @opts.mines
-      @opts.mines = [[1, 1]]
+      field = this
+      @opts.mines = []
+      randomIndex = (max) ->
+        Math.floor Math.random()*max
+      addMine = ->
+        r = randomIndex field.opts.height
+        c = randomIndex field.opts.width
+        field.opts.mines.push [r,c] unless (row == r and col == c) or field.hasMine r, c
+      addMine() until field.opts.mines.length == field.opts.mineCount
     _.any @opts.mines, (mine) -> mine[0] == row and mine[1] == col

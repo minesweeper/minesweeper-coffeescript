@@ -41,11 +41,12 @@ describe 'Field', ->
       expect(field.hasMine(0,0)).toEqual false
 
   describe 'mine placement', ->
-    field = new Field width: 3, height:3, mine_count: 1
+    field = new Field width: 1, height:2, mineCount: 1
 
     it 'should place a mine after a call to hasMine', ->
       expect(field.hasMine(0,0)).toEqual false
       expect(field.opts.mines.length).toEqual 1
+      expect(field.opts.mines[0]).toEqual [1, 0 ]
 
   describe 'adjacent mine count', ->
     field = null

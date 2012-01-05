@@ -42,13 +42,14 @@
     describe('mine placement', function() {
       var field;
       field = new Field({
-        width: 3,
-        height: 3,
-        mine_count: 1
+        width: 1,
+        height: 2,
+        mineCount: 1
       });
       return it('should place a mine after a call to hasMine', function() {
         expect(field.hasMine(0, 0)).toEqual(false);
-        return expect(field.opts.mines.length).toEqual(1);
+        expect(field.opts.mines.length).toEqual(1);
+        return expect(field.opts.mines[0]).toEqual([1, 0]);
       });
     });
     return describe('adjacent mine count', function() {
