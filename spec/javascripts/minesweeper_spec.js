@@ -25,13 +25,18 @@
           mines: []
         });
       });
-      it('should mark a cell on right click', function() {
+      it('should cycle through marked to uncertain to unclicked on right click', function() {
+        expect(cell_state(0, 0)).toEqual('unclicked');
         right_click(0, 0);
-        return expect(cell_state(0, 0)).toEqual('marked');
+        expect(cell_state(0, 0)).toEqual('marked');
+        right_click(0, 0);
+        expect(cell_state(0, 0)).toEqual('uncertain');
+        right_click(0, 0);
+        return expect(cell_state(0, 0)).toEqual('unclicked');
       });
       return it('should reveal a cell on left click', function() {
         left_click(0, 0);
-        return expect(cell_state(0, 0)).toEqual('empty');
+        return expect(cell_state(0, 0)).toEqual('mines0');
       });
     });
     return describe('with a mine', function() {

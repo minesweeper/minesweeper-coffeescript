@@ -25,10 +25,14 @@ td.unclicked {
 	background-image:url('../images/unclicked.gif');
 }
 
-td.clicked {
-	background-image:url('../images/sq0.gif');
+td.mines0 {
+	background-image:url('../images/mines0.gif');
 }
 
 td.marked {
-	background-image:url('../images/sqt1.gif');
+	background-image:url('../images/marked.gif');
+}
+
+td.uncertain {
+  background-image:url('../images/uncertain.gif');
 }
