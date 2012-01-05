@@ -29,6 +29,38 @@ td.mines0 {
 	background-image:url('../images/mines0.gif');
 }
 
+td.mines1 {
+  background-image:url('../images/mines1.gif');
+}
+
+td.mines2 {
+  background-image:url('../images/mines2.gif');
+}
+
+td.mines3 {
+  background-image:url('../images/mines3.gif');
+}
+
+td.mines4 {
+  background-image:url('../images/mines4.gif');
+}
+
+td.mines5 {
+  background-image:url('../images/mines5.gif');
+}
+
+td.mines6 {
+  background-image:url('../images/mines6.gif');
+}
+
+td.mines7 {
+  background-image:url('../images/mines7.gif');
+}
+
+td.mines8 {
+  background-image:url('../images/mines8.gif');
+}
+
 td.marked {
 	background-image:url('../images/marked.gif');
 }

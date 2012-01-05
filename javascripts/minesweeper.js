@@ -15,7 +15,7 @@
     if (current.hasMine(row, col)) {
       return element.attr('class', 'mine');
     } else {
-      return element.attr('class', 'mines0');
+      return element.attr('class', "mines" + (current.adjacentCount(row, col)));
     }
   };
 

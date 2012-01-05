@@ -10,7 +10,7 @@ reveal_unclicked_cell = (element) ->
   if current.hasMine(row, col)
     element.attr 'class', 'mine'
   else  
-    element.attr 'class', 'mines0'
+    element.attr 'class', "mines#{current.adjacentCount(row, col)}"
 
 set_unclicked_to_marked = (element) ->
   element.attr 'class', 'marked'
