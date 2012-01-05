@@ -102,3 +102,51 @@ describe 'Field', ->
       1 1 0
       """
 
+    it 'should determine adjacent mine count for 5 mines', ->
+      given_field """
+      * * *
+      * . .
+      * . .
+      """
+      expect_counts """
+      - - -
+      - 5 2
+      - 2 0
+      """
+
+    it 'should determine adjacent mine count for 6 mines', ->
+      given_field """
+      * * *
+      * . *
+      * . .
+      """
+      expect_counts """
+      - - -
+      - 6 -
+      - 3 1
+      """
+
+    it 'should determine adjacent mine count for 7 mines', ->
+      given_field """
+      * * *
+      * . *
+      * . *
+      """
+      expect_counts """
+      - - -
+      - 7 -
+      - 4 -
+      """
+
+
+    it 'should determine adjacent mine count for 8 mines', ->
+      given_field """
+      * * *
+      * . *
+      * * *
+      """
+      expect_counts """
+      - - -
+      - 8 -
+      - - -
+      """

@@ -70,9 +70,25 @@
         given_field("* *\n* .");
         return expect_counts("- -\n- 3");
       });
-      return it('should determine adjacent mine count for 4 mines', function() {
+      it('should determine adjacent mine count for 4 mines', function() {
         given_field("* * *\n* . .\n. . .");
         return expect_counts("- - -\n- 4 2\n1 1 0");
+      });
+      it('should determine adjacent mine count for 5 mines', function() {
+        given_field("* * *\n* . .\n* . .");
+        return expect_counts("- - -\n- 5 2\n- 2 0");
+      });
+      it('should determine adjacent mine count for 6 mines', function() {
+        given_field("* * *\n* . *\n* . .");
+        return expect_counts("- - -\n- 6 -\n- 3 1");
+      });
+      it('should determine adjacent mine count for 7 mines', function() {
+        given_field("* * *\n* . *\n* . *");
+        return expect_counts("- - -\n- 7 -\n- 4 -");
+      });
+      return it('should determine adjacent mine count for 8 mines', function() {
+        given_field("* * *\n* . *\n* * *");
+        return expect_counts("- - -\n- 8 -\n- - -");
       });
     });
   });
