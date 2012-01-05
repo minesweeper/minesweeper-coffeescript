@@ -25,6 +25,20 @@
         return expect(field.neighbours(2, 2)).toEqual([[1, 1], [1, 2], [2, 1]]);
       });
     });
+    describe('has mine', function() {
+      var field;
+      field = new Field({
+        width: 3,
+        height: 3,
+        mines: [[1, 1]]
+      });
+      it('should find mine when there is one', function() {
+        return expect(field.hasMine(1, 1)).toEqual(true);
+      });
+      return it('should not find a mine when there is not one', function() {
+        return expect(field.hasMine(0, 0)).toEqual(false);
+      });
+    });
     return describe('adjacent mine count', function() {
       var expect_counts, field, given_field;
       field = null;

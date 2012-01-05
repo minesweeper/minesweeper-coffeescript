@@ -17,9 +17,9 @@ class window.Field
       rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [0..@opts.width-1]) } for col in [0..@opts.height-1])
 
   adjacentCount: (row,col) ->
-    mines = @opts.mines
+    field = this
     iterator = (memo, neighbour) ->
-      memo += 1 if _.any mines, (mine) -> mine[0] == neighbour[0] and mine[1] == neighbour[1]
+      memo += 1 if field.hasMine neighbour[0], neighbour[1]
       memo
     _.reduce this.neighbours(row,col), iterator, 0
 
@@ -31,3 +31,6 @@ class window.Field
       result.push [r, c] unless (r == row and c == col) or r < 0 or c < 0 or r >= height or c >= width
     ((append r,c for c in [col-1..col+1]) for r in [row-1..row+1])
     result
+
+  hasMine: (row, col) ->
+    _.any @opts.mines, (mine) -> mine[0] == row and mine[1] == col

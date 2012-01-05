@@ -47,7 +47,7 @@
           mines: [[0, 0]]
         });
       });
-      return xit('should end the game when a cell containing mine is left clicked', function() {
+      return it('should end the game when a cell containing mine is left clicked', function() {
         left_click(0, 0);
         return expect(cell_state(0, 0)).toEqual('mine');
       });

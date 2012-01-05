@@ -31,6 +31,15 @@ describe 'Field', ->
         [2,1]
       ]
 
+  describe 'has mine', ->
+    field = new Field width: 3, height: 3, mines: [[1,1]]
+
+    it 'should find mine when there is one', ->
+      expect(field.hasMine(1,1)).toEqual true
+
+    it 'should not find a mine when there is not one', ->
+      expect(field.hasMine(0,0)).toEqual false
+
   describe 'adjacent mine count', ->
     field = null
  

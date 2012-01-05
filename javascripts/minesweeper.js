@@ -8,7 +8,15 @@
   };
 
   reveal_unclicked_cell = function(element) {
-    return element.attr('class', 'mines0');
+    var col, match, row;
+    match = /r(\d+)c(\d+)/.exec(element.attr('id'));
+    row = parseInt(match[1]);
+    col = parseInt(match[2]);
+    if (current.hasMine(row, col)) {
+      return element.attr('class', 'mine');
+    } else {
+      return element.attr('class', 'mines0');
+    }
   };
 
   set_unclicked_to_marked = function(element) {

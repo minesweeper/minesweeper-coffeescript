@@ -29,6 +29,6 @@ describe 'minesweeper', ->
     beforeEach ->
       Minesweeper.create '#jasmine_content', height: 1,  width: 1, mines: [[0,0]]
 
-    xit 'should end the game when a cell containing mine is left clicked', ->
+    it 'should end the game when a cell containing mine is left clicked', ->
       left_click 0, 0
       expect(cell_state(0 ,0)).toEqual 'mine'

@@ -35,14 +35,10 @@
     };
 
     Field.prototype.adjacentCount = function(row, col) {
-      var iterator, mines;
-      mines = this.opts.mines;
+      var field, iterator;
+      field = this;
       iterator = function(memo, neighbour) {
-        if (_.any(mines, function(mine) {
-          return mine[0] === neighbour[0] && mine[1] === neighbour[1];
-        })) {
-          memo += 1;
-        }
+        if (field.hasMine(neighbour[0], neighbour[1])) memo += 1;
         return memo;
       };
       return _.reduce(this.neighbours(row, col), iterator, 0);
@@ -64,6 +60,12 @@
         }
       }
       return result;
+    };
+
+    Field.prototype.hasMine = function(row, col) {
+      return _.any(this.opts.mines, function(mine) {
+        return mine[0] === row && mine[1] === col;
+      });
     };
 
     return Field;

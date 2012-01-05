@@ -4,7 +4,13 @@ left_clicked = (event) ->
   event.which == 1
 
 reveal_unclicked_cell = (element) ->
-  element.attr 'class', 'mines0'
+  match = /r(\d+)c(\d+)/.exec element.attr 'id'
+  row = parseInt match[1]
+  col = parseInt match[2]
+  if current.hasMine row, col
+    element.attr 'class', 'mine'
+  else  
+    element.attr 'class', 'mines0'
 
 set_unclicked_to_marked = (element) ->
   element.attr 'class', 'marked'
