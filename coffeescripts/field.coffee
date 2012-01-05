@@ -18,3 +18,10 @@ class window.Field
 
   adjacentCount: (row,col) ->
     1
+
+  neighbours: (row, col) ->
+    result = []
+    append = (r, c) ->
+      result.push [r, c] unless (r == row and c == col) or r < 0 or c < 0
+    ((append r,c for c in [col-1..col+1]) for r in [row-1..row+1])
+    result
