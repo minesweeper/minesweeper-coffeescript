@@ -33,4 +33,6 @@ class window.Field
     result
 
   hasMine: (row, col) ->
+    unless @opts.mines
+      @opts.mines = [[1, 1]]
     _.any @opts.mines, (mine) -> mine[0] == row and mine[1] == col

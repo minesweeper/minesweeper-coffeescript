@@ -39,6 +39,18 @@
         return expect(field.hasMine(0, 0)).toEqual(false);
       });
     });
+    describe('mine placement', function() {
+      var field;
+      field = new Field({
+        width: 3,
+        height: 3,
+        mine_count: 1
+      });
+      return it('should place a mine after a call to hasMine', function() {
+        expect(field.hasMine(0, 0)).toEqual(false);
+        return expect(field.opts.mines.length).toEqual(1);
+      });
+    });
     return describe('adjacent mine count', function() {
       var expect_counts, field, given_field;
       field = null;

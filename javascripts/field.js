@@ -63,6 +63,7 @@
     };
 
     Field.prototype.hasMine = function(row, col) {
+      if (!this.opts.mines) this.opts.mines = [[1, 1]];
       return _.any(this.opts.mines, function(mine) {
         return mine[0] === row && mine[1] === col;
       });
