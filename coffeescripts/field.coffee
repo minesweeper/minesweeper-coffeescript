@@ -15,3 +15,6 @@ class window.Field
     """
     Mustache.to_html template,
       rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [1..@opts.width]) } for col in [1..@opts.height])
+
+  adjacentCount: (row,col) ->
+    1

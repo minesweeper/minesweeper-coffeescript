@@ -34,6 +34,10 @@
       });
     };
 
+    Field.prototype.adjacentCount = function(row, col) {
+      return 1;
+    };
+
     return Field;
 
   })();
