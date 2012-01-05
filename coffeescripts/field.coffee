@@ -21,7 +21,9 @@ class window.Field
 
   neighbours: (row, col) ->
     result = []
+    height = @opts.height
+    width = @opts.width
     append = (r, c) ->
-      result.push [r, c] unless (r == row and c == col) or r < 0 or c < 0
+      result.push [r, c] unless (r == row and c == col) or r < 0 or c < 0 or r >= height or c >= width
     ((append r,c for c in [col-1..col+1]) for r in [row-1..row+1])
     result

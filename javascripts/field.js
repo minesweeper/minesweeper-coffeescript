@@ -39,10 +39,12 @@
     };
 
     Field.prototype.neighbours = function(row, col) {
-      var append, c, r, result, _ref, _ref2, _ref3, _ref4;
+      var append, c, height, r, result, width, _ref, _ref2, _ref3, _ref4;
       result = [];
+      height = this.opts.height;
+      width = this.opts.width;
       append = function(r, c) {
-        if (!((r === row && c === col) || r < 0 || c < 0)) {
+        if (!((r === row && c === col) || r < 0 || c < 0 || r >= height || c >= width)) {
           return result.push([r, c]);
         }
       };

@@ -25,6 +25,12 @@ describe 'Field', ->
         [1,0],[1,1]
       ]
 
+    it 'should determine neighbours for bottom right', ->
+      expect(field.neighbours(2,2)).toEqual [
+        [1,1],[1,2],
+        [2,1]
+      ]
+
   it 'should determine adjacent mine count for single mine', ->
     f = new Field width: 2, height: 2, mines: [[0,0]]
     expect(f.adjacentCount(1,1)).toEqual 1
