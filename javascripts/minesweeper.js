@@ -1,7 +1,21 @@
 (function() {
-  var current;
+  var current, marked_mouseup, unclicked_mouseup;
 
   current = null;
+
+  marked_mouseup = function(event) {
+    if (event.which !== 1) return $(this).attr('class', 'marked');
+  };
+
+  unclicked_mouseup = function(event) {
+    $(this).unbind(event);
+    if (event.which === 1) {
+      return $(this).attr('class', 'clicked');
+    } else {
+      $(this).attr('class', 'marked');
+      return $(this).bind('mouseup', marked_mouseup);
+    }
+  };
 
   window.Minesweeper = {
     create: function(locator, opts) {
@@ -10,13 +24,7 @@
       $('.unclicked').bind('contextmenu', function() {
         return false;
       });
-      return $('.unclicked').mouseup(function(event) {
-        if (event.which === 1) {
-          return $(this).attr('class', 'clicked');
-        } else {
-          return $(this).attr('class', 'marked');
-        }
-      });
+      return $('.unclicked').bind('mouseup', unclicked_mouseup);
     }
   };
 

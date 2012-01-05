@@ -1,15 +1,26 @@
 (function() {
 
   describe('minesweeper', function() {
-    return it('should add some content', function() {
-      var field;
-      field = new Field({
-        height: 9,
-        width: 9,
-        mines: 10
+    beforeEach(function() {
+      return Minesweeper.create('#jasmine_content', {
+        height: 1,
+        width: 1,
+        mines: []
       });
-      $('#jasmine_content').html(field.render());
-      return Minesweeper.say_hi();
+    });
+    it('should mark a cell on right click', function() {
+      $('#r1c1').trigger({
+        type: 'mouseup',
+        which: 2
+      });
+      return expect($('#r1c1').attr('class')).toEqual('marked');
+    });
+    return it('should reveal a cell on left click', function() {
+      $('#r1c1').trigger({
+        type: 'mouseup',
+        which: 1
+      });
+      return expect($('#r1c1').attr('class')).toEqual('clicked');
     });
   });
 
