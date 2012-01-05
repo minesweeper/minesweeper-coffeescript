@@ -31,7 +31,7 @@
       });
       return it('should reveal a cell on left click', function() {
         left_click(0, 0);
-        return expect(cell_state(0, 0)).toEqual('clicked');
+        return expect(cell_state(0, 0)).toEqual('empty');
       });
     });
     return describe('with a mine', function() {
@@ -42,7 +42,10 @@
           mines: [[0, 0]]
         });
       });
-      return it('should end the game when a cell containing mine is left clicked', function() {});
+      return xit('should end the game when a cell containing mine is left clicked', function() {
+        left_click(0, 0);
+        return expect(cell_state(0, 0)).toEqual('mine');
+      });
     });
   });
 

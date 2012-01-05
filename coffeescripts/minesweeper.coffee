@@ -7,7 +7,7 @@ marked_mouseup = (event) ->
 unclicked_mouseup = (event) ->
   $(this).unbind(event);
   if event.which == 1
-    $(this).attr 'class', 'clicked'
+    $(this).attr 'class', 'empty'
   else
     $(this).attr 'class', 'marked'
     $(this).bind 'mouseup', marked_mouseup
