@@ -7,7 +7,7 @@ reveal_unclicked_cell = (element) ->
   match = /r(\d+)c(\d+)/.exec element.attr 'id'
   row = parseInt match[1]
   col = parseInt match[2]
-  if current.hasMine row, col
+  if current.hasMine(row, col)
     element.attr 'class', 'mine'
   else  
     element.attr 'class', 'mines0'

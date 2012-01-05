@@ -36,3 +36,7 @@ td.marked {
 td.uncertain {
   background-image:url('../images/uncertain.gif');
 }
+
+td.mine {
+  background-image:url('../images/mine.gif');
+}
