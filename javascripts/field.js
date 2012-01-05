@@ -13,12 +13,12 @@
         rows: (function() {
           var _ref, _results;
           _results = [];
-          for (col = 0, _ref = this.opts.height - 1; 0 <= _ref ? col <= _ref : col >= _ref; 0 <= _ref ? col++ : col--) {
+          for (row = 0, _ref = this.opts.rows - 1; 0 <= _ref ? row <= _ref : row >= _ref; 0 <= _ref ? row++ : row--) {
             _results.push({
               cells: (function() {
                 var _ref2, _results2;
                 _results2 = [];
-                for (row = 0, _ref2 = this.opts.width - 1; 0 <= _ref2 ? row <= _ref2 : row >= _ref2; 0 <= _ref2 ? row++ : row--) {
+                for (col = 0, _ref2 = this.opts.cols - 1; 0 <= _ref2 ? col <= _ref2 : col >= _ref2; 0 <= _ref2 ? col++ : col--) {
                   _results2.push({
                     state: 'unclicked',
                     row: row,
@@ -45,12 +45,12 @@
     };
 
     Field.prototype.neighbours = function(row, col) {
-      var append, c, height, r, result, width, _ref, _ref2, _ref3, _ref4;
+      var append, c, cols, r, result, rows, _ref, _ref2, _ref3, _ref4;
       result = [];
-      height = this.opts.height;
-      width = this.opts.width;
+      rows = this.opts.rows;
+      cols = this.opts.cols;
       append = function(r, c) {
-        if (!((r === row && c === col) || r < 0 || c < 0 || r >= height || c >= width)) {
+        if (!((r === row && c === col) || r < 0 || c < 0 || r >= rows || c >= cols)) {
           return result.push([r, c]);
         }
       };
@@ -72,8 +72,8 @@
         };
         addMine = function() {
           var c, r;
-          r = randomIndex(field.opts.height);
-          c = randomIndex(field.opts.width);
+          r = randomIndex(field.opts.rows);
+          c = randomIndex(field.opts.cols);
           if (!((row === r && col === c) || field.hasMine(r, c))) {
             return field.opts.mines.push([r, c]);
           }

@@ -14,7 +14,7 @@ class window.Field
     </table>
     """
     Mustache.to_html template,
-      rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [0..@opts.width-1]) } for col in [0..@opts.height-1])
+      rows: ({ cells: ({ state:'unclicked', row: row, col: col } for col in [0..@opts.cols-1]) } for row in [0..@opts.rows-1])
 
   adjacentCount: (row,col) ->
     field = this
@@ -25,10 +25,10 @@ class window.Field
 
   neighbours: (row, col) ->
     result = []
-    height = @opts.height
-    width = @opts.width
+    rows = @opts.rows
+    cols = @opts.cols
     append = (r, c) ->
-      result.push [r, c] unless (r == row and c == col) or r < 0 or c < 0 or r >= height or c >= width
+      result.push [r, c] unless (r == row and c == col) or r < 0 or c < 0 or r >= rows or c >= cols
     ((append r,c for c in [col-1..col+1]) for r in [row-1..row+1])
     result
 
@@ -39,8 +39,8 @@ class window.Field
       randomIndex = (max) ->
         Math.floor Math.random()*max
       addMine = ->
-        r = randomIndex field.opts.height
-        c = randomIndex field.opts.width
+        r = randomIndex field.opts.rows
+        c = randomIndex field.opts.cols
         field.opts.mines.push [r,c] unless (row == r and col == c) or field.hasMine r, c
       addMine() until field.opts.mines.length == field.opts.mineCount
     _.any @opts.mines, (mine) -> mine[0] == row and mine[1] == col

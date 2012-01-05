@@ -4,16 +4,16 @@
     it('should render content', function() {
       var f;
       f = new Field({
-        width: 1,
-        height: 1
+        rows: 1,
+        cols: 1
       });
       return expect(f.render()).toEqual("<table>\n  <tr>\n      <td class=\"unclicked\" id=\"r0c0\"></td>\n  </tr>\n</table>");
     });
     describe('neighbours', function() {
       var field;
       field = new Field({
-        width: 3,
-        height: 3
+        rows: 3,
+        cols: 3
       });
       it('should determine neighbours for middle', function() {
         return expect(field.neighbours(1, 1)).toEqual([[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 1], [2, 2]]);
@@ -28,8 +28,8 @@
     describe('has mine', function() {
       var field;
       field = new Field({
-        width: 3,
-        height: 3,
+        rows: 3,
+        cols: 3,
         mines: [[1, 1]]
       });
       it('should find mine when there is one', function() {
@@ -42,8 +42,8 @@
     describe('mine placement', function() {
       var field;
       field = new Field({
-        width: 1,
-        height: 2,
+        rows: 2,
+        cols: 1,
         mineCount: 1
       });
       return it('should place a mine after a call to hasMine', function() {
@@ -67,8 +67,8 @@
           });
         });
         return field = new Field({
-          width: lastrow.length,
-          height: lines.length,
+          cols: lastrow.length,
+          rows: lines.length,
           mines: mines
         });
       };

@@ -16,17 +16,18 @@
       return element.attr('class', 'mine');
     } else {
       adjacentCount = current.adjacentCount(row, col);
+      element.attr('class', "mines" + adjacentCount);
       if (adjacentCount === 0) {
-        _.each(current.neighbours(row, col), function(cell) {
-          row = cell[0];
-          col = cell[1];
-          return $("#r" + row + "c" + col).trigger({
+        return _.each(current.neighbours(row, col), function(cell) {
+          var c, r;
+          r = cell[0];
+          c = cell[1];
+          return $("#r" + r + "c" + c).trigger({
             type: 'mouseup',
             which: 1
           });
         });
       }
-      return element.attr('class', "mines" + adjacentCount);
     }
   };
 

@@ -29,8 +29,8 @@
         });
       });
       return Minesweeper.create('#jasmine_content', {
-        width: lastrow.length,
-        height: lines.length,
+        cols: lastrow.length,
+        rows: lines.length,
         mines: mines
       });
     };
@@ -100,7 +100,8 @@
       expect(cell_state(0, 0)).toEqual('mines0');
       expect(cell_state(0, 1)).toEqual('mines0');
       expect(cell_state(1, 0)).toEqual('mines1');
-      return expect(cell_state(1, 1)).toEqual('mines1');
+      expect(cell_state(1, 1)).toEqual('mines1');
+      return expect(cell_state(2, 1)).toEqual('unclicked');
     });
   });
 

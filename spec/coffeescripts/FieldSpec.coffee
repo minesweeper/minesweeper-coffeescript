@@ -1,6 +1,6 @@
 describe 'Field', ->
   it 'should render content', ->
-    f = new Field width: 1, height: 1
+    f = new Field rows: 1, cols: 1
     expect(f.render()).toEqual """
     <table>
       <tr>
@@ -10,7 +10,7 @@ describe 'Field', ->
     """
 
   describe 'neighbours', ->
-    field = new Field width: 3, height: 3
+    field = new Field rows: 3, cols: 3
 
     it 'should determine neighbours for middle', ->
       expect(field.neighbours(1,1)).toEqual [
@@ -32,7 +32,7 @@ describe 'Field', ->
       ]
 
   describe 'has mine', ->
-    field = new Field width: 3, height: 3, mines: [[1,1]]
+    field = new Field rows: 3, cols: 3, mines: [[1,1]]
 
     it 'should find mine when there is one', ->
       expect(field.hasMine(1,1)).toEqual true
@@ -41,7 +41,7 @@ describe 'Field', ->
       expect(field.hasMine(0,0)).toEqual false
 
   describe 'mine placement', ->
-    field = new Field width: 1, height:2, mineCount: 1
+    field = new Field rows: 2, cols:1, mineCount: 1
 
     it 'should place a mine after a call to hasMine', ->
       expect(field.hasMine(0,0)).toEqual false
@@ -59,7 +59,7 @@ describe 'Field', ->
         lastrow = line.split " "
         _.each lastrow, (char, col) ->
           mines.push [row, col] if char=='*'
-      field = new Field width: lastrow.length, height: lines.length, mines: mines
+      field = new Field cols: lastrow.length, rows: lines.length, mines: mines
 
     expect_counts = (s) ->
       _.each s.split("\n"), (line, row) ->

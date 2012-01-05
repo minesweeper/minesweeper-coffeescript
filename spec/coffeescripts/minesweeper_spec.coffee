@@ -16,7 +16,7 @@ describe 'minesweeper', ->
       lastrow = line.split " "
       _.each lastrow, (char, col) ->
         mines.push [row, col] if char=='*'
-    Minesweeper.create '#jasmine_content', width: lastrow.length, height: lines.length, mines: mines
+    Minesweeper.create '#jasmine_content', cols: lastrow.length, rows: lines.length, mines: mines
 
   it 'should cycle through marked to uncertain to unclicked on right click', ->
     givenField """
@@ -121,3 +121,4 @@ describe 'minesweeper', ->
     expect(cell_state(0, 1)).toEqual 'mines0'
     expect(cell_state(1, 0)).toEqual 'mines1'
     expect(cell_state(1, 1)).toEqual 'mines1'
+    expect(cell_state(2, 1)).toEqual 'unclicked'

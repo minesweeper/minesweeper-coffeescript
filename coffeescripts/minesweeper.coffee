@@ -11,12 +11,12 @@ reveal_unclicked_cell = (element) ->
     element.attr 'class', 'mine'
   else
     adjacentCount = current.adjacentCount row, col
+    element.attr 'class', "mines#{adjacentCount}"
     if adjacentCount == 0
       _.each current.neighbours(row, col), (cell) ->
-        row = cell[0]
-        col = cell[1]
-        $("#r#{row}c#{col}").trigger type: 'mouseup', which: 1
-    element.attr 'class', "mines#{adjacentCount}"
+        r = cell[0]
+        c = cell[1]
+        $("#r#{r}c#{c}").trigger type: 'mouseup', which: 1    
 
 set_unclicked_to_marked = (element) ->
   element.attr 'class', 'marked'
