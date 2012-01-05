@@ -35,7 +35,17 @@
     };
 
     Field.prototype.adjacentCount = function(row, col) {
-      return 1;
+      var iterator, mines;
+      mines = this.opts.mines;
+      iterator = function(memo, neighbour) {
+        if (_.any(mines, function(mine) {
+          return mine[0] === neighbour[0] && mine[1] === neighbour[1];
+        })) {
+          memo += 1;
+        }
+        return memo;
+      };
+      return _.reduce(this.neighbours(row, col), iterator, 0);
     };
 
     Field.prototype.neighbours = function(row, col) {

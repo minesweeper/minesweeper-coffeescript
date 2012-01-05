@@ -17,7 +17,11 @@ class window.Field
       rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [1..@opts.width]) } for col in [1..@opts.height])
 
   adjacentCount: (row,col) ->
-    1
+    mines = @opts.mines
+    iterator = (memo, neighbour) ->
+      memo += 1 if _.any mines, (mine) -> mine[0] == neighbour[0] and mine[1] == neighbour[1]
+      memo
+    _.reduce this.neighbours(row,col), iterator, 0
 
   neighbours: (row, col) ->
     result = []
