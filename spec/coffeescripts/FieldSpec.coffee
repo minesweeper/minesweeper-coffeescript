@@ -4,7 +4,7 @@ describe 'Field', ->
     expect(f.render()).toEqual """
     <table>
       <tr>
-          <td class="unclicked" id="r1c1"></td>
+          <td class="unclicked" id="r0c0"></td>
       </tr>
     </table>
     """

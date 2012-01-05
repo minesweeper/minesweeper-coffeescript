@@ -7,7 +7,7 @@
         width: 1,
         height: 1
       });
-      return expect(f.render()).toEqual("<table>\n  <tr>\n      <td class=\"unclicked\" id=\"r1c1\"></td>\n  </tr>\n</table>");
+      return expect(f.render()).toEqual("<table>\n  <tr>\n      <td class=\"unclicked\" id=\"r0c0\"></td>\n  </tr>\n</table>");
     });
     describe('neighbours', function() {
       var field;

@@ -13,12 +13,12 @@
         rows: (function() {
           var _ref, _results;
           _results = [];
-          for (col = 1, _ref = this.opts.height; 1 <= _ref ? col <= _ref : col >= _ref; 1 <= _ref ? col++ : col--) {
+          for (col = 0, _ref = this.opts.height - 1; 0 <= _ref ? col <= _ref : col >= _ref; 0 <= _ref ? col++ : col--) {
             _results.push({
               cells: (function() {
                 var _ref2, _results2;
                 _results2 = [];
-                for (row = 1, _ref2 = this.opts.width; 1 <= _ref2 ? row <= _ref2 : row >= _ref2; 1 <= _ref2 ? row++ : row--) {
+                for (row = 0, _ref2 = this.opts.width - 1; 0 <= _ref2 ? row <= _ref2 : row >= _ref2; 0 <= _ref2 ? row++ : row--) {
                   _results2.push({
                     state: 'unclicked',
                     row: row,

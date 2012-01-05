@@ -1,11 +1,27 @@
 describe 'minesweeper', ->
-  beforeEach ->
-    Minesweeper.create '#jasmine_content', height: 1,  width: 1, mines: []
+  right_click = (row, col) ->
+    $("#r#{row}c#{col}").trigger type: 'mouseup', which: 2
 
-  it 'should mark a cell on right click', ->
-    $('#r1c1').trigger type: 'mouseup', which: 2
-    expect($('#r1c1').attr 'class').toEqual 'marked'
+  left_click = (row, col) ->
+    $("#r#{row}c#{col}").trigger type: 'mouseup', which: 1    
 
-  it 'should reveal a cell on left click', ->
-    $('#r1c1').trigger type: 'mouseup', which: 1
-    expect($('#r1c1').attr 'class').toEqual 'clicked'
+  cell_state = (row, col) ->
+    $("#r#{row}c#{col}").attr 'class'
+
+  describe 'without any mines', ->
+    beforeEach ->
+      Minesweeper.create '#jasmine_content', height: 1,  width: 1, mines: []
+
+    it 'should mark a cell on right click', ->
+      right_click 0, 0
+      expect(cell_state(0 ,0)).toEqual 'marked'
+
+    it 'should reveal a cell on left click', ->
+      left_click 0, 0
+      expect(cell_state(0 ,0)).toEqual 'clicked'
+
+  describe 'with a mine', ->
+    beforeEach ->
+      Minesweeper.create '#jasmine_content', height: 1,  width: 1, mines: [[0,0]]
+
+    it 'should end the game when a cell containing mine is left clicked', ->

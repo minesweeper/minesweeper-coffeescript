@@ -14,7 +14,7 @@ class window.Field
     </table>
     """
     Mustache.to_html template,
-      rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [1..@opts.width]) } for col in [1..@opts.height])
+      rows: ({ cells: ({ state:'unclicked', row: row, col: col } for row in [0..@opts.width-1]) } for col in [0..@opts.height-1])
 
   adjacentCount: (row,col) ->
     mines = @opts.mines
