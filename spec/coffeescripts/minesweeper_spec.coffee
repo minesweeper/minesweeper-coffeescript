@@ -44,9 +44,68 @@ describe 'minesweeper', ->
     left_click 0, 0
     expect(cell_state(0 ,0)).toEqual 'mines0'
 
-  it 'should reveal cell with no adjacent mines', ->
+  it 'should reveal cell with one adjacent mine', ->
     givenField """
     . *
     """
     left_click 0, 0
     expect(cell_state(0 ,0)).toEqual 'mines1'
+
+  it 'should reveal cell with two adjacent mines', ->
+    givenField """
+    . *
+    * .
+    """
+    left_click 0, 0
+    expect(cell_state(0 ,0)).toEqual 'mines2'
+
+  it 'should reveal cell with three adjacent mines', ->
+    givenField """
+    . *
+    * *
+    """
+    left_click 0, 0
+    expect(cell_state(0 ,0)).toEqual 'mines3'
+
+  it 'should reveal cell with four adjacent mines', ->
+    givenField """
+    * . *
+    . * *
+    """
+    left_click 0, 1
+    expect(cell_state(0 ,1)).toEqual 'mines4'
+
+  it 'should reveal cell with five adjacent mines', ->
+    givenField """
+    * . *
+    * * *
+    """
+    left_click 0, 1
+    expect(cell_state(0 ,1)).toEqual 'mines5'
+
+  it 'should reveal cell with six adjacent mines', ->
+    givenField """
+    * . .
+    * . *
+    * * *
+    """
+    left_click 1, 1
+    expect(cell_state(1 ,1)).toEqual 'mines6'
+
+  it 'should reveal cell with six adjacent mines', ->
+    givenField """
+    * * .
+    * . *
+    * * *
+    """
+    left_click 1, 1
+    expect(cell_state(1 ,1)).toEqual 'mines7'
+
+  it 'should reveal cell with six adjacent mines', ->
+    givenField """
+    * * *
+    * . *
+    * * *
+    """
+    left_click 1, 1
+    expect(cell_state(1 ,1)).toEqual 'mines8'

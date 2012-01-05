@@ -54,10 +54,45 @@
       left_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('mines0');
     });
-    return it('should reveal cell with no adjacent mines', function() {
+    it('should reveal cell with one adjacent mine', function() {
       givenField(". *");
       left_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('mines1');
+    });
+    it('should reveal cell with two adjacent mines', function() {
+      givenField(". *\n* .");
+      left_click(0, 0);
+      return expect(cell_state(0, 0)).toEqual('mines2');
+    });
+    it('should reveal cell with three adjacent mines', function() {
+      givenField(". *\n* *");
+      left_click(0, 0);
+      return expect(cell_state(0, 0)).toEqual('mines3');
+    });
+    it('should reveal cell with four adjacent mines', function() {
+      givenField("* . *\n. * *");
+      left_click(0, 1);
+      return expect(cell_state(0, 1)).toEqual('mines4');
+    });
+    it('should reveal cell with five adjacent mines', function() {
+      givenField("* . *\n* * *");
+      left_click(0, 1);
+      return expect(cell_state(0, 1)).toEqual('mines5');
+    });
+    it('should reveal cell with six adjacent mines', function() {
+      givenField("* . .\n* . *\n* * *");
+      left_click(1, 1);
+      return expect(cell_state(1, 1)).toEqual('mines6');
+    });
+    it('should reveal cell with six adjacent mines', function() {
+      givenField("* * .\n* . *\n* * *");
+      left_click(1, 1);
+      return expect(cell_state(1, 1)).toEqual('mines7');
+    });
+    return it('should reveal cell with six adjacent mines', function() {
+      givenField("* * *\n* . *\n* * *");
+      left_click(1, 1);
+      return expect(cell_state(1, 1)).toEqual('mines8');
     });
   });
 
