@@ -1,17 +1,13 @@
-$ ->
-	renderField = (opts) ->
-		$('#minesweeper').html (new Field opts).render()
-		$('.unclicked').bind 'contextmenu', ->
-			false
-		$('.unclicked').mouseup (event) ->
-			if event.which == 1
-			  $(this).attr 'class', 'clicked'
-			else
-			  $(this).attr 'class', 'marked'
+current = null
 
-	$('#beginner').click ->
-		renderField height: 9,  width: 9,  mines: 10
-	$('#intermediate').click ->
-		renderField height: 16, width: 16, mines: 40
-	$('#expert').click ->
-		renderField height: 16, width: 30, mines: 99
+window.Minesweeper =
+  create: (locator, opts) ->
+    current = new Field opts
+    $(locator).html current.render()
+    $('.unclicked').bind 'contextmenu', ->
+      false
+    $('.unclicked').mouseup (event) ->
+      if event.which == 1
+        $(this).attr 'class', 'clicked'
+      else
+        $(this).attr 'class', 'marked'
