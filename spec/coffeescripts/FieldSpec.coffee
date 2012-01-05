@@ -32,43 +32,73 @@ describe 'Field', ->
       ]
 
   describe 'adjacent mine count', ->
-    it 'should determine adjacent mine count zero mines', ->
-      f = new Field width: 2, height: 2, mines: []
-      expect(f.adjacentCount(0,0)).toEqual 0
-      expect(f.adjacentCount(0,1)).toEqual 0
-      expect(f.adjacentCount(1,0)).toEqual 0
-      expect(f.adjacentCount(1,1)).toEqual 0
+    field = null
+ 
+    given_field = (s) ->
+      mines = []
+      lines = s.split "\n"
+      lastrow = null
+      _.each lines, (line, row) ->
+        lastrow = line.split " "
+        _.each lastrow, (char, col) ->
+          mines.push [row, col] if char=='*'
+      field = new Field width: lastrow.length, height: lines.length, mines: mines
 
-    it 'should determine adjacent mine count for single mine', ->
-      f = new Field width: 2, height: 2, mines: [
-        [0,0]
-      ]
-      expect(f.adjacentCount(1,1)).toEqual 1
-      expect(f.adjacentCount(0,1)).toEqual 1
-      expect(f.adjacentCount(1,0)).toEqual 1
+    expect_counts = (s) ->
+      _.each s.split("\n"), (line, row) ->
+        _.each line.split(' '), (char, col) ->
+          unless char=='-'
+            expect(field.adjacentCount(row, col)).toEqual parseInt(char)
+
+    it 'should determine adjacent mine count for 0 mines', ->
+      given_field """
+      . .
+      . .
+      """
+      expect_counts """
+      0 0
+      0 0
+      """
+
+    it 'should determine adjacent mine count for 1 mines', ->
+      given_field """
+      * .
+      . .
+      """
+      expect_counts """
+      - 1
+      1 1
+      """
 
     it 'should determine adjacent mine count for 2 mines', ->
-      f = new Field width: 2, height: 2, mines: [
-        [0,0],
-        [1,0]
-      ]
-      expect(f.adjacentCount(1,1)).toEqual 2
-      expect(f.adjacentCount(0,1)).toEqual 2
+      given_field """
+      * *
+      . .
+      """
+      expect_counts """
+      - -
+      2 2
+      """
 
     it 'should determine adjacent mine count for 3 mines', ->
-      f = new Field width: 2, height: 2, mines: [
-        [0,0],[0,1],
-        [1,0],
-      ]
-      expect(f.adjacentCount(1,1)).toEqual 3
+      given_field """
+      * *
+      * .
+      """
+      expect_counts """
+      - -
+      - 3
+      """
 
     it 'should determine adjacent mine count for 4 mines', ->
-      f = new Field width: 3, height: 3, mines: [
-        [0,0],[0,1],[0,2],
-        [1,0],
-      ]
-      expect(f.adjacentCount(1,1)).toEqual 4
-      expect(f.adjacentCount(1,2)).toEqual 2
-      expect(f.adjacentCount(2,0)).toEqual 1
-      expect(f.adjacentCount(2,1)).toEqual 1
-      expect(f.adjacentCount(2,2)).toEqual 0
+      given_field """
+      * * *
+      * . .
+      . . .
+      """
+      expect_counts """
+      - - -
+      - 4 2
+      1 1 0
+      """
+

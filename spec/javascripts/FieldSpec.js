@@ -26,60 +26,53 @@
       });
     });
     return describe('adjacent mine count', function() {
-      it('should determine adjacent mine count zero mines', function() {
-        var f;
-        f = new Field({
-          width: 2,
-          height: 2,
-          mines: []
+      var expect_counts, field, given_field;
+      field = null;
+      given_field = function(s) {
+        var lastrow, lines, mines;
+        mines = [];
+        lines = s.split("\n");
+        lastrow = null;
+        _.each(lines, function(line, row) {
+          lastrow = line.split(" ");
+          return _.each(lastrow, function(char, col) {
+            if (char === '*') return mines.push([row, col]);
+          });
         });
-        expect(f.adjacentCount(0, 0)).toEqual(0);
-        expect(f.adjacentCount(0, 1)).toEqual(0);
-        expect(f.adjacentCount(1, 0)).toEqual(0);
-        return expect(f.adjacentCount(1, 1)).toEqual(0);
+        return field = new Field({
+          width: lastrow.length,
+          height: lines.length,
+          mines: mines
+        });
+      };
+      expect_counts = function(s) {
+        return _.each(s.split("\n"), function(line, row) {
+          return _.each(line.split(' '), function(char, col) {
+            if (char !== '-') {
+              return expect(field.adjacentCount(row, col)).toEqual(parseInt(char));
+            }
+          });
+        });
+      };
+      it('should determine adjacent mine count for 0 mines', function() {
+        given_field(". .\n. .");
+        return expect_counts("0 0\n0 0");
       });
-      it('should determine adjacent mine count for single mine', function() {
-        var f;
-        f = new Field({
-          width: 2,
-          height: 2,
-          mines: [[0, 0]]
-        });
-        expect(f.adjacentCount(1, 1)).toEqual(1);
-        expect(f.adjacentCount(0, 1)).toEqual(1);
-        return expect(f.adjacentCount(1, 0)).toEqual(1);
+      it('should determine adjacent mine count for 1 mines', function() {
+        given_field("* .\n. .");
+        return expect_counts("- 1\n1 1");
       });
       it('should determine adjacent mine count for 2 mines', function() {
-        var f;
-        f = new Field({
-          width: 2,
-          height: 2,
-          mines: [[0, 0], [1, 0]]
-        });
-        expect(f.adjacentCount(1, 1)).toEqual(2);
-        return expect(f.adjacentCount(0, 1)).toEqual(2);
+        given_field("* *\n. .");
+        return expect_counts("- -\n2 2");
       });
       it('should determine adjacent mine count for 3 mines', function() {
-        var f;
-        f = new Field({
-          width: 2,
-          height: 2,
-          mines: [[0, 0], [0, 1], [1, 0]]
-        });
-        return expect(f.adjacentCount(1, 1)).toEqual(3);
+        given_field("* *\n* .");
+        return expect_counts("- -\n- 3");
       });
       return it('should determine adjacent mine count for 4 mines', function() {
-        var f;
-        f = new Field({
-          width: 3,
-          height: 3,
-          mines: [[0, 0], [0, 1], [0, 2], [1, 0]]
-        });
-        expect(f.adjacentCount(1, 1)).toEqual(4);
-        expect(f.adjacentCount(1, 2)).toEqual(2);
-        expect(f.adjacentCount(2, 0)).toEqual(1);
-        expect(f.adjacentCount(2, 1)).toEqual(1);
-        return expect(f.adjacentCount(2, 2)).toEqual(0);
+        given_field("* * *\n* . .\n. . .");
+        return expect_counts("- - -\n- 4 2\n1 1 0");
       });
     });
   });
