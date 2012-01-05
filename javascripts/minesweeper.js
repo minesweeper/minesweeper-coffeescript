@@ -8,14 +8,25 @@
   };
 
   reveal_unclicked_cell = function(element) {
-    var col, match, row;
+    var adjacentCount, col, match, row;
     match = /r(\d+)c(\d+)/.exec(element.attr('id'));
     row = parseInt(match[1]);
     col = parseInt(match[2]);
     if (current.hasMine(row, col)) {
       return element.attr('class', 'mine');
     } else {
-      return element.attr('class', "mines" + (current.adjacentCount(row, col)));
+      adjacentCount = current.adjacentCount(row, col);
+      if (adjacentCount === 0) {
+        _.each(current.neighbours(row, col), function(cell) {
+          row = cell[0];
+          col = cell[1];
+          return $("#r" + row + "c" + col).trigger({
+            type: 'mouseup',
+            which: 1
+          });
+        });
+      }
+      return element.attr('class', "mines" + adjacentCount);
     }
   };
 

@@ -89,10 +89,18 @@
       left_click(1, 1);
       return expect(cell_state(1, 1)).toEqual('mines7');
     });
-    return it('should reveal cell with six adjacent mines', function() {
+    it('should reveal cell with six adjacent mines', function() {
       givenField("* * *\n* . *\n* * *");
       left_click(1, 1);
       return expect(cell_state(1, 1)).toEqual('mines8');
+    });
+    return it('should reveal adjacent cells when there are no adjacent mines', function() {
+      givenField(". .\n. .\n* .");
+      left_click(0, 0);
+      expect(cell_state(0, 0)).toEqual('mines0');
+      expect(cell_state(0, 1)).toEqual('mines0');
+      expect(cell_state(1, 0)).toEqual('mines1');
+      return expect(cell_state(1, 1)).toEqual('mines1');
     });
   });
 

@@ -109,3 +109,15 @@ describe 'minesweeper', ->
     """
     left_click 1, 1
     expect(cell_state(1 ,1)).toEqual 'mines8'
+
+  it 'should reveal adjacent cells when there are no adjacent mines', ->
+    givenField """
+    . .
+    . .
+    * .
+    """
+    left_click 0, 0
+    expect(cell_state(0, 0)).toEqual 'mines0'
+    expect(cell_state(0, 1)).toEqual 'mines0'
+    expect(cell_state(1, 0)).toEqual 'mines1'
+    expect(cell_state(1, 1)).toEqual 'mines1'
