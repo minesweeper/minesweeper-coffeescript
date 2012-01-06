@@ -7,9 +7,9 @@ class window.Field
     """
     <table>
       <tr class="control_panel">
-        <td class="lcd0" />
-        <td class="lcd0" />
-        <td class="lcd0" />
+        <td class="lcd0" id="minesRemaining100s" />
+        <td class="lcd0" id="minesRemaining10s" />
+        <td class="lcd0" id="minesRemaining1s" />
         <td id="status" class="statusAlive" />
         <td class="lcd0" id="timer100s" />
         <td class="lcd0" id="timer10s" />

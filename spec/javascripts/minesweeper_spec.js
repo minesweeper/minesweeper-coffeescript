@@ -1,7 +1,7 @@
 (function() {
 
   describe('minesweeper', function() {
-    var cell_state, click_status, givenField, left_click, right_click;
+    var cell_state, click_status, givenField, left_click, remaining_mines, right_click;
     right_click = function(row, col) {
       return $("#r" + row + "c" + col).trigger({
         type: 'mouseup',
@@ -21,6 +21,15 @@
     };
     cell_state = function(row, col) {
       return $("#r" + row + "c" + col).attr('class');
+    };
+    remaining_mines = function() {
+      var lcd_digit;
+      lcd_digit = function(exponent) {
+        var match;
+        match = /lcd(\d)/.exec($("#minesRemaining" + exponent + "s").attr('class'));
+        return match[1];
+      };
+      return parseInt("" + (lcd_digit(100)) + (lcd_digit(10)) + (lcd_digit(1)));
     };
     givenField = function(s) {
       var lastrow, lines, mines;
@@ -109,13 +118,25 @@
       expect(cell_state(1, 1)).toEqual('mines1');
       return expect(cell_state(2, 1)).toEqual('unclicked');
     });
-    return it('should reset game when status button is clicked', function() {
+    it('should reset game when status button is clicked', function() {
       givenField(".");
       expect(cell_state(0, 0)).toEqual('unclicked');
       left_click(0, 0);
       expect(cell_state(0, 0)).toEqual('mines0');
       click_status();
       return expect(cell_state(0, 0)).toEqual('unclicked');
+    });
+    it('should display initial mine count', function() {
+      givenField("*");
+      return expect(remaining_mines()).toEqual(1);
+    });
+    return it('should decrement mine count when a mine is marked', function() {
+      givenField("* *");
+      expect(remaining_mines()).toEqual(2);
+      right_click(0, 0);
+      expect(remaining_mines()).toEqual(1);
+      right_click(0, 1);
+      return expect(remaining_mines()).toEqual(0);
     });
   });
 

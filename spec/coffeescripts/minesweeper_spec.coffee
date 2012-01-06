@@ -8,8 +8,13 @@ describe 'minesweeper', ->
   click_status = ->
     $("#status").trigger type: 'mouseup'
 
-  cell_state = (row, col) ->
-    $("#r#{row}c#{col}").attr 'class'
+  cell_state = (row, col) -> $("#r#{row}c#{col}").attr 'class'
+
+  remaining_mines = ->
+    lcd_digit = (exponent) ->
+      match = /lcd(\d)/.exec $("#minesRemaining#{exponent}s").attr 'class'
+      match[1]
+    parseInt "#{lcd_digit 100}#{lcd_digit 10}#{lcd_digit 1}"
 
   givenField = (s) ->
     mines = []
@@ -135,3 +140,19 @@ describe 'minesweeper', ->
     expect(cell_state(0, 0)).toEqual 'mines0'
     click_status()
     expect(cell_state(0, 0)).toEqual 'unclicked'
+
+  it 'should display initial mine count', ->
+    givenField """
+    *
+    """
+    expect(remaining_mines()).toEqual 1
+  
+  it 'should decrement mine count when a mine is marked', ->
+    givenField """
+    * *
+    """
+    expect(remaining_mines()).toEqual 2
+    right_click 0, 0
+    expect(remaining_mines()).toEqual 1
+    right_click 0, 1
+    expect(remaining_mines()).toEqual 0

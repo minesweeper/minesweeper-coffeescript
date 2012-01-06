@@ -1,5 +1,7 @@
 current = null
 minesweeper_locator = null
+remaining_mines_lcd = new Lcd 'minesRemaining'
+remaining_mines = null
 
 left_clicked = (event) ->
   event.which == 1
@@ -20,6 +22,8 @@ reveal_unclicked_cell = (element) ->
 set_unclicked_to_marked = (element) ->
   element.attr 'class', 'marked'
   element.bind 'mouseup', marked_mouseup
+  remaining_mines -= 1
+  remaining_mines_lcd.display remaining_mines
 
 set_marked_to_uncertain = (element) ->
   element.attr 'class', 'uncertain'
@@ -52,9 +56,11 @@ reset_game = ->
 
 set_game = ->
   $(minesweeper_locator).html current.render()
+  remaining_mines_lcd.display current.opts.mineCount
   $('.unclicked').bind 'contextmenu', -> false
   $('.unclicked').bind 'mouseup', unclicked_mouseup
   $('#status').bind 'mouseup', reset_game
+  remaining_mines = current.opts.mineCount
   Timer.start()
 
 window.Minesweeper =

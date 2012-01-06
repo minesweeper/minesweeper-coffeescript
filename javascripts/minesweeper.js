@@ -1,9 +1,13 @@
 (function() {
-  var current, left_clicked, marked_mouseup, minesweeper_locator, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var current, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
 
   minesweeper_locator = null;
+
+  remaining_mines_lcd = new Lcd('minesRemaining');
+
+  remaining_mines = null;
 
   left_clicked = function(event) {
     return event.which === 1;
@@ -33,7 +37,9 @@
 
   set_unclicked_to_marked = function(element) {
     element.attr('class', 'marked');
-    return element.bind('mouseup', marked_mouseup);
+    element.bind('mouseup', marked_mouseup);
+    remaining_mines -= 1;
+    return remaining_mines_lcd.display(remaining_mines);
   };
 
   set_marked_to_uncertain = function(element) {
@@ -76,11 +82,13 @@
 
   set_game = function() {
     $(minesweeper_locator).html(current.render());
+    remaining_mines_lcd.display(current.opts.mineCount);
     $('.unclicked').bind('contextmenu', function() {
       return false;
     });
     $('.unclicked').bind('mouseup', unclicked_mouseup);
     $('#status').bind('mouseup', reset_game);
+    remaining_mines = current.opts.mineCount;
     return Timer.start();
   };
 
