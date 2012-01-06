@@ -1,7 +1,7 @@
 (function() {
 
   describe('minesweeper', function() {
-    var cell_state, givenField, left_click, right_click;
+    var cell_state, click_status, givenField, left_click, right_click;
     right_click = function(row, col) {
       return $("#r" + row + "c" + col).trigger({
         type: 'mouseup',
@@ -12,6 +12,11 @@
       return $("#r" + row + "c" + col).trigger({
         type: 'mouseup',
         which: 1
+      });
+    };
+    click_status = function() {
+      return $("#status").trigger({
+        type: 'mouseup'
       });
     };
     cell_state = function(row, col) {
@@ -31,7 +36,8 @@
       return Minesweeper.create('#jasmine_content', {
         cols: lastrow.length,
         rows: lines.length,
-        mines: mines
+        mines: mines,
+        mineCount: mines.length
       });
     };
     it('should cycle through marked to uncertain to unclicked on right click', function() {
@@ -94,7 +100,7 @@
       left_click(1, 1);
       return expect(cell_state(1, 1)).toEqual('mines8');
     });
-    return it('should reveal adjacent cells when there are no adjacent mines', function() {
+    it('should reveal adjacent cells when there are no adjacent mines', function() {
       givenField(". .\n. .\n* .");
       left_click(0, 0);
       expect(cell_state(0, 0)).toEqual('mines0');
@@ -102,6 +108,14 @@
       expect(cell_state(1, 0)).toEqual('mines1');
       expect(cell_state(1, 1)).toEqual('mines1');
       return expect(cell_state(2, 1)).toEqual('unclicked');
+    });
+    return it('should reset game when status button is clicked', function() {
+      givenField(".");
+      expect(cell_state(0, 0)).toEqual('unclicked');
+      left_click(0, 0);
+      expect(cell_state(0, 0)).toEqual('mines0');
+      click_status();
+      return expect(cell_state(0, 0)).toEqual('unclicked');
     });
   });
 

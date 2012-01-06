@@ -1,7 +1,9 @@
 (function() {
-  var current, left_clicked, marked_mouseup, reveal_unclicked_cell, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var current, left_clicked, marked_mouseup, minesweeper_locator, reset_game, reveal_unclicked_cell, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
+
+  minesweeper_locator = null;
 
   left_clicked = function(event) {
     return event.which === 1;
@@ -67,14 +69,21 @@
     }
   };
 
+  reset_game = function() {
+    $(minesweeper_locator).html(current.render());
+    current.opts.mines = null;
+    $('.unclicked').bind('contextmenu', function() {
+      return false;
+    });
+    $('.unclicked').bind('mouseup', unclicked_mouseup);
+    return $('#status').bind('mouseup', reset_game);
+  };
+
   window.Minesweeper = {
     create: function(locator, opts) {
+      minesweeper_locator = locator;
       current = new Field(opts);
-      $(locator).html(current.render());
-      $('.unclicked').bind('contextmenu', function() {
-        return false;
-      });
-      return $('.unclicked').bind('mouseup', unclicked_mouseup);
+      return reset_game();
     }
   };
 

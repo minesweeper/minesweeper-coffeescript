@@ -1,4 +1,5 @@
 current = null
+minesweeper_locator = null
 
 left_clicked = (event) ->
   event.which == 1
@@ -45,9 +46,15 @@ unclicked_mouseup = (event) ->
   else
     set_unclicked_to_marked $(this)
 
+reset_game = ->
+  $(minesweeper_locator).html current.render()
+  current.opts.mines = null
+  $('.unclicked').bind 'contextmenu', -> false
+  $('.unclicked').bind 'mouseup', unclicked_mouseup
+  $('#status').bind 'mouseup', reset_game
+
 window.Minesweeper =
   create: (locator, opts) ->
+    minesweeper_locator = locator
     current = new Field opts
-    $(locator).html current.render()
-    $('.unclicked').bind 'contextmenu', -> false
-    $('.unclicked').bind 'mouseup', unclicked_mouseup
+    reset_game()

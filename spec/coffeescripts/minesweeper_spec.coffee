@@ -5,6 +5,9 @@ describe 'minesweeper', ->
   left_click = (row, col) ->
     $("#r#{row}c#{col}").trigger type: 'mouseup', which: 1    
 
+  click_status = ->
+    $("#status").trigger type: 'mouseup'
+
   cell_state = (row, col) ->
     $("#r#{row}c#{col}").attr 'class'
 
@@ -16,7 +19,7 @@ describe 'minesweeper', ->
       lastrow = line.split " "
       _.each lastrow, (char, col) ->
         mines.push [row, col] if char=='*'
-    Minesweeper.create '#jasmine_content', cols: lastrow.length, rows: lines.length, mines: mines
+    Minesweeper.create '#jasmine_content', cols: lastrow.length, rows: lines.length, mines: mines, mineCount: mines.length
 
   it 'should cycle through marked to uncertain to unclicked on right click', ->
     givenField """
@@ -122,3 +125,13 @@ describe 'minesweeper', ->
     expect(cell_state(1, 0)).toEqual 'mines1'
     expect(cell_state(1, 1)).toEqual 'mines1'
     expect(cell_state(2, 1)).toEqual 'unclicked'
+
+  it 'should reset game when status button is clicked', ->
+    givenField """
+    .
+    """
+    expect(cell_state(0, 0)).toEqual 'unclicked'
+    left_click 0, 0
+    expect(cell_state(0, 0)).toEqual 'mines0'
+    click_status()
+    expect(cell_state(0, 0)).toEqual 'unclicked'

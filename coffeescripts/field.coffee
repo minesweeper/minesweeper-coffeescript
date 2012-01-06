@@ -10,7 +10,7 @@ class window.Field
         <td class="lcd0" />
         <td class="lcd0" />
         <td class="lcd0" />
-        <td class="statusAlive" />
+        <td id="status" class="statusAlive" />
         <td class="lcd0" />
         <td class="lcd0" />
         <td class="lcd0" />

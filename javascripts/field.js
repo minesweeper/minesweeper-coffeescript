@@ -11,7 +11,7 @@
     };
 
     Field.prototype.renderControlPanel = function() {
-      return "<table>\n  <tr class=\"control_panel\">\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"statusAlive\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n  </tr>\n</table>";
+      return "<table>\n  <tr class=\"control_panel\">\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td id=\"status\" class=\"statusAlive\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n  </tr>\n</table>";
     };
 
     Field.prototype.renderField = function() {
