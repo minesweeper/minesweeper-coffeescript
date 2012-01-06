@@ -1,48 +1,78 @@
 class window.Field
   constructor: (@opts) ->
 
-  render: -> this.renderControlPanel() + this.renderField()
+  render: ->
+    this.renderTitleBar() + this.renderControlPanel() + this.renderField()
 
-  renderControlPanel: ->
-    """
+  renderTemplate: (template, view) ->
+    partials =
+      leader: """
+      <td class="dstripe" />
+      <td class="lstripe" />
+      <td class="dstripe" />
+      """
+      trailer: """
+      <td class="dstripe" />
+      <td class="lstripe" />
+      <td class="dstripe" />
+      """
+    Mustache.to_html template, view, partials
+
+  renderTitleBar: ->
+    template = """
     <table>
-      <tr class="control_panel">
-        <td class="dstripe" />
-        <td class="lstripe" />
-        <td class="dstripe" />
-        <td class="lcd0" id="minesRemaining100s" />
-        <td class="lcd0" id="minesRemaining10s" />
-        <td class="lcd0" id="minesRemaining1s" />
-        <td id="indicator" class="statusAlive" />
-        <td class="lcd0" id="timer100s" />
-        <td class="lcd0" id="timer10s" />
-        <td class="lcd0" id="timer1s" />
-        <td class="dstripe" />
-        <td class="lstripe" />
-        <td class="dstripe" />
-      </tr>
+    <tr class="title_bar">
+    {{>leader}}
+    {{#classes}}
+    <td class="{{.}}" />
+    {{/classes}}
+    {{>trailer}}
+    </tr>
     </table>
     """
+    this.renderTemplate template,
+      classes: "title gap buttons".split(' ')
+
+  renderLcd: (id) ->
+    template = """
+    <td class="lcd n0" id="{{id}}100s" />
+    <td class="lcd n0" id="{{id}}10s" />
+    <td class="lcd n0" id="{{id}}1s" />
+    """
+    Mustache.to_html template,
+      id: id
+
+  renderControlPanel: ->
+    template = """
+    <table>
+    <tr class="control_panel">
+    {{>leader}}
+    {{{lcdMinesRemaining}}}
+    <td id="indicator" class="statusAlive" />
+    {{{lcdTimer}}}
+    {{>trailer}}
+    </tr>
+    </table>
+    """
+    this.renderTemplate template,
+      lcdMinesRemaining: this.renderLcd 'minesRemaining'
+      lcdTimer: this.renderLcd 'timer'
 
   renderField: ->
     template = """
     <table>
     {{#rows}}
-      <tr class="field">
-        <td class="dstripe" />
-        <td class="lstripe" />
-        <td class="dstripe" />
-      {{#cells}}
-        <td class="{{state}}" id="r{{row}}c{{col}}"></td>
-      {{/cells}}
-        <td class="dstripe" />
-        <td class="lstripe" />
-        <td class="dstripe" />
-      </tr>
+    <tr class="field">
+    {{>leader}}
+    {{#cells}}
+    <td class="{{state}}" id="r{{row}}c{{col}}"></td>
+    {{/cells}}
+    {{>trailer}}
+    </tr>
     {{/rows}}
     </table>
     """
-    Mustache.to_html template,
+    this.renderTemplate template,
       rows: ({ cells: ({ state:'unclicked', row: row, col: col } for col in [0..@opts.cols-1]) } for row in [0..@opts.rows-1])
 
   adjacentCount: (row,col) ->

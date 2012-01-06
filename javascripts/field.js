@@ -7,17 +7,47 @@
     }
 
     Field.prototype.render = function() {
-      return this.renderControlPanel() + this.renderField();
+      return this.renderTitleBar() + this.renderControlPanel() + this.renderField();
+    };
+
+    Field.prototype.renderTemplate = function(template, view) {
+      var partials;
+      partials = {
+        leader: "<td class=\"dstripe\" />\n<td class=\"lstripe\" />\n<td class=\"dstripe\" />",
+        trailer: "<td class=\"dstripe\" />\n<td class=\"lstripe\" />\n<td class=\"dstripe\" />"
+      };
+      return Mustache.to_html(template, view, partials);
+    };
+
+    Field.prototype.renderTitleBar = function() {
+      var template;
+      template = "<table>\n<tr class=\"title_bar\">\n{{>leader}}\n{{#classes}}\n<td class=\"{{.}}\" />\n{{/classes}}\n{{>trailer}}\n</tr>\n</table>";
+      return this.renderTemplate(template, {
+        classes: "title gap buttons".split(' ')
+      });
+    };
+
+    Field.prototype.renderLcd = function(id) {
+      var template;
+      template = "<td class=\"lcd n0\" id=\"{{id}}100s\" />\n<td class=\"lcd n0\" id=\"{{id}}10s\" />\n<td class=\"lcd n0\" id=\"{{id}}1s\" />";
+      return Mustache.to_html(template, {
+        id: id
+      });
     };
 
     Field.prototype.renderControlPanel = function() {
-      return "<table>\n  <tr class=\"control_panel\">\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n    <td class=\"lcd0\" id=\"minesRemaining100s\" />\n    <td class=\"lcd0\" id=\"minesRemaining10s\" />\n    <td class=\"lcd0\" id=\"minesRemaining1s\" />\n    <td id=\"indicator\" class=\"statusAlive\" />\n    <td class=\"lcd0\" id=\"timer100s\" />\n    <td class=\"lcd0\" id=\"timer10s\" />\n    <td class=\"lcd0\" id=\"timer1s\" />\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n  </tr>\n</table>";
+      var template;
+      template = "<table>\n<tr class=\"control_panel\">\n{{>leader}}\n{{{lcdMinesRemaining}}}\n<td id=\"indicator\" class=\"statusAlive\" />\n{{{lcdTimer}}}\n{{>trailer}}\n</tr>\n</table>";
+      return this.renderTemplate(template, {
+        lcdMinesRemaining: this.renderLcd('minesRemaining'),
+        lcdTimer: this.renderLcd('timer')
+      });
     };
 
     Field.prototype.renderField = function() {
       var col, row, template;
-      template = "<table>\n{{#rows}}\n  <tr class=\"field\">\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n  {{#cells}}\n    <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n  {{/cells}}\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n  </tr>\n{{/rows}}\n</table>";
-      return Mustache.to_html(template, {
+      template = "<table>\n{{#rows}}\n<tr class=\"field\">\n{{>leader}}\n{{#cells}}\n<td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n{{/cells}}\n{{>trailer}}\n</tr>\n{{/rows}}\n</table>";
+      return this.renderTemplate(template, {
         rows: (function() {
           var _ref, _results;
           _results = [];

@@ -17,6 +17,9 @@ GEM
     guard-coffeescript (0.5.4)
       coffee-script (>= 2.2.0)
       guard (>= 0.8.3)
+    guard-sass (0.5.4)
+      guard (>= 0.4.0)
+      sass (>= 3.1)
     jasmine (1.1.2)
       jasmine-core (>= 1.1.0)
       rack (>= 1.1)
@@ -34,6 +37,7 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.7.0)
     rubyzip (0.9.5)
+    sass (3.1.12)
     selenium-webdriver (2.15.0)
       childprocess (>= 0.2.1)
       ffi (~> 1.0.9)
@@ -47,4 +51,5 @@ PLATFORMS
 DEPENDENCIES
   guard
   guard-coffeescript
+  guard-sass
   jasmine
