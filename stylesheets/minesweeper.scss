@@ -2,6 +2,7 @@ $border_lightest: #fff;
 $border_light: #bbb;
 $border_dark: #888;
 $border_darkest: #000;
+$minesweeper_blue: #008;
 
 body {
   font-family:'lucida grande', 'lucida sans unicade', sans-serif;
@@ -97,7 +98,11 @@ td.title {
 }
 
 td.gap {
-  background-color: #008;
+  background-color: $minesweeper_blue;
+}
+
+tr.control_panel td.gap {
+  background-color: $border_light;
 }
 
 td.buttons {

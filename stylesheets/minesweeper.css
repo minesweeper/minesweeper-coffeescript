@@ -72,7 +72,10 @@ td.title {
   background-image: url("../images/title.gif"); }
 
 td.gap {
-  background-color: #008; }
+  background-color: #000088; }
+
+tr.control_panel td.gap {
+  background-color: #bbbbbb; }
 
 td.buttons {
   width: 52px;
