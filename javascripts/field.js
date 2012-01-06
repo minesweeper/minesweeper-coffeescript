@@ -7,8 +7,16 @@
     }
 
     Field.prototype.render = function() {
+      return this.renderControlPanel() + this.renderField();
+    };
+
+    Field.prototype.renderControlPanel = function() {
+      return "<table>\n  <tr class=\"control_panel\">\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"statusAlive\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n    <td class=\"lcd0\" />\n  </tr>\n</table>";
+    };
+
+    Field.prototype.renderField = function() {
       var col, row, template;
-      template = "<table>\n{{#rows}}\n  <tr>\n  {{#cells}}\n    <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n  {{/cells}}\n  </tr>\n{{/rows}}\n</table>";
+      template = "<table>\n{{#rows}}\n  <tr class=\"field\">\n  {{#cells}}\n    <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n  {{/cells}}\n  </tr>\n{{/rows}}\n</table>";
       return Mustache.to_html(template, {
         rows: (function() {
           var _ref, _results;

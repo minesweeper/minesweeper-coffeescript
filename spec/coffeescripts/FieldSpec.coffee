@@ -1,9 +1,9 @@
 describe 'Field', ->
-  it 'should render content', ->
+  it 'should render field content', ->
     f = new Field rows: 1, cols: 1
-    expect(f.render()).toEqual """
+    expect(f.renderField()).toEqual """
     <table>
-      <tr>
+      <tr class="field">
           <td class="unclicked" id="r0c0"></td>
       </tr>
     </table>

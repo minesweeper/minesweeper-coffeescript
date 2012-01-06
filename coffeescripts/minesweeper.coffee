@@ -49,6 +49,5 @@ window.Minesweeper =
   create: (locator, opts) ->
     current = new Field opts
     $(locator).html current.render()
-    $('.unclicked').bind 'contextmenu', ->
-      false
+    $('.unclicked').bind 'contextmenu', -> false
     $('.unclicked').bind 'mouseup', unclicked_mouseup

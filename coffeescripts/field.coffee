@@ -1,13 +1,30 @@
 class window.Field
   constructor: (@opts) ->
 
-  render: ->
+  render: -> this.renderControlPanel() + this.renderField()
+
+  renderControlPanel: ->
+    """
+    <table>
+      <tr class="control_panel">
+        <td class="lcd0" />
+        <td class="lcd0" />
+        <td class="lcd0" />
+        <td class="statusAlive" />
+        <td class="lcd0" />
+        <td class="lcd0" />
+        <td class="lcd0" />
+      </tr>
+    </table>
+    """
+
+  renderField: ->
     template = """
     <table>
     {{#rows}}
-      <tr>
+      <tr class="field">
       {{#cells}}
-        <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>
+        <td class="{{state}}" id="r{{row}}c{{col}}"></td>
       {{/cells}}
       </tr>
     {{/rows}}

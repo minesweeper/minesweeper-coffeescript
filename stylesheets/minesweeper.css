@@ -17,8 +17,29 @@ body {
 }
 
 td {
-	height: 16;
-	width: 16;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+tr.control_panel > td {
+  height: 21;
+  padding: 0 1;
+  background-color: black;
+}
+
+td.lcd0 {
+  width:  13;
+  background-image:url('../images/0.gif'); 
+}
+
+td.statusAlive {
+  width: 28;
+  background-image:url('../images/btnsmile.gif'); 
+}
+
+tr.field > td {
+  height: 16;
+  width:  16;  
 }
 
 td.unclicked {
