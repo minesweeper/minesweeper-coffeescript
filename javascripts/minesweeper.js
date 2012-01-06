@@ -70,8 +70,8 @@
   };
 
   reset_game = function() {
-    set_game();
-    return current.opts.mines = null;
+    current.opts.mines = null;
+    return set_game();
   };
 
   set_game = function() {
@@ -80,7 +80,8 @@
       return false;
     });
     $('.unclicked').bind('mouseup', unclicked_mouseup);
-    return $('#status').bind('mouseup', reset_game);
+    $('#status').bind('mouseup', reset_game);
+    return Timer.start();
   };
 
   window.Minesweeper = {

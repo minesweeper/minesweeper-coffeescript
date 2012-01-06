@@ -32,6 +32,51 @@ td.lcd0 {
   background-image:url('../images/0.gif'); 
 }
 
+td.lcd1 {
+  width:  13;
+  background-image:url('../images/1.gif'); 
+}
+
+td.lcd2 {
+  width:  13;
+  background-image:url('../images/2.gif'); 
+}
+
+td.lcd3 {
+  width:  13;
+  background-image:url('../images/3.gif'); 
+}
+
+td.lcd4 {
+  width:  13;
+  background-image:url('../images/4.gif'); 
+}
+
+td.lcd5 {
+  width:  13;
+  background-image:url('../images/5.gif'); 
+}
+
+td.lcd6 {
+  width:  13;
+  background-image:url('../images/6.gif'); 
+}
+
+td.lcd7 {
+  width:  13;
+  background-image:url('../images/7.gif'); 
+}
+
+td.lcd8 {
+  width:  13;
+  background-image:url('../images/8.gif'); 
+}
+
+td.lcd9 {
+  width:  13;
+  background-image:url('../images/9.gif'); 
+}
+
 td.statusAlive {
   width: 28;
   background-image:url('../images/btnsmile.gif'); 

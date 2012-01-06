@@ -11,9 +11,9 @@ class window.Field
         <td class="lcd0" />
         <td class="lcd0" />
         <td id="status" class="statusAlive" />
-        <td class="lcd0" />
-        <td class="lcd0" />
-        <td class="lcd0" />
+        <td class="lcd0" id="timer100s" />
+        <td class="lcd0" id="timer10s" />
+        <td class="lcd0" id="timer1s" />
       </tr>
     </table>
     """
