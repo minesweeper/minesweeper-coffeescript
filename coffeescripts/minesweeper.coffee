@@ -38,16 +38,19 @@ adjust_remaining = (increment) ->
   remaining_mines_lcd.display remaining_mines
 
 set_unclicked_to_marked = (element) ->
+  return if failed
   element.attr 'class', 'marked'
   element.bind 'mouseup', marked_mouseup
   adjust_remaining -1
 
 set_marked_to_uncertain = (element) ->
+  return if failed
   element.attr 'class', 'uncertain'
   element.bind 'mouseup', uncertain_mouseup
   adjust_remaining 1
 
 set_uncertain_to_unclicked = (element) ->
+  return if failed
   element.attr 'class', 'unclicked'
   element.bind 'mouseup', unclicked_mouseup
 

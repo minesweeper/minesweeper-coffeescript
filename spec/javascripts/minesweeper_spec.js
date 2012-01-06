@@ -173,11 +173,32 @@
       left_click(0, 0);
       return expect(cell_state(0, 1)).toEqual('mine');
     });
-    return it('should ignore clicks once a game has been lost', function() {
-      givenField("* * .");
+    it('should ignore left clicks once a game has been lost', function() {
+      givenField("* .");
       left_click(0, 0);
-      left_click(0, 2);
-      return expect(cell_state(0, 2)).toEqual('unclicked');
+      left_click(0, 1);
+      return expect(cell_state(0, 1)).toEqual('unclicked');
+    });
+    it('should ignore right clicks once a game has been lost', function() {
+      givenField("* .");
+      left_click(0, 0);
+      right_click(0, 1);
+      return expect(cell_state(0, 1)).toEqual('unclicked');
+    });
+    it('should ignore right clicks on marked once a game has been lost', function() {
+      givenField("* .");
+      right_click(0, 1);
+      left_click(0, 0);
+      right_click(0, 1);
+      return expect(cell_state(0, 1)).toEqual('marked');
+    });
+    return it('should ignore right clicks on uncertain once a game has been lost', function() {
+      givenField("* .");
+      right_click(0, 1);
+      right_click(0, 1);
+      left_click(0, 0);
+      right_click(0, 1);
+      return expect(cell_state(0, 1)).toEqual('uncertain');
     });
   });
 

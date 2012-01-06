@@ -62,18 +62,21 @@
   };
 
   set_unclicked_to_marked = function(element) {
+    if (failed) return;
     element.attr('class', 'marked');
     element.bind('mouseup', marked_mouseup);
     return adjust_remaining(-1);
   };
 
   set_marked_to_uncertain = function(element) {
+    if (failed) return;
     element.attr('class', 'uncertain');
     element.bind('mouseup', uncertain_mouseup);
     return adjust_remaining(1);
   };
 
   set_uncertain_to_unclicked = function(element) {
+    if (failed) return;
     element.attr('class', 'unclicked');
     return element.bind('mouseup', unclicked_mouseup);
   };

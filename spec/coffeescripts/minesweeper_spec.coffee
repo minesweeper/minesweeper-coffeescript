@@ -200,10 +200,37 @@ describe 'minesweeper', ->
     left_click 0, 0
     expect(cell_state(0, 1)).toEqual 'mine'
 
-  it 'should ignore clicks once a game has been lost', ->
+  it 'should ignore left clicks once a game has been lost', ->
     givenField """
-    * * .
+    * .
     """
     left_click 0, 0
-    left_click 0, 2
-    expect(cell_state(0, 2)).toEqual 'unclicked'
+    left_click 0, 1
+    expect(cell_state(0, 1)).toEqual 'unclicked'
+
+  it 'should ignore right clicks once a game has been lost', ->
+    givenField """
+    * .
+    """
+    left_click 0, 0
+    right_click 0, 1
+    expect(cell_state(0, 1)).toEqual 'unclicked'
+
+  it 'should ignore right clicks on marked once a game has been lost', ->
+    givenField """
+    * .
+    """
+    right_click 0, 1
+    left_click 0, 0
+    right_click 0, 1
+    expect(cell_state(0, 1)).toEqual 'marked'
+
+  it 'should ignore right clicks on uncertain once a game has been lost', ->
+    givenField """
+    * .
+    """
+    right_click 0, 1
+    right_click 0, 1
+    left_click 0, 0
+    right_click 0, 1
+    expect(cell_state(0, 1)).toEqual 'uncertain'
