@@ -163,10 +163,15 @@
       right_click(0, 1);
       return expect(remaining_mines()).toEqual(0);
     });
-    return it('should change game indicator to dead when a mine is clicked', function() {
+    it('should change game indicator to dead when a mine is clicked', function() {
       givenField("* .");
       left_click(0, 0);
       return expect(indicator_class()).toEqual('statusDead');
+    });
+    return it('should reveal all mines when a mine is clicked', function() {
+      givenField("* * .");
+      left_click(0, 0);
+      return expect(cell_state(0, 1)).toEqual('mine');
     });
   });
 

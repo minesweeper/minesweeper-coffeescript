@@ -12,20 +12,23 @@ change_class_to = (id, cls) ->
 change_indicator_status_to = (status) ->
   change_class_to 'indicator', "status#{status}"
 
+click_cell = (cell) ->
+  [r,c] = cell
+  $("#r#{r}c#{c}").trigger type: 'mouseup', which: 1
+
 reveal_unclicked_cell = (element) ->
   match = /r(\d+)c(\d+)/.exec element.attr 'id'
   [row,col] = [parseInt(match[1]),parseInt(match[2])]
   if current.hasMine(row, col)
     change_indicator_status_to 'Dead'
+    _.each current.opts.mines, (cell) -> click_cell cell
     Timer.stop()
     element.attr 'class', 'mine'
   else
     adjacentCount = current.adjacentCount row, col
     element.attr 'class', "mines#{adjacentCount}"
     if adjacentCount == 0
-      _.each current.neighbours(row, col), (cell) ->
-        [r,c] = cell
-        $("#r#{r}c#{c}").trigger type: 'mouseup', which: 1    
+      _.each current.neighbours(row, col), (cell) -> click_cell cell
 
 adjust_remaining = (increment) ->
   remaining_mines += increment

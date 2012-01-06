@@ -1,5 +1,5 @@
 (function() {
-  var adjust_remaining, change_class_to, change_indicator_status_to, current, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
 
@@ -21,12 +21,24 @@
     return change_class_to('indicator', "status" + status);
   };
 
+  click_cell = function(cell) {
+    var c, r;
+    r = cell[0], c = cell[1];
+    return $("#r" + r + "c" + c).trigger({
+      type: 'mouseup',
+      which: 1
+    });
+  };
+
   reveal_unclicked_cell = function(element) {
     var adjacentCount, col, match, row, _ref;
     match = /r(\d+)c(\d+)/.exec(element.attr('id'));
     _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
     if (current.hasMine(row, col)) {
       change_indicator_status_to('Dead');
+      _.each(current.opts.mines, function(cell) {
+        return click_cell(cell);
+      });
       Timer.stop();
       return element.attr('class', 'mine');
     } else {
@@ -34,12 +46,7 @@
       element.attr('class', "mines" + adjacentCount);
       if (adjacentCount === 0) {
         return _.each(current.neighbours(row, col), function(cell) {
-          var c, r;
-          r = cell[0], c = cell[1];
-          return $("#r" + r + "c" + c).trigger({
-            type: 'mouseup',
-            which: 1
-          });
+          return click_cell(cell);
         });
       }
     }

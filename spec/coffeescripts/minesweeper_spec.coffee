@@ -192,3 +192,10 @@ describe 'minesweeper', ->
     """
     left_click 0, 0
     expect(indicator_class()).toEqual 'statusDead'
+
+  it 'should reveal all mines when a mine is clicked', ->
+    givenField """
+    * * .
+    """
+    left_click 0, 0
+    expect(cell_state(0, 1)).toEqual 'mine'      
