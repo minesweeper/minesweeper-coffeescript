@@ -2,6 +2,7 @@ current = null
 minesweeper_locator = null
 remaining_mines_lcd = new Lcd 'minesRemaining'
 remaining_mines = null
+failed = false
 
 left_clicked = (event) ->
   event.which == 1
@@ -23,8 +24,10 @@ reveal_unclicked_cell = (element) ->
     change_indicator_status_to 'Dead'
     _.each current.opts.mines, (cell) -> click_cell cell
     Timer.stop()
+    failed = true
     element.attr 'class', 'mine'
   else
+    return if failed
     adjacentCount = current.adjacentCount row, col
     element.attr 'class', "mines#{adjacentCount}"
     if adjacentCount == 0
@@ -77,6 +80,7 @@ reset_game = ->
 set_game = ->
   $(minesweeper_locator).html current.render()
   remaining_mines_lcd.display current.opts.mineCount
+  failed = false
   $('.unclicked').bind 'contextmenu', -> false
   $('.unclicked').bind 'mouseup', unclicked_mouseup
   $('#indicator').bind 'mouseup', reset_game

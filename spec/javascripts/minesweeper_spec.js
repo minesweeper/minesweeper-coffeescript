@@ -168,10 +168,16 @@
       left_click(0, 0);
       return expect(indicator_class()).toEqual('statusDead');
     });
-    return it('should reveal all mines when a mine is clicked', function() {
+    it('should reveal all mines when a mine is clicked', function() {
       givenField("* * .");
       left_click(0, 0);
       return expect(cell_state(0, 1)).toEqual('mine');
+    });
+    return it('should ignore clicks once a game has been lost', function() {
+      givenField("* * .");
+      left_click(0, 0);
+      left_click(0, 2);
+      return expect(cell_state(0, 2)).toEqual('unclicked');
     });
   });
 
