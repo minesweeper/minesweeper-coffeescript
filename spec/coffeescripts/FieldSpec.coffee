@@ -59,7 +59,7 @@ describe 'Field', ->
         lastrow = line.split " "
         _.each lastrow, (char, col) ->
           mines.push [row, col] if char=='*'
-      field = new Field cols: lastrow.length, rows: lines.length, mines: mines
+      field = new Field cols: lastrow.length, rows: lines.length, mines: mines, mineCount: mines.length
 
     expect_counts = (s) ->
       _.each s.split("\n"), (line, row) ->

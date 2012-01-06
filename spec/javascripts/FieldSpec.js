@@ -69,7 +69,8 @@
         return field = new Field({
           cols: lastrow.length,
           rows: lines.length,
-          mines: mines
+          mines: mines,
+          mineCount: mines.length
         });
       };
       expect_counts = function(s) {
