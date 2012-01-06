@@ -1,7 +1,7 @@
 (function() {
 
   describe('minesweeper', function() {
-    var cell_state, cls, givenField, indicator_click, indicator_cls, indicator_press, left_click, remaining_mines, right_click;
+    var cell_state, cls, givenField, indicator_class, indicator_click, indicator_press, left_click, remaining_mines, right_click;
     right_click = function(row, col) {
       return $("#r" + row + "c" + col).trigger({
         type: 'mouseup',
@@ -27,17 +27,17 @@
         type: 'mouseup'
       });
     };
-    indicator_cls = function() {
+    indicator_class = function() {
       return cls('indicator');
     };
     cell_state = function(row, col) {
-      return $("#r" + row + "c" + col).attr('class');
+      return cls("r" + row + "c" + col);
     };
     remaining_mines = function() {
       var lcd_digit;
       lcd_digit = function(exponent) {
         var match;
-        match = /lcd(\d)/.exec($("#minesRemaining" + exponent + "s").attr('class'));
+        match = /lcd(\d)/.exec(cls("minesRemaining" + exponent + "s"));
         return match[1];
       };
       return parseInt("" + (lcd_digit(100)) + (lcd_digit(10)) + (lcd_digit(1)));
@@ -132,7 +132,7 @@
     it('should display depressed button when indicator button is clicked', function() {
       givenField(".");
       indicator_press();
-      return expect(indicator_cls()).toEqual('statusAlivePressed');
+      return expect(indicator_class()).toEqual('statusAlivePressed');
     });
     it('should reset game when indicator button is clicked', function() {
       givenField(".");
@@ -157,11 +157,16 @@
       right_click(0, 0);
       return expect(remaining_mines()).toEqual(1);
     });
-    return it('should ignore attempts to mark a mine when the full number of mines have been marked', function() {
+    it('should ignore attempts to mark a mine when the full number of mines have been marked', function() {
       givenField("* .");
       right_click(0, 0);
       right_click(0, 1);
       return expect(remaining_mines()).toEqual(0);
+    });
+    return it('should change game indicator to dead when a mine is clicked', function() {
+      givenField("* .");
+      left_click(0, 0);
+      return expect(indicator_class()).toEqual('statusDead');
     });
   });
 

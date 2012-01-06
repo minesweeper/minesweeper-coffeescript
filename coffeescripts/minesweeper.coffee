@@ -6,10 +6,18 @@ remaining_mines = null
 left_clicked = (event) ->
   event.which == 1
 
+change_class_to = (id, cls) ->
+  $("##{id}").attr 'class', cls
+
+change_indicator_status_to = (status) ->
+  change_class_to 'indicator', "status#{status}"
+
 reveal_unclicked_cell = (element) ->
   match = /r(\d+)c(\d+)/.exec element.attr 'id'
   [row,col] = [parseInt(match[1]),parseInt(match[2])]
   if current.hasMine(row, col)
+    change_indicator_status_to 'Dead'
+    Timer.stop()
     element.attr 'class', 'mine'
   else
     adjacentCount = current.adjacentCount row, col

@@ -82,6 +82,11 @@ td.statusAlive {
   background-image:url('../images/btnsmile.gif'); 
 }
 
+td.statusDead {
+  width: 28;
+  background-image:url('../images/btndead.gif'); 
+}
+
 td.statusAlivePressed {
   width: 28;
   background-image:url('../images/btnsmile2.gif'); 

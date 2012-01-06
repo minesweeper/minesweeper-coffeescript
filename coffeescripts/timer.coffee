@@ -18,3 +18,5 @@ window.Timer =
   start: ->
     stop()
     timer = setTimeout increment_timer, 1000
+
+  stop: stop

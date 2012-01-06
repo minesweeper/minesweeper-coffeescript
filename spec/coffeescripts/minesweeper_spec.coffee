@@ -14,14 +14,14 @@ describe 'minesweeper', ->
   indicator_click = ->
     $("#indicator").trigger type: 'mouseup'
 
-  indicator_cls = ->
+  indicator_class = ->
     cls 'indicator'
 
-  cell_state = (row, col) -> $("#r#{row}c#{col}").attr 'class'
+  cell_state = (row, col) -> cls "r#{row}c#{col}"
 
   remaining_mines = ->
     lcd_digit = (exponent) ->
-      match = /lcd(\d)/.exec $("#minesRemaining#{exponent}s").attr 'class'
+      match = /lcd(\d)/.exec cls "minesRemaining#{exponent}s"
       match[1]
     parseInt "#{lcd_digit 100}#{lcd_digit 10}#{lcd_digit 1}"
 
@@ -145,7 +145,7 @@ describe 'minesweeper', ->
     .
     """
     indicator_press()
-    expect(indicator_cls()).toEqual 'statusAlivePressed'
+    expect(indicator_class()).toEqual 'statusAlivePressed'
 
   it 'should reset game when indicator button is clicked', ->
     givenField """
@@ -185,3 +185,10 @@ describe 'minesweeper', ->
     right_click 0, 0
     right_click 0, 1
     expect(remaining_mines()).toEqual 0
+
+  it 'should change game indicator to dead when a mine is clicked', ->
+    givenField """
+    * .
+    """
+    left_click 0, 0
+    expect(indicator_class()).toEqual 'statusDead'
