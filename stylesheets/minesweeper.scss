@@ -26,14 +26,28 @@ td {
   background-position: center center;
 }
 
-td.stripe {
+td.lightest_stripe {
   width: 1px !important;
-  background-color: $border_medium;
+  background-color: $border_lightest;
 }
 
-td.dstripe {
+td.light_stripe {
   width: 1px !important;
-  background-color: #bbb;
+  background-color: $border_light;
+}
+
+td.dark_stripe {
+  width: 1px !important;
+  background-color: $border_dark;
+}
+
+td.darkest_stripe {
+  width: 1px !important;
+  background-color: $border_darkest;
+}
+
+tr.border {
+  height: 1px;
 }
 
 tr.title_bar td {

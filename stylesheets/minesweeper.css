@@ -18,13 +18,24 @@ td {
   background-repeat: no-repeat;
   background-position: center center; }
 
-td.lstripe {
+td.lightest_stripe {
   width: 1px !important;
   background-color: white; }
 
-td.dstripe {
+td.light_stripe {
   width: 1px !important;
-  background-color: #bbb; }
+  background-color: #bbbbbb; }
+
+td.dark_stripe {
+  width: 1px !important;
+  background-color: #888888; }
+
+td.darkest_stripe {
+  width: 1px !important;
+  background-color: black; }
+
+tr.border {
+  height: 1px; }
 
 tr.title_bar td {
   height: 18px; }

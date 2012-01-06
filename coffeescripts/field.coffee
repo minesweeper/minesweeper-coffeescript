@@ -2,21 +2,43 @@ class window.Field
   constructor: (@opts) ->
 
   render: ->
-    this.renderTitleBar() + this.renderControlPanel() + this.renderField()
+    this.renderBorder("light_stripe lightest_stripe light_stripe") +
+    this.renderTitleBar() +
+    this.renderControlPanel() +
+    this.renderField() +
+    this.renderBorder("light_stripe dark_stripe darkest_stripe")
 
   renderTemplate: (template, view) ->
     partials =
       leader: """
-      <td class="dstripe" />
-      <td class="lstripe" />
-      <td class="dstripe" />
+      <td class="light_stripe" />
+      <td class="lightest_stripe" />
+      <td class="light_stripe" />
       """
       trailer: """
-      <td class="dstripe" />
-      <td class="lstripe" />
-      <td class="dstripe" />
+      <td class="light_stripe" />
+      <td class="dark_stripe" />
+      <td class="darkest_stripe" />
       """
     Mustache.to_html template, view, partials
+
+  renderBorder: (classes) ->
+    template = """
+    <table>
+    {{#classes}}
+    <tr class="border">
+    {{>leader}}
+    <td class="{{.}}" width="{{width}}"></td>
+    {{>trailer}}
+    </tr>
+    {{/classes}}
+    </table>
+    """
+    width = this.opts.cols * 16
+    this.renderTemplate template,
+      width: width
+      twidth: width + 6
+      classes: classes.split(' ')
 
   renderTitleBar: ->
     template = """

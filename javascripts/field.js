@@ -7,16 +7,27 @@
     }
 
     Field.prototype.render = function() {
-      return this.renderTitleBar() + this.renderControlPanel() + this.renderField();
+      return this.renderBorder("light_stripe lightest_stripe light_stripe") + this.renderTitleBar() + this.renderControlPanel() + this.renderField() + this.renderBorder("light_stripe dark_stripe darkest_stripe");
     };
 
     Field.prototype.renderTemplate = function(template, view) {
       var partials;
       partials = {
-        leader: "<td class=\"dstripe\" />\n<td class=\"lstripe\" />\n<td class=\"dstripe\" />",
-        trailer: "<td class=\"dstripe\" />\n<td class=\"lstripe\" />\n<td class=\"dstripe\" />"
+        leader: "<td class=\"light_stripe\" />\n<td class=\"lightest_stripe\" />\n<td class=\"light_stripe\" />",
+        trailer: "<td class=\"light_stripe\" />\n<td class=\"dark_stripe\" />\n<td class=\"darkest_stripe\" />"
       };
       return Mustache.to_html(template, view, partials);
+    };
+
+    Field.prototype.renderBorder = function(classes) {
+      var template, width;
+      template = "<table>\n{{#classes}}\n<tr class=\"border\">\n{{>leader}}\n<td class=\"{{.}}\" width=\"{{width}}\"></td>\n{{>trailer}}\n</tr>\n{{/classes}}\n</table>";
+      width = this.opts.cols * 16;
+      return this.renderTemplate(template, {
+        width: width,
+        twidth: width + 6,
+        classes: classes.split(' ')
+      });
     };
 
     Field.prototype.renderTitleBar = function() {
