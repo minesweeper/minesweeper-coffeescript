@@ -18,20 +18,19 @@ td {
   background-repeat: no-repeat;
   background-position: center center; }
 
-td.lightest_stripe {
-  width: 1px !important;
+td.stripe {
+  width: 1px !important; }
+
+td.lightest {
   background-color: white; }
 
-td.light_stripe {
-  width: 1px !important;
+td.light {
   background-color: #bbbbbb; }
 
-td.dark_stripe {
-  width: 1px !important;
+td.dark {
   background-color: #888888; }
 
-td.darkest_stripe {
-  width: 1px !important;
+td.darkest {
   background-color: black; }
 
 tr.border {

@@ -26,23 +26,23 @@ td {
   background-position: center center;
 }
 
-td.lightest_stripe {
-  width: 1px !important;
+td.stripe {
+  width: 1px !important
+}
+
+td.lightest {
   background-color: $border_lightest;
 }
 
-td.light_stripe {
-  width: 1px !important;
+td.light {
   background-color: $border_light;
 }
 
-td.dark_stripe {
-  width: 1px !important;
+td.dark {
   background-color: $border_dark;
 }
 
-td.darkest_stripe {
-  width: 1px !important;
+td.darkest {
   background-color: $border_darkest;
 }
 

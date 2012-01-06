@@ -7,14 +7,14 @@
     }
 
     Field.prototype.render = function() {
-      return this.renderBorder("light_stripe lightest_stripe light_stripe") + this.renderTitleBar() + this.renderControlPanel() + this.renderField() + this.renderBorder("light_stripe dark_stripe darkest_stripe");
+      return this.renderBorder("light lightest light") + this.renderTitleBar() + this.renderControlPanel() + this.renderField() + this.renderBorder("light dark darkest");
     };
 
     Field.prototype.renderTemplate = function(template, view) {
       var partials;
       partials = {
-        leader: "<td class=\"light_stripe\" />\n<td class=\"lightest_stripe\" />\n<td class=\"light_stripe\" />",
-        trailer: "<td class=\"light_stripe\" />\n<td class=\"dark_stripe\" />\n<td class=\"darkest_stripe\" />"
+        leader: "<td class=\"light stripe\" />\n<td class=\"lightest stripe\" />\n<td class=\"light stripe\" />",
+        trailer: "<td class=\"light stripe\" />\n<td class=\"dark stripe\" />\n<td class=\"darkest stripe\" />"
       };
       return Mustache.to_html(template, view, partials);
     };
