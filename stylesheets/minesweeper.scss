@@ -50,6 +50,43 @@ tr.border {
   height: 1px;
 }
 
+tr.separator {
+  height: 11px; 
+}
+
+td.edge {
+  width: 12px;
+}
+
+td.tl {
+  background-image:url('../images/tl.gif');
+}
+
+td.ml {
+  background-image:url('../images/ml.gif');
+}
+
+td.bl {
+  background-image:url('../images/bl.gif');
+}
+
+td.tr {
+  background-image:url('../images/tr.gif');
+}
+
+td.mr {
+  background-image:url('../images/mr.gif');
+}
+
+td.br {
+  background-image:url('../images/br.gif');
+}
+
+td.separator {
+  background-image:url('../images/separatr.gif');
+  background-size: 100% 100%;
+}
+
 tr.title_bar td {
   height: 18px;
 }
@@ -60,7 +97,6 @@ td.title {
 }
 
 td.gap {
-  width: 8px;
   background-color: #008;
 }
 
@@ -137,6 +173,12 @@ td.statusAlivePressed {
 tr.field td {
   height: 16px;
   width:  16px;  
+}
+
+td.field_side {
+  width: 12px !important;
+  background-image:url('../images/fielside.gif');
+  background-size: 100% 100%;
 }
 
 td.unclicked {

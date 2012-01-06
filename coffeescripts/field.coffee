@@ -4,8 +4,11 @@ class window.Field
   render: ->
     this.renderBorder("light lightest light") +
     this.renderTitleBar() +
+    this.renderSeparator('t') +
     this.renderControlPanel() +
+    this.renderSeparator('m') +
     this.renderField() +
+    this.renderSeparator('b') +
     this.renderBorder("light dark darkest")
 
   renderTemplate: (template, view) ->
@@ -27,15 +30,13 @@ class window.Field
     <table>
     {{#classes}}
     <tr class="border">
-    {{>leader}}
     <td class="{{.}}" width="{{width}}"></td>
-    {{>trailer}}
     </tr>
     {{/classes}}
     </table>
     """
-    width = this.opts.cols * 16
-    this.renderTemplate template,
+    width = (this.opts.cols * 16) + 30
+    Mustache.to_html template,
       width: width
       twidth: width + 6
       classes: classes.split(' ')
@@ -45,15 +46,34 @@ class window.Field
     <table>
     <tr class="title_bar">
     {{>leader}}
-    {{#classes}}
-    <td class="{{.}}" />
-    {{/classes}}
+    <td class="title" />
+    <td class="gap" width="{{width}}" />
+    <td class="buttons" />
+    {{>trailer}}
+    </tr>
+    </table>
+    """
+    gap = this.opts.cols * 16 + 24
+    gap -= 94
+    gap -= 52
+    this.renderTemplate template,
+      width: gap
+
+  renderSeparator: (position) ->
+    template = """
+    <table>
+    <tr class="separator">
+    {{>leader}}
+    <td class="edge ml"></td>
+    <td class="separator" width="{{width}}"></td>
+    <td class="edge mr""></td>
     {{>trailer}}
     </tr>
     </table>
     """
     this.renderTemplate template,
-      classes: "title gap buttons".split(' ')
+      position: position
+      width: this.opts.cols * 16
 
   renderLcd: (id) ->
     template = """
@@ -69,16 +89,24 @@ class window.Field
     <table>
     <tr class="control_panel">
     {{>leader}}
+    <td class="field_side" />
     {{{lcdMinesRemaining}}}
+    <td class="gap" width="{{width}}" />
     <td id="indicator" class="statusAlive" />
+    <td class="gap" width="{{width}}" />
     {{{lcdTimer}}}
+    <td class="field_side" />
     {{>trailer}}
     </tr>
     </table>
     """
+    gap = this.opts.cols * 8
+    gap -= 3 * 14
+    gap -= 17
     this.renderTemplate template,
       lcdMinesRemaining: this.renderLcd 'minesRemaining'
       lcdTimer: this.renderLcd 'timer'
+      width: gap
 
   renderField: ->
     template = """
@@ -86,9 +114,11 @@ class window.Field
     {{#rows}}
     <tr class="field">
     {{>leader}}
+    <td class="field_side" />
     {{#cells}}
     <td class="{{state}}" id="r{{row}}c{{col}}"></td>
     {{/cells}}
+    <td class="field_side" />
     {{>trailer}}
     </tr>
     {{/rows}}
