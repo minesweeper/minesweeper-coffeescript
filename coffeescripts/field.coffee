@@ -7,6 +7,9 @@ class window.Field
     """
     <table>
       <tr class="control_panel">
+        <td class="dstripe" />
+        <td class="lstripe" />
+        <td class="dstripe" />
         <td class="lcd0" id="minesRemaining100s" />
         <td class="lcd0" id="minesRemaining10s" />
         <td class="lcd0" id="minesRemaining1s" />
@@ -14,6 +17,9 @@ class window.Field
         <td class="lcd0" id="timer100s" />
         <td class="lcd0" id="timer10s" />
         <td class="lcd0" id="timer1s" />
+        <td class="dstripe" />
+        <td class="lstripe" />
+        <td class="dstripe" />
       </tr>
     </table>
     """
@@ -23,9 +29,15 @@ class window.Field
     <table>
     {{#rows}}
       <tr class="field">
+        <td class="dstripe" />
+        <td class="lstripe" />
+        <td class="dstripe" />
       {{#cells}}
         <td class="{{state}}" id="r{{row}}c{{col}}"></td>
       {{/cells}}
+        <td class="dstripe" />
+        <td class="lstripe" />
+        <td class="dstripe" />
       </tr>
     {{/rows}}
     </table>

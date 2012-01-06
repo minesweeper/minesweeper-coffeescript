@@ -1,5 +1,5 @@
 (function() {
-  var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, failed, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, failed, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, revealed_count, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
 
@@ -31,6 +31,8 @@
       which: 1
     });
   };
+
+  revealed_count = function() {};
 
   reveal_unclicked_cell = function(element) {
     var adjacentCount, col, match, row, _ref;

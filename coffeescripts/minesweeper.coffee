@@ -17,6 +17,9 @@ click_cell = (cell) ->
   [r,c] = cell
   $("#r#{r}c#{c}").trigger type: 'mouseup', which: 1
 
+revealed_count = ->
+  
+
 reveal_unclicked_cell = (element) ->
   match = /r(\d+)c(\d+)/.exec element.attr 'id'
   [row,col] = [parseInt(match[1]),parseInt(match[2])]

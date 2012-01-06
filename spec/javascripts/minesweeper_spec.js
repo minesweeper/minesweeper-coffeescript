@@ -37,7 +37,7 @@
       var lcd_digit;
       lcd_digit = function(exponent) {
         var match;
-        match = /lcd(\d)/.exec(cls("minesRemaining" + exponent + "s"));
+        match = /lcd n(\d)/.exec(cls("minesRemaining" + exponent + "s"));
         return match[1];
       };
       return parseInt("" + (lcd_digit(100)) + (lcd_digit(10)) + (lcd_digit(1)));
@@ -192,13 +192,18 @@
       right_click(0, 1);
       return expect(cell_state(0, 1)).toEqual('marked');
     });
-    return it('should ignore right clicks on uncertain once a game has been lost', function() {
+    it('should ignore right clicks on uncertain once a game has been lost', function() {
       givenField("* .");
       right_click(0, 1);
       right_click(0, 1);
       left_click(0, 0);
       right_click(0, 1);
       return expect(cell_state(0, 1)).toEqual('uncertain');
+    });
+    return xit('should change game indicator to cool when the game has been won', function() {
+      givenField("* .");
+      left_click(0, 1);
+      return expect(indicator_class()).toEqual('statusCool');
     });
   });
 

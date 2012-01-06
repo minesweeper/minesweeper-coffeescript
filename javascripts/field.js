@@ -11,12 +11,12 @@
     };
 
     Field.prototype.renderControlPanel = function() {
-      return "<table>\n  <tr class=\"control_panel\">\n    <td class=\"lcd0\" id=\"minesRemaining100s\" />\n    <td class=\"lcd0\" id=\"minesRemaining10s\" />\n    <td class=\"lcd0\" id=\"minesRemaining1s\" />\n    <td id=\"indicator\" class=\"statusAlive\" />\n    <td class=\"lcd0\" id=\"timer100s\" />\n    <td class=\"lcd0\" id=\"timer10s\" />\n    <td class=\"lcd0\" id=\"timer1s\" />\n  </tr>\n</table>";
+      return "<table>\n  <tr class=\"control_panel\">\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n    <td class=\"lcd0\" id=\"minesRemaining100s\" />\n    <td class=\"lcd0\" id=\"minesRemaining10s\" />\n    <td class=\"lcd0\" id=\"minesRemaining1s\" />\n    <td id=\"indicator\" class=\"statusAlive\" />\n    <td class=\"lcd0\" id=\"timer100s\" />\n    <td class=\"lcd0\" id=\"timer10s\" />\n    <td class=\"lcd0\" id=\"timer1s\" />\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n  </tr>\n</table>";
     };
 
     Field.prototype.renderField = function() {
       var col, row, template;
-      template = "<table>\n{{#rows}}\n  <tr class=\"field\">\n  {{#cells}}\n    <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n  {{/cells}}\n  </tr>\n{{/rows}}\n</table>";
+      template = "<table>\n{{#rows}}\n  <tr class=\"field\">\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n  {{#cells}}\n    <td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n  {{/cells}}\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n  </tr>\n{{/rows}}\n</table>";
       return Mustache.to_html(template, {
         rows: (function() {
           var _ref, _results;

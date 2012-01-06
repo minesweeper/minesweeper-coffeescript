@@ -21,59 +21,63 @@ td {
   background-position: center center;
 }
 
-tr.control_panel > td {
-  height: 21;
-  padding: 0 1;
+td.lstripe {
+  width: 1px !important;
+  background-color: #fff !important;
+}
+
+td.dstripe {
+  width: 1px !important;
+  background-color: #bbb !important;
+}
+
+tr.control_panel td {
+  height: 21px;
   background-color: black;
 }
 
-td.lcd0 {
+td.lcd {
   width:  13;
+  padding: 0px 1px;
+}
+
+td.n0 {
   background-image:url('../images/0.gif'); 
 }
 
-td.lcd1 {
-  width:  13;
+td.n1 {
   background-image:url('../images/1.gif'); 
 }
 
-td.lcd2 {
-  width:  13;
+td.n2 {
   background-image:url('../images/2.gif'); 
 }
 
-td.lcd3 {
-  width:  13;
+td.n3 {
   background-image:url('../images/3.gif'); 
 }
 
-td.lcd4 {
-  width:  13;
+td.n4 {
   background-image:url('../images/4.gif'); 
 }
 
-td.lcd5 {
-  width:  13;
+td.n5 {
   background-image:url('../images/5.gif'); 
 }
 
-td.lcd6 {
-  width:  13;
+td.n6 {
   background-image:url('../images/6.gif'); 
 }
 
-td.lcd7 {
-  width:  13;
+td.n7 {
   background-image:url('../images/7.gif'); 
 }
 
-td.lcd8 {
-  width:  13;
+td.n8 {
   background-image:url('../images/8.gif'); 
 }
 
-td.lcd9 {
-  width:  13;
+td.n9 {
   background-image:url('../images/9.gif'); 
 }
 
@@ -92,9 +96,9 @@ td.statusAlivePressed {
   background-image:url('../images/btnsmile2.gif'); 
 }
 
-tr.field > td {
-  height: 16;
-  width:  16;  
+tr.field td {
+  height: 16px;
+  width:  16px;  
 }
 
 td.unclicked {

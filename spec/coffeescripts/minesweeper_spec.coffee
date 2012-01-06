@@ -21,7 +21,7 @@ describe 'minesweeper', ->
 
   remaining_mines = ->
     lcd_digit = (exponent) ->
-      match = /lcd(\d)/.exec cls "minesRemaining#{exponent}s"
+      match = /lcd n(\d)/.exec cls "minesRemaining#{exponent}s"
       match[1]
     parseInt "#{lcd_digit 100}#{lcd_digit 10}#{lcd_digit 1}"
 
@@ -234,3 +234,10 @@ describe 'minesweeper', ->
     left_click 0, 0
     right_click 0, 1
     expect(cell_state(0, 1)).toEqual 'uncertain'
+
+  xit 'should change game indicator to cool when the game has been won', ->
+    givenField """
+    * .
+    """
+    left_click 0, 1
+    expect(indicator_class()).toEqual 'statusCool'

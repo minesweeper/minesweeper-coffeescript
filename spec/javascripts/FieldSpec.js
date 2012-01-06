@@ -7,7 +7,7 @@
         rows: 1,
         cols: 1
       });
-      return expect(f.renderField()).toEqual("<table>\n  <tr class=\"field\">\n      <td class=\"unclicked\" id=\"r0c0\"></td>\n  </tr>\n</table>");
+      return expect(f.renderField()).toEqual("<table>\n  <tr class=\"field\">\n    <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n      <td class=\"unclicked\" id=\"r0c0\"></td>\n  <td class=\"dstripe\" />\n    <td class=\"lstripe\" />\n    <td class=\"dstripe\" />\n  </tr>\n</table>");
     });
     describe('neighbours', function() {
       var field;
