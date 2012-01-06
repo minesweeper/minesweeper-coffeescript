@@ -5,7 +5,7 @@
 
   timer = null;
 
-  lcd = new Lcd('lcd');
+  lcd = new Lcd('timer');
 
   tick = function(increment) {
     if (increment == null) increment = 1;
@@ -27,9 +27,7 @@
     start: function() {
       stop();
       return timer = setTimeout(increment_timer, 1000);
-    },
-    stop: stop,
-    tick: tick
+    }
   };
 
 }).call(this);

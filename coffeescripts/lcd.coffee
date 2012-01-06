@@ -3,6 +3,6 @@ class window.Lcd
 
   display: (number) ->
     s = "000#{number}"
-    $('#timer1s').attr 'class', "#{@id}#{s[s.length-1]}"
-    $('#timer10s').attr 'class', "#{@id}#{s[s.length-2]}"
-    $('#timer100s').attr 'class', "#{@id}#{s[s.length-3]}" 
+    $("##{@id}1s").attr 'class', "lcd#{s[s.length-1]}"
+    $("##{@id}10s").attr 'class', "lcd#{s[s.length-2]}"
+    $("##{@id}100s").attr 'class', "lcd#{s[s.length-3]}" 

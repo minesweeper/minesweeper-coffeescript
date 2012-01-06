@@ -9,9 +9,9 @@
     Lcd.prototype.display = function(number) {
       var s;
       s = "000" + number;
-      $('#timer1s').attr('class', "" + this.id + s[s.length - 1]);
-      $('#timer10s').attr('class', "" + this.id + s[s.length - 2]);
-      return $('#timer100s').attr('class', "" + this.id + s[s.length - 3]);
+      $("#" + this.id + "1s").attr('class', "lcd" + s[s.length - 1]);
+      $("#" + this.id + "10s").attr('class', "lcd" + s[s.length - 2]);
+      return $("#" + this.id + "100s").attr('class', "lcd" + s[s.length - 3]);
     };
 
     return Lcd;

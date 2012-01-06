@@ -1,6 +1,6 @@
 count = 0
 timer = null
-lcd = new Lcd('lcd')
+lcd = new Lcd('timer')
 
 tick = (increment=1) ->
   count += increment
@@ -18,7 +18,3 @@ window.Timer =
   start: ->
     stop()
     timer = setTimeout increment_timer, 1000
-
-  stop: stop
-
-  tick: tick
