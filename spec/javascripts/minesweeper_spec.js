@@ -50,7 +50,7 @@
       });
     };
     it('should cycle through marked to uncertain to unclicked on right click', function() {
-      givenField(".");
+      givenField("*");
       expect(cell_state(0, 0)).toEqual('unclicked');
       right_click(0, 0);
       expect(cell_state(0, 0)).toEqual('marked');
@@ -130,11 +130,20 @@
       givenField("*");
       return expect(remaining_mines()).toEqual(1);
     });
-    return it('should decrement mine count when a mine is marked', function() {
-      givenField("* *");
-      expect(remaining_mines()).toEqual(2);
+    it('should decrement mine count when a mine is marked', function() {
+      givenField("*");
       right_click(0, 0);
-      expect(remaining_mines()).toEqual(1);
+      return expect(remaining_mines()).toEqual(0);
+    });
+    it('should reincrement mine count when a mine is marked and then unmarked', function() {
+      givenField("*");
+      right_click(0, 0);
+      right_click(0, 0);
+      return expect(remaining_mines()).toEqual(1);
+    });
+    return it('should ignore attempts to mark a mine when the full number of mines have been marked', function() {
+      givenField("* .");
+      right_click(0, 0);
       right_click(0, 1);
       return expect(remaining_mines()).toEqual(0);
     });

@@ -28,7 +28,7 @@ describe 'minesweeper', ->
 
   it 'should cycle through marked to uncertain to unclicked on right click', ->
     givenField """
-    .
+    *
     """
     expect(cell_state(0 ,0)).toEqual 'unclicked'
     right_click 0, 0
@@ -149,10 +149,23 @@ describe 'minesweeper', ->
   
   it 'should decrement mine count when a mine is marked', ->
     givenField """
-    * *
+    *
     """
-    expect(remaining_mines()).toEqual 2
+    right_click 0, 0
+    expect(remaining_mines()).toEqual 0
+
+  it 'should reincrement mine count when a mine is marked and then unmarked', ->
+    givenField """
+    *
+    """
+    right_click 0, 0
     right_click 0, 0
     expect(remaining_mines()).toEqual 1
+
+  it 'should ignore attempts to mark a mine when the full number of mines have been marked', ->
+    givenField """
+    * .
+    """
+    right_click 0, 0
     right_click 0, 1
     expect(remaining_mines()).toEqual 0

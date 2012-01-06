@@ -19,15 +19,19 @@ reveal_unclicked_cell = (element) ->
         [r,c] = cell
         $("#r#{r}c#{c}").trigger type: 'mouseup', which: 1    
 
+adjust_remaining = (increment) ->
+  remaining_mines += increment
+  remaining_mines_lcd.display remaining_mines
+
 set_unclicked_to_marked = (element) ->
   element.attr 'class', 'marked'
   element.bind 'mouseup', marked_mouseup
-  remaining_mines -= 1
-  remaining_mines_lcd.display remaining_mines
+  adjust_remaining -1
 
 set_marked_to_uncertain = (element) ->
   element.attr 'class', 'uncertain'
   element.bind 'mouseup', uncertain_mouseup
+  adjust_remaining 1
 
 set_uncertain_to_unclicked = (element) ->
   element.attr 'class', 'unclicked'
@@ -44,11 +48,13 @@ uncertain_mouseup = (event) ->
     set_uncertain_to_unclicked $(this)
 
 unclicked_mouseup = (event) ->
-  $(this).unbind event
   if left_clicked event
+    $(this).unbind event
     reveal_unclicked_cell $(this)
   else
-    set_unclicked_to_marked $(this)
+    unless remaining_mines == 0
+      $(this).unbind event
+      set_unclicked_to_marked $(this)
 
 reset_game = ->
   current.opts.mines = null

@@ -1,5 +1,5 @@
 (function() {
-  var current, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var adjust_remaining, current, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
 
@@ -35,16 +35,21 @@
     }
   };
 
+  adjust_remaining = function(increment) {
+    remaining_mines += increment;
+    return remaining_mines_lcd.display(remaining_mines);
+  };
+
   set_unclicked_to_marked = function(element) {
     element.attr('class', 'marked');
     element.bind('mouseup', marked_mouseup);
-    remaining_mines -= 1;
-    return remaining_mines_lcd.display(remaining_mines);
+    return adjust_remaining(-1);
   };
 
   set_marked_to_uncertain = function(element) {
     element.attr('class', 'uncertain');
-    return element.bind('mouseup', uncertain_mouseup);
+    element.bind('mouseup', uncertain_mouseup);
+    return adjust_remaining(1);
   };
 
   set_uncertain_to_unclicked = function(element) {
@@ -67,11 +72,14 @@
   };
 
   unclicked_mouseup = function(event) {
-    $(this).unbind(event);
     if (left_clicked(event)) {
+      $(this).unbind(event);
       return reveal_unclicked_cell($(this));
     } else {
-      return set_unclicked_to_marked($(this));
+      if (remaining_mines !== 0) {
+        $(this).unbind(event);
+        return set_unclicked_to_marked($(this));
+      }
     }
   };
 
