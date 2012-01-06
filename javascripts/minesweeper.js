@@ -8,10 +8,9 @@
   };
 
   reveal_unclicked_cell = function(element) {
-    var adjacentCount, col, match, row;
+    var adjacentCount, col, match, row, _ref;
     match = /r(\d+)c(\d+)/.exec(element.attr('id'));
-    row = parseInt(match[1]);
-    col = parseInt(match[2]);
+    _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
     if (current.hasMine(row, col)) {
       return element.attr('class', 'mine');
     } else {
@@ -20,8 +19,7 @@
       if (adjacentCount === 0) {
         return _.each(current.neighbours(row, col), function(cell) {
           var c, r;
-          r = cell[0];
-          c = cell[1];
+          r = cell[0], c = cell[1];
           return $("#r" + r + "c" + c).trigger({
             type: 'mouseup',
             which: 1
