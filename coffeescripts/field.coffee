@@ -10,7 +10,7 @@ class window.Field
         <td class="lcd0" id="minesRemaining100s" />
         <td class="lcd0" id="minesRemaining10s" />
         <td class="lcd0" id="minesRemaining1s" />
-        <td id="status" class="statusAlive" />
+        <td id="indicator" class="statusAlive" />
         <td class="lcd0" id="timer100s" />
         <td class="lcd0" id="timer10s" />
         <td class="lcd0" id="timer1s" />

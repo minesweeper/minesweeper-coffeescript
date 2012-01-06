@@ -1,5 +1,5 @@
 (function() {
-  var adjust_remaining, current, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var adjust_remaining, current, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
 
@@ -83,6 +83,10 @@
     }
   };
 
+  indicator_pressed = function() {
+    return $(this).attr('class', 'statusAlivePressed');
+  };
+
   reset_game = function() {
     current.opts.mines = null;
     return set_game();
@@ -95,7 +99,8 @@
       return false;
     });
     $('.unclicked').bind('mouseup', unclicked_mouseup);
-    $('#status').bind('mouseup', reset_game);
+    $('#indicator').bind('mouseup', reset_game);
+    $('#indicator').bind('mousedown', indicator_pressed);
     remaining_mines = current.opts.mineCount;
     return Timer.start();
   };

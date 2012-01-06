@@ -56,6 +56,9 @@ unclicked_mouseup = (event) ->
       $(this).unbind event
       set_unclicked_to_marked $(this)
 
+indicator_pressed = ->
+  $(this).attr 'class', 'statusAlivePressed'
+
 reset_game = ->
   current.opts.mines = null
   set_game()
@@ -65,7 +68,8 @@ set_game = ->
   remaining_mines_lcd.display current.opts.mineCount
   $('.unclicked').bind 'contextmenu', -> false
   $('.unclicked').bind 'mouseup', unclicked_mouseup
-  $('#status').bind 'mouseup', reset_game
+  $('#indicator').bind 'mouseup', reset_game
+  $('#indicator').bind 'mousedown', indicator_pressed
   remaining_mines = current.opts.mineCount
   Timer.start()
 

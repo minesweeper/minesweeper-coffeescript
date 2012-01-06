@@ -1,7 +1,7 @@
 (function() {
 
   describe('minesweeper', function() {
-    var cell_state, click_status, givenField, left_click, remaining_mines, right_click;
+    var cell_state, cls, givenField, indicator_click, indicator_cls, indicator_press, left_click, remaining_mines, right_click;
     right_click = function(row, col) {
       return $("#r" + row + "c" + col).trigger({
         type: 'mouseup',
@@ -14,10 +14,21 @@
         which: 1
       });
     };
-    click_status = function() {
-      return $("#status").trigger({
+    indicator_press = function() {
+      return $("#indicator").trigger({
+        type: 'mousedown'
+      });
+    };
+    cls = function(id) {
+      return $("#" + id).attr('class');
+    };
+    indicator_click = function() {
+      return $("#indicator").trigger({
         type: 'mouseup'
       });
+    };
+    indicator_cls = function() {
+      return cls('indicator');
     };
     cell_state = function(row, col) {
       return $("#r" + row + "c" + col).attr('class');
@@ -118,12 +129,17 @@
       expect(cell_state(1, 1)).toEqual('mines1');
       return expect(cell_state(2, 1)).toEqual('unclicked');
     });
-    it('should reset game when status button is clicked', function() {
+    it('should display depressed button when indicator button is clicked', function() {
+      givenField(".");
+      indicator_press();
+      return expect(indicator_cls()).toEqual('statusAlivePressed');
+    });
+    it('should reset game when indicator button is clicked', function() {
       givenField(".");
       expect(cell_state(0, 0)).toEqual('unclicked');
       left_click(0, 0);
       expect(cell_state(0, 0)).toEqual('mines0');
-      click_status();
+      indicator_click();
       return expect(cell_state(0, 0)).toEqual('unclicked');
     });
     it('should display initial mine count', function() {

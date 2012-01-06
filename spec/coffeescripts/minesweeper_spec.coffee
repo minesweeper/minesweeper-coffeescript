@@ -5,8 +5,17 @@ describe 'minesweeper', ->
   left_click = (row, col) ->
     $("#r#{row}c#{col}").trigger type: 'mouseup', which: 1    
 
-  click_status = ->
-    $("#status").trigger type: 'mouseup'
+  indicator_press = ->
+    $("#indicator").trigger type: 'mousedown'
+
+  cls = (id) ->
+    $("##{id}").attr 'class'
+
+  indicator_click = ->
+    $("#indicator").trigger type: 'mouseup'
+
+  indicator_cls = ->
+    cls 'indicator'
 
   cell_state = (row, col) -> $("#r#{row}c#{col}").attr 'class'
 
@@ -131,14 +140,21 @@ describe 'minesweeper', ->
     expect(cell_state(1, 1)).toEqual 'mines1'
     expect(cell_state(2, 1)).toEqual 'unclicked'
 
-  it 'should reset game when status button is clicked', ->
+  it 'should display depressed button when indicator button is clicked', ->
+    givenField """
+    .
+    """
+    indicator_press()
+    expect(indicator_cls()).toEqual 'statusAlivePressed'
+
+  it 'should reset game when indicator button is clicked', ->
     givenField """
     .
     """
     expect(cell_state(0, 0)).toEqual 'unclicked'
     left_click 0, 0
     expect(cell_state(0, 0)).toEqual 'mines0'
-    click_status()
+    indicator_click()
     expect(cell_state(0, 0)).toEqual 'unclicked'
 
   it 'should display initial mine count', ->
