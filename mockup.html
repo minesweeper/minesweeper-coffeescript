@@ -3,7 +3,7 @@
     <style type="text/css">
       #minesweeper {
         margin: auto;
-        width: 100px;
+        width: 180px;
         border-width: 1px;
         border-style: outset;
         background-color: #BBB;
@@ -12,6 +12,18 @@
       #title {
         background-color: #008;
         height: 18px;
+      }
+      #title_left {
+        float: left;
+        background-image: url('images/title.gif');
+        height: 18px;
+        width: 94px;
+      }
+      #title_right {
+        float: right;
+        background-image: url('images/buttons.gif');
+        height: 18px;
+        width: 52px;
       }
       #outer {
         border-width: 3px;
@@ -44,7 +56,10 @@
 
   <body>
     <div id="minesweeper">
-      <div id="title"></div>
+      <div id="title">
+        <span id="title_left"></span>
+        <span id="title_right"></span>        
+      </div>
       <div id="outer">
         <div id="top"></div>
         <div id="bottom"></div>
