@@ -31,11 +31,64 @@
         background-color: #BBB;
       }
       #top {
-        height: 30px;
+        height: 26px;
         margin: 5px;
         border-width: 3px;
         border-style: inset;
         background-color: #BBB;
+      }
+      #mine_count {
+        float: left;
+      }
+      #timer {
+        float: right;
+      }
+      #indicator {
+        height: 26px;
+        width: 26px;
+        padding-right: 30px;
+        float: right;
+        background-repeat: no-repeat;
+      }
+      .lcd {
+        height: 21px;
+        width: 11px;
+        margin: 3px 1px;
+        float: left;
+        background-repeat: no-repeat;
+      }
+      .n0 {
+        background-image: url('images/0.gif');
+      }
+      .n1 {
+        background-image: url('images/1.gif');
+      }
+      .n2 {
+        background-image: url('images/2.gif');
+      }
+      .n3 {
+        background-image: url('images/3.gif');
+      }
+      .n4 {
+        background-image: url('images/4.gif');
+      }
+      .n5 {
+        background-image: url('images/5.gif');
+      }
+      .n6 {
+        background-image: url('images/6.gif');
+      }
+      .n7 {
+        background-image: url('images/7.gif');
+      }
+      .n8 {
+        background-image: url('images/8.gif');
+      }
+      .n9 {
+        background-image: url('images/9.gif');
+      }
+      .happy {
+        background-image: url('images/btnsmile.gif'); 
       }
       #bottom {
         height: 50px;
@@ -61,7 +114,19 @@
         <span id="title_right"></span>        
       </div>
       <div id="outer">
-        <div id="top"></div>
+        <div id="top">
+          <div id="mine_count">
+            <div id="t100" class="lcd n0"></div>
+            <div id="t10" class="lcd n0"></div>
+            <div id="t1" class="lcd n0"></div>
+          </div>
+          <div id="timer">
+            <div id="t100" class="lcd n0"></div>
+            <div id="t10" class="lcd n0"></div>
+            <div id="t1" class="lcd n0"></div>            
+          </div>
+          <div id="indicator" class="happy"></div>
+        </div>
         <div id="bottom"></div>
       </div>
     </div>
