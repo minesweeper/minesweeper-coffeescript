@@ -1,9 +1,10 @@
 <html>
   <head>
+    <link rel="stylesheet" href="stylesheets/reset.css"/>
     <style type="text/css">
       #minesweeper {
         margin: auto;
-        width: 180px;
+        width: 176px;
         border-width: 1px;
         border-style: outset;
         background-color: #BBB;
@@ -92,11 +93,21 @@
         background-image: url('images/btnsmile.gif'); 
       }
       #bottom {
-        height: 50px;
+        height: 56px;
         margin: 5px;
         border-width: 3px;
         border-style: inset;
         background-color: #BBB;
+      }
+      .cell {
+        height: 10px;
+        width: 10px;
+        border-width: 2px;
+        border-style: outset;
+        float: left;
+      }
+      #grid {
+        margin: auto;
       }
     </style>
     <script type="text/javascript" src="javascripts/jquery-1.6.2.min.js"></script>
@@ -128,7 +139,54 @@
             <div id="t1" class="lcd n0"></div>            
           </div>
         </div>
-        <div id="bottom"></div>
+        <div id="bottom">
+          <div id="grid">
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
