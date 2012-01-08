@@ -33,7 +33,11 @@ describe 'minesweeper', ->
       lastrow = line.split " "
       _.each lastrow, (char, col) ->
         mines.push [row, col] if char=='*'
-    Minesweeper.create '#jasmine_content', cols: lastrow.length, rows: lines.length, mines: mines, mineCount: mines.length
+    FieldPresenter.render '#jasmine_content',
+      cols: lastrow.length
+      rows: lines.length
+      mines: mines
+      mineCount: mines.length
 
   it 'should cycle through marked to uncertain to unclicked on right click', ->
     givenField """

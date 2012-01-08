@@ -1,6 +1,6 @@
 $ ->
   create = (opts) ->
-    Minesweeper.create '#minesweeper', opts
+    FieldPresenter.render '#minesweeper', opts
 
   presets =
     beginner:     rows: 9,  cols: 9,  mineCount: 10

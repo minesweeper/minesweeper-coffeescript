@@ -2,6 +2,7 @@ class window.Field
   constructor: (@opts) ->
 
   renderTo: (locator) ->
+    FieldView.render loca
     $(locator).width (this.opts.cols * 16) + 20
     $(locator).html this.render()
     $(locator).draggable();

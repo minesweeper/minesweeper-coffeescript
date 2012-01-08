@@ -3,7 +3,7 @@
   $(function() {
     var create, presets;
     create = function(opts) {
-      return Minesweeper.create('#minesweeper', opts);
+      return FieldPresenter.render('#minesweeper', opts);
     };
     presets = {
       beginner: {

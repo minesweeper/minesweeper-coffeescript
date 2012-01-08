@@ -53,7 +53,7 @@
           if (char === '*') return mines.push([row, col]);
         });
       });
-      return Minesweeper.create('#jasmine_content', {
+      return FieldPresenter.render('#jasmine_content', {
         cols: lastrow.length,
         rows: lines.length,
         mines: mines,

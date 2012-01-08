@@ -7,6 +7,7 @@
     }
 
     Field.prototype.renderTo = function(locator) {
+      FieldView.render(loca);
       $(locator).width((this.opts.cols * 16) + 20);
       $(locator).html(this.render());
       return $(locator).draggable();
