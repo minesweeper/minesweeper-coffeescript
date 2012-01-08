@@ -8,7 +8,8 @@
 
     Field.prototype.renderTo = function(locator) {
       $(locator).width((this.opts.cols * 16) + 20);
-      return $(locator).html(this.render());
+      $(locator).html(this.render());
+      return $(locator).draggable();
     };
 
     Field.prototype.render = function() {

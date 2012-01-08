@@ -1,12 +1,15 @@
+body {
+  background-color: teal; }
+
 #minesweeper {
-  margin: auto;
+  margin: auto auto;
   border-width: 1px;
   border-style: outset;
   background-color: #BBB;
   padding: 1px; }
 
 #title {
-  background-color: #008;
+  background-color: #000088;
   height: 18px; }
 
 #title_left {

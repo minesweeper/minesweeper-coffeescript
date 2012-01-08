@@ -4,6 +4,7 @@ class window.Field
   renderTo: (locator) ->
     $(locator).width (this.opts.cols * 16) + 20
     $(locator).html this.render()
+    $(locator).draggable();
 
   render: ->
     this.renderParent field: this.renderField()

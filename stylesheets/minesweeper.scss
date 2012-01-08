@@ -1,7 +1,12 @@
-$minesweeper_blue: #008;
+$windows95_titlebar: #008;
+$windows95_background: #008080;
+
+body {
+  background-color: $windows95_background;
+}
 
 #minesweeper {
-  margin: auto;
+  margin: auto auto;
   border-width: 1px;
   border-style: outset;
   background-color: #BBB;
@@ -9,7 +14,7 @@ $minesweeper_blue: #008;
 }
 
 #title {
-  background-color: #008;
+  background-color: $windows95_titlebar;
   height: 18px;
 }
 
