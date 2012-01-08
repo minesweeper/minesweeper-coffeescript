@@ -235,9 +235,9 @@ describe 'minesweeper', ->
     right_click 0, 1
     expect(cell_state(0, 1)).toEqual 'uncertain'
 
-  xit 'should change game indicator to cool when the game has been won', ->
+  it 'should change game indicator to won when the game has been won', ->
     givenField """
     * .
     """
     left_click 0, 1
-    expect(indicator_class()).toEqual 'statusCool'
+    expect(indicator_class()).toEqual 'statusWon'

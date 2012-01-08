@@ -16,19 +16,24 @@ click_cell = (cell) ->
   [r,c] = cell
   $("#r#{r}c#{c}").trigger type: 'mouseup', which: 1
 
+end_game = (status) ->
+  Timer.stop()
+  change_indicator_status_to status
+
 reveal_unclicked_cell = (element) ->
   match = /r(\d+)c(\d+)/.exec element.attr 'id'
   [row,col] = [parseInt(match[1]),parseInt(match[2])]
   if current.hasMine(row, col)
-    change_indicator_status_to 'Dead'
     _.each current.opts.mines, (cell) -> click_cell cell
-    Timer.stop()
+    end_game 'Dead'
     game_state.lose()
     element.attr 'class', 'mine'
   else
-    return if game_state.lost
+    return if game_state.finished
     adjacentCount = current.adjacentCount row, col
     element.attr 'class', "mines#{adjacentCount}"
+    game_state.reveal_cell()
+    end_game 'Won' if game_state.won
     if adjacentCount == 0
       _.each current.neighbours(row, col), (cell) -> click_cell cell
 
@@ -37,19 +42,19 @@ adjust_remaining = (increment) ->
   remaining_mines_lcd.display game_state.remaining_mines
 
 set_unclicked_to_marked = (element) ->
-  return if game_state.lost
+  return if game_state.finished
   element.attr 'class', 'marked'
   element.bind 'mouseup', marked_mouseup
   adjust_remaining -1
 
 set_marked_to_uncertain = (element) ->
-  return if game_state.lost
+  return if game_state.finished
   element.attr 'class', 'uncertain'
   element.bind 'mouseup', uncertain_mouseup
   adjust_remaining 1
 
 set_uncertain_to_unclicked = (element) ->
-  return if game_state.lost
+  return if game_state.finished
   element.attr 'class', 'unclicked'
   element.bind 'mouseup', unclicked_mouseup
 

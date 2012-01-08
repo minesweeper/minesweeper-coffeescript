@@ -200,10 +200,10 @@
       right_click(0, 1);
       return expect(cell_state(0, 1)).toEqual('uncertain');
     });
-    return xit('should change game indicator to cool when the game has been won', function() {
+    return it('should change game indicator to won when the game has been won', function() {
       givenField("* .");
       left_click(0, 1);
-      return expect(indicator_class()).toEqual('statusCool');
+      return expect(indicator_class()).toEqual('statusWon');
     });
   });
 

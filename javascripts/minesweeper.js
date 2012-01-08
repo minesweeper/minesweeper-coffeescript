@@ -1,5 +1,5 @@
 (function() {
-  var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, game_state, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
 
@@ -30,22 +30,28 @@
     });
   };
 
+  end_game = function(status) {
+    Timer.stop();
+    return change_indicator_status_to(status);
+  };
+
   reveal_unclicked_cell = function(element) {
     var adjacentCount, col, match, row, _ref;
     match = /r(\d+)c(\d+)/.exec(element.attr('id'));
     _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
     if (current.hasMine(row, col)) {
-      change_indicator_status_to('Dead');
       _.each(current.opts.mines, function(cell) {
         return click_cell(cell);
       });
-      Timer.stop();
+      end_game('Dead');
       game_state.lose();
       return element.attr('class', 'mine');
     } else {
-      if (game_state.lost) return;
+      if (game_state.finished) return;
       adjacentCount = current.adjacentCount(row, col);
       element.attr('class', "mines" + adjacentCount);
+      game_state.reveal_cell();
+      if (game_state.won) end_game('Won');
       if (adjacentCount === 0) {
         return _.each(current.neighbours(row, col), function(cell) {
           return click_cell(cell);
@@ -60,21 +66,21 @@
   };
 
   set_unclicked_to_marked = function(element) {
-    if (game_state.lost) return;
+    if (game_state.finished) return;
     element.attr('class', 'marked');
     element.bind('mouseup', marked_mouseup);
     return adjust_remaining(-1);
   };
 
   set_marked_to_uncertain = function(element) {
-    if (game_state.lost) return;
+    if (game_state.finished) return;
     element.attr('class', 'uncertain');
     element.bind('mouseup', uncertain_mouseup);
     return adjust_remaining(1);
   };
 
   set_uncertain_to_unclicked = function(element) {
-    if (game_state.lost) return;
+    if (game_state.finished) return;
     element.attr('class', 'unclicked');
     return element.bind('mouseup', unclicked_mouseup);
   };

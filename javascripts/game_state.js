@@ -4,12 +4,23 @@
 
     function GameState(field) {
       this.field = field;
-      this.remaining_mines = this.field.opts.mineCount;
+      this.remaining_mines = field.opts.mineCount;
+      this.remaining_cells = field.opts.rows * field.opts.cols - field.opts.mineCount;
       this.lost = false;
+      this.won = false;
     }
 
     GameState.prototype.lose = function() {
-      return this.lost = true;
+      this.lost = true;
+      return this.finished = true;
+    };
+
+    GameState.prototype.reveal_cell = function() {
+      this.remaining_cells -= 1;
+      if (this.remaining_cells < 1) {
+        this.won = true;
+        return this.finished = true;
+      }
     };
 
     return GameState;

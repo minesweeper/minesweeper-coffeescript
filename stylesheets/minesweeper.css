@@ -99,6 +99,10 @@
   width: 28;
   background-image: url("../images/btndead.gif"); }
 
+.statusWon {
+  width: 28;
+  background-image: url("../images/btncool.gif"); }
+
 .statusAlivePressed {
   width: 28;
   background-image: url("../images/btnsmile2.gif"); }
