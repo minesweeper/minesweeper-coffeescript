@@ -104,7 +104,9 @@ window.FieldPresenter =
       set_game()
 
     set_game = ->
-      $(minesweeper_locator).width (current.opts.cols * 16) + 20
+      count = current.opts.cols
+      count = 8 if count < 8
+      $(minesweeper_locator).width (count * 16) + 20
       $(minesweeper_locator).html renderParent field: renderField current
       $(minesweeper_locator).draggable();
       remaining_mines_lcd.display current.opts.mineCount

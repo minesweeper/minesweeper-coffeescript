@@ -122,7 +122,10 @@
         return set_game();
       };
       set_game = function() {
-        $(minesweeper_locator).width((current.opts.cols * 16) + 20);
+        var count;
+        count = current.opts.cols;
+        if (count < 8) count = 8;
+        $(minesweeper_locator).width((count * 16) + 20);
         $(minesweeper_locator).html(renderParent({
           field: renderField(current)
         }));
