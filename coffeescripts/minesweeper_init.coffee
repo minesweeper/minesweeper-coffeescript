@@ -6,3 +6,4 @@ $ ->
     Minesweeper.create locator, rows: 16, cols: 16, mineCount: 40
   $('#expert').click ->
     Minesweeper.create locator, rows: 16, cols: 30, mineCount: 99
+  $('#intermediate').trigger 'click'

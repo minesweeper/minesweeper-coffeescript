@@ -17,13 +17,14 @@
         mineCount: 40
       });
     });
-    return $('#expert').click(function() {
+    $('#expert').click(function() {
       return Minesweeper.create(locator, {
         rows: 16,
         cols: 30,
         mineCount: 99
       });
     });
+    return $('#intermediate').trigger('click');
   });
 
 }).call(this);
