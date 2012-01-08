@@ -245,3 +245,11 @@ describe 'minesweeper', ->
     """
     left_click 0, 1
     expect(indicator_class()).toEqual 'status won'
+
+  it 'should ignore left clicks once a game has been won', ->
+    givenField """
+    * .
+    """
+    left_click 0, 1
+    left_click 0, 0
+    expect(cell_state(0, 0)).toEqual 'unclicked'

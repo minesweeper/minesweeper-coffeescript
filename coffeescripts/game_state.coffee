@@ -7,10 +7,10 @@ class window.GameState
 
   lose: ->
     this.lost = true
-    this.finished = true
 
   reveal_cell: ->
     this.remaining_cells -= 1
-    if this.remaining_cells < 1
-      this.won = true 
-      this.finished = true
+    this.won = true if this.remaining_cells < 1
+
+  finished: ->
+    this.won or this.lost

@@ -200,10 +200,16 @@
       right_click(0, 1);
       return expect(cell_state(0, 1)).toEqual('uncertain');
     });
-    return it('should change game indicator to won when the game has been won', function() {
+    it('should change game indicator to won when the game has been won', function() {
       givenField("* .");
       left_click(0, 1);
       return expect(indicator_class()).toEqual('status won');
+    });
+    return it('should ignore left clicks once a game has been won', function() {
+      givenField("* .");
+      left_click(0, 1);
+      left_click(0, 0);
+      return expect(cell_state(0, 0)).toEqual('unclicked');
     });
   });
 

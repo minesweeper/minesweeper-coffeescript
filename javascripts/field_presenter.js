@@ -57,7 +57,7 @@
           game_state.lose();
           return element.attr('class', 'mine');
         } else {
-          if (game_state.finished) return;
+          if (game_state.finished()) return;
           adjacentCount = current.adjacentCount(row, col);
           element.attr('class', "mines" + adjacentCount);
           game_state.reveal_cell();
@@ -74,19 +74,19 @@
         return remaining_mines_lcd.display(game_state.remaining_mines);
       };
       set_unclicked_to_marked = function(element) {
-        if (game_state.finished) return;
+        if (game_state.finished()) return;
         element.attr('class', 'marked');
         element.bind('mouseup', marked_mouseup);
         return adjust_remaining(-1);
       };
       set_marked_to_uncertain = function(element) {
-        if (game_state.finished) return;
+        if (game_state.finished()) return;
         element.attr('class', 'uncertain');
         element.bind('mouseup', uncertain_mouseup);
         return adjust_remaining(1);
       };
       set_uncertain_to_unclicked = function(element) {
-        if (game_state.finished) return;
+        if (game_state.finished()) return;
         element.attr('class', 'unclicked');
         return element.bind('mouseup', unclicked_mouseup);
       };
@@ -105,6 +105,7 @@
       unclicked_mouseup = function(event) {
         if (left_clicked(event)) {
           $(this).unbind(event);
+          if (game_state.finished()) return;
           return reveal_unclicked_cell($(this));
         } else {
           if (game_state.remaining_mines !== 0) {

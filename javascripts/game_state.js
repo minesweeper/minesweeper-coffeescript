@@ -11,16 +11,16 @@
     }
 
     GameState.prototype.lose = function() {
-      this.lost = true;
-      return this.finished = true;
+      return this.lost = true;
     };
 
     GameState.prototype.reveal_cell = function() {
       this.remaining_cells -= 1;
-      if (this.remaining_cells < 1) {
-        this.won = true;
-        return this.finished = true;
-      }
+      if (this.remaining_cells < 1) return this.won = true;
+    };
+
+    GameState.prototype.finished = function() {
+      return this.won || this.lost;
     };
 
     return GameState;

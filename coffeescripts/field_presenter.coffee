@@ -47,7 +47,7 @@ window.FieldPresenter =
         game_state.lose()
         element.attr 'class', 'mine'
       else
-        return if game_state.finished
+        return if game_state.finished()
         adjacentCount = current.adjacentCount row, col
         element.attr 'class', "mines#{adjacentCount}"
         game_state.reveal_cell()
@@ -60,19 +60,19 @@ window.FieldPresenter =
       remaining_mines_lcd.display game_state.remaining_mines
 
     set_unclicked_to_marked = (element) ->
-      return if game_state.finished
+      return if game_state.finished()
       element.attr 'class', 'marked'
       element.bind 'mouseup', marked_mouseup
       adjust_remaining -1
 
     set_marked_to_uncertain = (element) ->
-      return if game_state.finished
+      return if game_state.finished()
       element.attr 'class', 'uncertain'
       element.bind 'mouseup', uncertain_mouseup
       adjust_remaining 1
 
     set_uncertain_to_unclicked = (element) ->
-      return if game_state.finished
+      return if game_state.finished()
       element.attr 'class', 'unclicked'
       element.bind 'mouseup', unclicked_mouseup
 
@@ -89,6 +89,7 @@ window.FieldPresenter =
     unclicked_mouseup = (event) ->
       if left_clicked event
         $(this).unbind event
+        return if game_state.finished()
         reveal_unclicked_cell $(this)
       else
         unless game_state.remaining_mines == 0
