@@ -1,14 +1,4 @@
 describe 'Field', ->
-  it 'should render field content', ->
-    f = new Field rows: 1, cols: 1
-    expect(f.renderField()).toEqual """
-    <table>
-    <tr class="field">
-    <td class="unclicked" id="r0c0"></td>
-    </tr>
-    </table>
-    """
-
   describe 'neighbours', ->
     field = new Field rows: 3, cols: 3
 
