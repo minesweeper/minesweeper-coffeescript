@@ -1,6 +1,12 @@
 class window.Field
   constructor: (opts) ->
     this.opts = opts
+    opts.rows = 1 unless opts.rows
+    opts.rows = 1 unless opts.rows > 0
+    opts.cols = 2 unless opts.cols
+    opts.cols = 2 unless opts.cols > 1
+    opts.mineCount = 1 unless opts.mineCount
+    opts.mineCount = 1 unless opts.mineCount > 0
     if opts.mineCount >= opts.rows * opts.cols
       opts.mineCount = opts.rows * opts.cols - 1
 

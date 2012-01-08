@@ -4,6 +4,30 @@ describe 'Field', ->
       field = new Field rows: 3, cols: 3, mineCount: 9
       expect(field.opts.mineCount).toEqual 8
 
+    it 'should set rows to 1 if unspecified', ->
+      field = new Field {}
+      expect(field.opts.rows).toEqual 1
+
+    it 'should set rows to 1 if less than 1', ->
+      field = new Field rows: 0
+      expect(field.opts.rows).toEqual 1
+
+    it 'should set cols to 2 if unspecified', ->
+      field = new Field {}
+      expect(field.opts.cols).toEqual 2
+
+    it 'should set cols to 2 if less than 1', ->
+      field = new Field cols: 1
+      expect(field.opts.cols).toEqual 2
+
+    it 'should set mineCount to 1 if unspecified', ->
+      field = new Field {}
+      expect(field.opts.mineCount).toEqual 1
+
+    it 'should set mineCount to 1 if less than 1', ->
+      field = new Field mineCount: 0
+      expect(field.opts.mineCount).toEqual 1
+
   describe 'neighbours', ->
     field = new Field rows: 3, cols: 3
 
@@ -36,12 +60,12 @@ describe 'Field', ->
       expect(field.hasMine(0,0)).toEqual false
 
   describe 'mine placement', ->
-    field = new Field rows: 2, cols:1, mineCount: 1
+    field = new Field rows: 1, cols:2, mineCount: 1
 
     it 'should place a mine after a call to hasMine', ->
       expect(field.hasMine(0,0)).toEqual false
       expect(field.opts.mines.length).toEqual 1
-      expect(field.opts.mines[0]).toEqual [1, 0 ]
+      expect(field.opts.mines[0]).toEqual [0, 1]
 
   describe 'adjacent mine count', ->
     field = null

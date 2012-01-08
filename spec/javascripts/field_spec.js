@@ -2,7 +2,7 @@
 
   describe('Field', function() {
     describe('validation', function() {
-      return it('should decrease number of mines according to rows and columns', function() {
+      it('should decrease number of mines according to rows and columns', function() {
         var field;
         field = new Field({
           rows: 3,
@@ -10,6 +10,42 @@
           mineCount: 9
         });
         return expect(field.opts.mineCount).toEqual(8);
+      });
+      it('should set rows to 1 if unspecified', function() {
+        var field;
+        field = new Field({});
+        return expect(field.opts.rows).toEqual(1);
+      });
+      it('should set rows to 1 if less than 1', function() {
+        var field;
+        field = new Field({
+          rows: 0
+        });
+        return expect(field.opts.rows).toEqual(1);
+      });
+      it('should set cols to 2 if unspecified', function() {
+        var field;
+        field = new Field({});
+        return expect(field.opts.cols).toEqual(2);
+      });
+      it('should set cols to 2 if less than 1', function() {
+        var field;
+        field = new Field({
+          cols: 1
+        });
+        return expect(field.opts.cols).toEqual(2);
+      });
+      it('should set mineCount to 1 if unspecified', function() {
+        var field;
+        field = new Field({});
+        return expect(field.opts.mineCount).toEqual(1);
+      });
+      return it('should set mineCount to 1 if less than 1', function() {
+        var field;
+        field = new Field({
+          mineCount: 0
+        });
+        return expect(field.opts.mineCount).toEqual(1);
       });
     });
     describe('neighbours', function() {
@@ -45,14 +81,14 @@
     describe('mine placement', function() {
       var field;
       field = new Field({
-        rows: 2,
-        cols: 1,
+        rows: 1,
+        cols: 2,
         mineCount: 1
       });
       return it('should place a mine after a call to hasMine', function() {
         expect(field.hasMine(0, 0)).toEqual(false);
         expect(field.opts.mines.length).toEqual(1);
-        return expect(field.opts.mines[0]).toEqual([1, 0]);
+        return expect(field.opts.mines[0]).toEqual([0, 1]);
       });
     });
     return describe('adjacent mine count', function() {

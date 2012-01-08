@@ -4,6 +4,12 @@
 
     function Field(opts) {
       this.opts = opts;
+      if (!opts.rows) opts.rows = 1;
+      if (!(opts.rows > 0)) opts.rows = 1;
+      if (!opts.cols) opts.cols = 2;
+      if (!(opts.cols > 1)) opts.cols = 2;
+      if (!opts.mineCount) opts.mineCount = 1;
+      if (!(opts.mineCount > 0)) opts.mineCount = 1;
       if (opts.mineCount >= opts.rows * opts.cols) {
         opts.mineCount = opts.rows * opts.cols - 1;
       }
