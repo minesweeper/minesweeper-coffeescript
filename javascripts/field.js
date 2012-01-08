@@ -6,75 +6,27 @@
       this.opts = opts;
     }
 
+    Field.prototype.renderTo = function(locator) {
+      $(locator).width((this.opts.cols * 16) + 20);
+      return $(locator).html(this.render());
+    };
+
     Field.prototype.render = function() {
-      return this.renderBorder("light lightest light") + this.renderTitleBar() + this.renderSeparator('t') + this.renderControlPanel() + this.renderSeparator('m') + this.renderField() + this.renderSeparator('b') + this.renderBorder("light dark darkest");
-    };
-
-    Field.prototype.renderTemplate = function(template, view) {
-      var partials;
-      partials = {
-        leader: "<td class=\"light stripe\" />\n<td class=\"lightest stripe\" />\n<td class=\"light stripe\" />",
-        trailer: "<td class=\"light stripe\" />\n<td class=\"dark stripe\" />\n<td class=\"darkest stripe\" />"
-      };
-      return Mustache.to_html(template, view, partials);
-    };
-
-    Field.prototype.renderBorder = function(classes) {
-      var template, width;
-      template = "<table>\n{{#classes}}\n<tr class=\"border\">\n<td class=\"{{.}}\" width=\"{{width}}\"></td>\n</tr>\n{{/classes}}\n</table>";
-      width = (this.opts.cols * 16) + 30;
-      return Mustache.to_html(template, {
-        width: width,
-        twidth: width + 6,
-        classes: classes.split(' ')
+      return this.renderParent({
+        field: this.renderField()
       });
     };
 
-    Field.prototype.renderTitleBar = function() {
-      var gap, template;
-      template = "<table>\n<tr class=\"title_bar\">\n{{>leader}}\n<td class=\"title\" />\n<td class=\"gap\" width=\"{{width}}\" />\n<td class=\"buttons\" />\n{{>trailer}}\n</tr>\n</table>";
-      gap = this.opts.cols * 16 + 24;
-      gap -= 94;
-      gap -= 52;
-      return this.renderTemplate(template, {
-        width: gap
-      });
-    };
-
-    Field.prototype.renderSeparator = function(position) {
+    Field.prototype.renderParent = function(view) {
       var template;
-      template = "<table>\n<tr class=\"separator\">\n{{>leader}}\n<td class=\"edge ml\"></td>\n<td class=\"separator\" width=\"{{width}}\"></td>\n<td class=\"edge mr\"\"></td>\n{{>trailer}}\n</tr>\n</table>";
-      return this.renderTemplate(template, {
-        position: position,
-        width: this.opts.cols * 16
-      });
-    };
-
-    Field.prototype.renderLcd = function(id) {
-      var template;
-      template = "<td class=\"lcd n0\" id=\"{{id}}100s\" />\n<td class=\"lcd n0\" id=\"{{id}}10s\" />\n<td class=\"lcd n0\" id=\"{{id}}1s\" />";
-      return Mustache.to_html(template, {
-        id: id
-      });
-    };
-
-    Field.prototype.renderControlPanel = function() {
-      var gap, template;
-      template = "<table>\n<tr class=\"control_panel\">\n{{>leader}}\n<td class=\"field_side\" />\n{{{lcdMinesRemaining}}}\n<td class=\"gap\" width=\"{{width}}\" />\n<td id=\"indicator\" class=\"statusAlive\" />\n<td class=\"gap\" width=\"{{width}}\" />\n{{{lcdTimer}}}\n<td class=\"field_side\" />\n{{>trailer}}\n</tr>\n</table>";
-      gap = this.opts.cols * 8;
-      gap -= 3 * 14;
-      gap -= 17;
-      return this.renderTemplate(template, {
-        lcdMinesRemaining: this.renderLcd('minesRemaining'),
-        lcdTimer: this.renderLcd('timer'),
-        width: gap
-      });
+      template = "<div id=\"title\">\n  <span id=\"title_left\"></span>\n  <span id=\"title_right\"></span>        \n</div>\n<div id=\"outer\">\n  <div id=\"top\">\n    <div id=\"minesRemaining\">\n      <div id=\"minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"indicator\" class=\"statusAlive\"></span>\n    <div id=\"timer\">\n      <div id=\"timer100s\" class=\"lcd n0\"></div>\n      <div id=\"timer10s\" class=\"lcd n0\"></div>\n      <div id=\"timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div id=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
+      return Mustache.to_html(template, view);
     };
 
     Field.prototype.renderField = function() {
       var col, row, template;
-      template = "<table>\n{{#rows}}\n<tr class=\"field\">\n{{>leader}}\n<td class=\"field_side\" />\n{{#cells}}\n<td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n{{/cells}}\n<td class=\"field_side\" />\n{{>trailer}}\n</tr>\n{{/rows}}\n</table>";
-      return this.renderTemplate(template, {
+      template = "<table>\n{{#rows}}\n<tr class=\"field\">\n{{#cells}}\n<td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n{{/cells}}\n</tr>\n{{/rows}}\n</table>";
+      return Mustache.to_html(template, {
         rows: (function() {
           var _ref, _results;
           _results = [];

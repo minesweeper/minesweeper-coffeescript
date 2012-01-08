@@ -119,7 +119,7 @@
   };
 
   set_game = function() {
-    $(minesweeper_locator).html(current.render());
+    current.renderTo(minesweeper_locator);
     remaining_mines_lcd.display(current.opts.mineCount);
     failed = false;
     $('.unclicked').bind('contextmenu', function() {

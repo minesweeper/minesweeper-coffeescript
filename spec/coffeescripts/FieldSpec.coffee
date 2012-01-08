@@ -4,13 +4,7 @@ describe 'Field', ->
     expect(f.renderField()).toEqual """
     <table>
     <tr class="field">
-    <td class="dstripe" />
-    <td class="lstripe" />
-    <td class="dstripe" />
     <td class="unclicked" id="r0c0"></td>
-    <td class="dstripe" />
-    <td class="lstripe" />
-    <td class="dstripe" />
     </tr>
     </table>
     """
