@@ -8,27 +8,27 @@ body {
   background-color: #BBB;
   padding: 1px; }
 
-#title {
+.title {
   background-color: #000088;
   height: 18px; }
 
-#title_left {
+.title_left {
   float: left;
   background-image: url("../images/title.gif");
   height: 18px;
   width: 94px; }
 
-#title_right {
+.title_right {
   float: right;
   background-image: url("../images/buttons.gif");
   height: 18px;
   width: 52px; }
 
-#outer {
+.outer {
   border: 3px outset #EEE;
   background-color: #BBB; }
 
-#top {
+.top {
   height: 26px;
   margin: 5px;
   border: 3px inset #EEE;
@@ -36,10 +36,10 @@ body {
   text-align: center;
   font-size: 22px; }
 
-#minesRemaining {
+.minesRemaining {
   float: left; }
 
-#timer {
+.timer {
   float: right; }
 
 #indicator {
@@ -48,7 +48,7 @@ body {
   padding-right: 30px;
   background-repeat: no-repeat; }
 
-#bottom {
+.bottom {
   margin: 5px;
   border: 3px inset #EEE;
   background-color: #BBB; }

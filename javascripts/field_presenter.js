@@ -130,7 +130,7 @@
       };
       renderParent = function(view) {
         var template;
-        template = "<div id=\"title\">\n  <span id=\"title_left\"></span>\n  <span id=\"title_right\"></span>        \n</div>\n<div id=\"outer\">\n  <div id=\"top\">\n    <div id=\"minesRemaining\">\n      <div id=\"minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"indicator\" class=\"statusAlive\"></span>\n    <div id=\"timer\">\n      <div id=\"timer100s\" class=\"lcd n0\"></div>\n      <div id=\"timer10s\" class=\"lcd n0\"></div>\n      <div id=\"timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div id=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
+        template = "<div class=\"title\">\n  <span class=\"title_left\"></span>\n  <span class=\"title_right\"></span>        \n</div>\n<div class=\"outer\">\n  <div class=\"top\">\n    <div class=\"minesRemaining\">\n      <div id=\"minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"indicator\" class=\"statusAlive\"></span>\n    <div class=\"timer\">\n      <div id=\"timer100s\" class=\"lcd n0\"></div>\n      <div id=\"timer10s\" class=\"lcd n0\"></div>\n      <div id=\"timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div class=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
         return Mustache.to_html(template, view);
       };
       renderField = function(field) {

@@ -110,25 +110,25 @@ window.FieldPresenter =
     renderParent = (view) ->
       template =
         """
-        <div id="title">
-          <span id="title_left"></span>
-          <span id="title_right"></span>        
+        <div class="title">
+          <span class="title_left"></span>
+          <span class="title_right"></span>        
         </div>
-        <div id="outer">
-          <div id="top">
-            <div id="minesRemaining">
+        <div class="outer">
+          <div class="top">
+            <div class="minesRemaining">
               <div id="minesRemaining100s" class="lcd n0"></div>
               <div id="minesRemaining10s" class="lcd n0"></div>
               <div id="minesRemaining1s" class="lcd n0"></div>
             </div>
             <span id="indicator" class="statusAlive"></span>
-            <div id="timer">
+            <div class="timer">
               <div id="timer100s" class="lcd n0"></div>
               <div id="timer10s" class="lcd n0"></div>
               <div id="timer1s" class="lcd n0"></div>            
             </div>
           </div>
-          <div id="bottom">
+          <div class="bottom">
           {{{field}}
           </div>
         </div>
