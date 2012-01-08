@@ -1,4 +1,14 @@
+minesweeper_count = 0
+
 window.FieldPresenter =
+  append: (minesweepers_locator, opts) ->
+    minesweeper_count += 1
+    minesweeper_id = "minesweeper#{minesweeper_count}"
+    $(minesweepers_locator).append """
+    <div id="#{minesweeper_id}" class="minesweeper"></div>
+    """
+    FieldPresenter.render "##{minesweeper_id}", opts
+
   render: (minesweeper_locator, opts) ->
     current = new Field opts
     remaining_mines_lcd = new Lcd 'minesRemaining'

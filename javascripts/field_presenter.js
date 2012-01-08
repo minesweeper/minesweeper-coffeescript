@@ -1,6 +1,16 @@
 (function() {
+  var minesweeper_count;
+
+  minesweeper_count = 0;
 
   window.FieldPresenter = {
+    append: function(minesweepers_locator, opts) {
+      var minesweeper_id;
+      minesweeper_count += 1;
+      minesweeper_id = "minesweeper" + minesweeper_count;
+      $(minesweepers_locator).append("<div id=\"" + minesweeper_id + "\" class=\"minesweeper\"></div>");
+      return FieldPresenter.render("#" + minesweeper_id, opts);
+    },
     render: function(minesweeper_locator, opts) {
       var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, indicator_pressed, left_clicked, marked_mouseup, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
       current = new Field(opts);

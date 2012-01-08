@@ -1,7 +1,7 @@
 body {
   background-color: teal; }
 
-#minesweeper {
+.minesweeper {
   margin: auto auto;
   border-width: 1px;
   border-style: outset;
