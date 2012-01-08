@@ -1,5 +1,5 @@
 (function() {
-  var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, failed, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines, remaining_mines_lcd, reset_game, reveal_unclicked_cell, revealed_count, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+  var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, game_state, indicator_pressed, left_clicked, marked_mouseup, minesweeper_locator, remaining_mines_lcd, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
 
   current = null;
 
@@ -7,9 +7,7 @@
 
   remaining_mines_lcd = new Lcd('minesRemaining');
 
-  remaining_mines = null;
-
-  failed = false;
+  game_state = null;
 
   left_clicked = function(event) {
     return event.which === 1;
@@ -32,8 +30,6 @@
     });
   };
 
-  revealed_count = function() {};
-
   reveal_unclicked_cell = function(element) {
     var adjacentCount, col, match, row, _ref;
     match = /r(\d+)c(\d+)/.exec(element.attr('id'));
@@ -44,10 +40,10 @@
         return click_cell(cell);
       });
       Timer.stop();
-      failed = true;
+      game_state.lose();
       return element.attr('class', 'mine');
     } else {
-      if (failed) return;
+      if (game_state.lost) return;
       adjacentCount = current.adjacentCount(row, col);
       element.attr('class', "mines" + adjacentCount);
       if (adjacentCount === 0) {
@@ -59,26 +55,26 @@
   };
 
   adjust_remaining = function(increment) {
-    remaining_mines += increment;
-    return remaining_mines_lcd.display(remaining_mines);
+    game_state.remaining_mines += increment;
+    return remaining_mines_lcd.display(game_state.remaining_mines);
   };
 
   set_unclicked_to_marked = function(element) {
-    if (failed) return;
+    if (game_state.lost) return;
     element.attr('class', 'marked');
     element.bind('mouseup', marked_mouseup);
     return adjust_remaining(-1);
   };
 
   set_marked_to_uncertain = function(element) {
-    if (failed) return;
+    if (game_state.lost) return;
     element.attr('class', 'uncertain');
     element.bind('mouseup', uncertain_mouseup);
     return adjust_remaining(1);
   };
 
   set_uncertain_to_unclicked = function(element) {
-    if (failed) return;
+    if (game_state.lost) return;
     element.attr('class', 'unclicked');
     return element.bind('mouseup', unclicked_mouseup);
   };
@@ -102,7 +98,7 @@
       $(this).unbind(event);
       return reveal_unclicked_cell($(this));
     } else {
-      if (remaining_mines !== 0) {
+      if (game_state.remaining_mines !== 0) {
         $(this).unbind(event);
         return set_unclicked_to_marked($(this));
       }
@@ -121,14 +117,13 @@
   set_game = function() {
     current.renderTo(minesweeper_locator);
     remaining_mines_lcd.display(current.opts.mineCount);
-    failed = false;
     $('.unclicked').bind('contextmenu', function() {
       return false;
     });
     $('.unclicked').bind('mouseup', unclicked_mouseup);
     $('#indicator').bind('mouseup', reset_game);
     $('#indicator').bind('mousedown', indicator_pressed);
-    remaining_mines = current.opts.mineCount;
+    game_state = new GameState(current);
     return Timer.start();
   };
 
