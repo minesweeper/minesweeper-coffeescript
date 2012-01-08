@@ -3,19 +3,19 @@
   describe('minesweeper', function() {
     var cell_state, cls, givenField, indicator_class, indicator_click, indicator_press, left_click, remaining_mines, right_click;
     right_click = function(row, col) {
-      return $("#r" + row + "c" + col).trigger({
+      return $("#g1r" + row + "c" + col).trigger({
         type: 'mouseup',
         which: 2
       });
     };
     left_click = function(row, col) {
-      return $("#r" + row + "c" + col).trigger({
+      return $("#g1r" + row + "c" + col).trigger({
         type: 'mouseup',
         which: 1
       });
     };
     indicator_press = function() {
-      return $("#indicator").trigger({
+      return $("#g1indicator").trigger({
         type: 'mousedown'
       });
     };
@@ -23,21 +23,21 @@
       return $("#" + id).attr('class');
     };
     indicator_click = function() {
-      return $("#indicator").trigger({
+      return $("#g1indicator").trigger({
         type: 'mouseup'
       });
     };
     indicator_class = function() {
-      return cls('indicator');
+      return cls('g1indicator');
     };
     cell_state = function(row, col) {
-      return cls("r" + row + "c" + col);
+      return cls("g1r" + row + "c" + col);
     };
     remaining_mines = function() {
       var lcd_digit;
       lcd_digit = function(exponent) {
         var match;
-        match = /lcd n(\d)/.exec(cls("minesRemaining" + exponent + "s"));
+        match = /lcd n(\d)/.exec(cls("g1minesRemaining" + exponent + "s"));
         return match[1];
       };
       return parseInt("" + (lcd_digit(100)) + (lcd_digit(10)) + (lcd_digit(1)));
@@ -132,7 +132,7 @@
     it('should display depressed button when indicator button is clicked', function() {
       givenField(".");
       indicator_press();
-      return expect(indicator_class()).toEqual('statusAlivePressed');
+      return expect(indicator_class()).toEqual('status alivePressed');
     });
     it('should reset game when indicator button is clicked', function() {
       givenField(".");
@@ -166,7 +166,7 @@
     it('should change game indicator to dead when a mine is clicked', function() {
       givenField("* .");
       left_click(0, 0);
-      return expect(indicator_class()).toEqual('statusDead');
+      return expect(indicator_class()).toEqual('status dead');
     });
     it('should reveal all mines when a mine is clicked', function() {
       givenField("* * .");
@@ -203,7 +203,7 @@
     return it('should change game indicator to won when the game has been won', function() {
       givenField("* .");
       left_click(0, 1);
-      return expect(indicator_class()).toEqual('statusWon');
+      return expect(indicator_class()).toEqual('status won');
     });
   });
 

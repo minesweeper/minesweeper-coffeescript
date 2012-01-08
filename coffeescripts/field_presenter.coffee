@@ -7,28 +7,35 @@ window.FieldPresenter =
     $(minesweepers_locator).append """
     <div id="#{minesweeper_id}" class="minesweeper"></div>
     """
-    FieldPresenter.render "##{minesweeper_id}", opts
+    FieldPresenter.render "##{minesweeper_id}", opts, minesweeper_count
 
-  render: (minesweeper_locator, opts) ->
+  render: (minesweeper_locator, opts, index=1) ->
+    id = (name) ->
+      "g#{index}#{name}"
+
+    selector = (name) ->
+      "##{id name}"
+
     current = new Field opts
-    remaining_mines_lcd = new Lcd 'minesRemaining'
+    remaining_mines_lcd = new Lcd id 'minesRemaining'
     game_state = null
+    timer = Timer.create id 'timer'
 
     left_clicked = (event) ->
       event.which == 1
 
     change_class_to = (id, cls) ->
-      $("##{id}").attr 'class', cls
+      $(selector id).attr 'class', cls
 
     change_indicator_status_to = (status) ->
-      change_class_to 'indicator', "status#{status}"
+      change_class_to 'indicator', "status #{status}"
 
     click_cell = (cell) ->
       [r,c] = cell
-      $("#r#{r}c#{c}").trigger type: 'mouseup', which: 1
+      $(selector "r#{r}c#{c}").trigger type: 'mouseup', which: 1
 
     end_game = (status) ->
-      Timer.stop()
+      timer.stop()
       change_indicator_status_to status
 
     reveal_unclicked_cell = (element) ->
@@ -36,7 +43,7 @@ window.FieldPresenter =
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
       if current.hasMine(row, col)
         _.each current.opts.mines, (cell) -> click_cell cell
-        end_game 'Dead'
+        end_game 'dead'
         game_state.lose()
         element.attr 'class', 'mine'
       else
@@ -44,7 +51,7 @@ window.FieldPresenter =
         adjacentCount = current.adjacentCount row, col
         element.attr 'class', "mines#{adjacentCount}"
         game_state.reveal_cell()
-        end_game 'Won' if game_state.won
+        end_game 'won' if game_state.won
         if adjacentCount == 0
           _.each current.neighbours(row, col), (cell) -> click_cell cell
 
@@ -89,7 +96,7 @@ window.FieldPresenter =
           set_unclicked_to_marked $(this)
 
     indicator_pressed = ->
-      $(this).attr 'class', 'statusAlivePressed'
+      $(this).attr 'class', 'status alivePressed'
 
     reset_game = ->
       current.opts.mines = null
@@ -102,10 +109,10 @@ window.FieldPresenter =
       remaining_mines_lcd.display current.opts.mineCount
       $('.unclicked').bind 'contextmenu', -> false
       $('.unclicked').bind 'mouseup', unclicked_mouseup
-      $('#indicator').bind 'mouseup', reset_game
-      $('#indicator').bind 'mousedown', indicator_pressed
+      $("#g#{index}indicator").bind 'mouseup', reset_game
+      $("#g#{index}indicator").bind 'mousedown', indicator_pressed
       game_state = new GameState current
-      Timer.start()
+      timer.start()
 
     renderParent = (view) ->
       template =
@@ -117,15 +124,15 @@ window.FieldPresenter =
         <div class="outer">
           <div class="top">
             <div class="minesRemaining">
-              <div id="minesRemaining100s" class="lcd n0"></div>
-              <div id="minesRemaining10s" class="lcd n0"></div>
-              <div id="minesRemaining1s" class="lcd n0"></div>
+              <div id="g#{index}minesRemaining100s" class="lcd n0"></div>
+              <div id="g#{index}minesRemaining10s" class="lcd n0"></div>
+              <div id="g#{index}minesRemaining1s" class="lcd n0"></div>
             </div>
-            <span id="indicator" class="statusAlive"></span>
+            <span id="g#{index}indicator{{index}}" class="status alive"></span>
             <div class="timer">
-              <div id="timer100s" class="lcd n0"></div>
-              <div id="timer10s" class="lcd n0"></div>
-              <div id="timer1s" class="lcd n0"></div>            
+              <div id="g#{index}timer100s" class="lcd n0"></div>
+              <div id="g#{index}timer10s" class="lcd n0"></div>
+              <div id="g#{index}timer1s" class="lcd n0"></div>            
             </div>
           </div>
           <div class="bottom">
@@ -141,7 +148,7 @@ window.FieldPresenter =
       {{#rows}}
       <tr class="field">
       {{#cells}}
-      <td class="{{state}}" id="r{{row}}c{{col}}"></td>
+      <td class="{{state}}" id="g#{index}r{{row}}c{{col}}"></td>
       {{/cells}}
       </tr>
       {{/rows}}

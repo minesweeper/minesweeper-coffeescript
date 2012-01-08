@@ -1,27 +1,27 @@
 describe 'minesweeper', ->
   right_click = (row, col) ->
-    $("#r#{row}c#{col}").trigger type: 'mouseup', which: 2
+    $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 2
 
   left_click = (row, col) ->
-    $("#r#{row}c#{col}").trigger type: 'mouseup', which: 1    
+    $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 1    
 
   indicator_press = ->
-    $("#indicator").trigger type: 'mousedown'
+    $("#g1indicator").trigger type: 'mousedown'
 
   cls = (id) ->
     $("##{id}").attr 'class'
 
   indicator_click = ->
-    $("#indicator").trigger type: 'mouseup'
+    $("#g1indicator").trigger type: 'mouseup'
 
   indicator_class = ->
-    cls 'indicator'
+    cls 'g1indicator'
 
-  cell_state = (row, col) -> cls "r#{row}c#{col}"
+  cell_state = (row, col) -> cls "g1r#{row}c#{col}"
 
   remaining_mines = ->
     lcd_digit = (exponent) ->
-      match = /lcd n(\d)/.exec cls "minesRemaining#{exponent}s"
+      match = /lcd n(\d)/.exec cls "g1minesRemaining#{exponent}s"
       match[1]
     parseInt "#{lcd_digit 100}#{lcd_digit 10}#{lcd_digit 1}"
 
@@ -149,7 +149,7 @@ describe 'minesweeper', ->
     .
     """
     indicator_press()
-    expect(indicator_class()).toEqual 'statusAlivePressed'
+    expect(indicator_class()).toEqual 'status alivePressed'
 
   it 'should reset game when indicator button is clicked', ->
     givenField """
@@ -195,7 +195,7 @@ describe 'minesweeper', ->
     * .
     """
     left_click 0, 0
-    expect(indicator_class()).toEqual 'statusDead'
+    expect(indicator_class()).toEqual 'status dead'
 
   it 'should reveal all mines when a mine is clicked', ->
     givenField """
@@ -244,4 +244,4 @@ describe 'minesweeper', ->
     * .
     """
     left_click 0, 1
-    expect(indicator_class()).toEqual 'statusWon'
+    expect(indicator_class()).toEqual 'status won'

@@ -42,7 +42,7 @@ body {
 .timer {
   float: right; }
 
-#indicator {
+.status {
   height: 26px;
   width: 26px;
   padding-right: 30px;
@@ -90,19 +90,19 @@ body {
 .n9 {
   background-image: url("../images/9.gif"); }
 
-.statusAlive {
+.alive {
   width: 28;
   background-image: url("../images/btnsmile.gif"); }
 
-.statusDead {
+.dead {
   width: 28;
   background-image: url("../images/btndead.gif"); }
 
-.statusWon {
+.won {
   width: 28;
   background-image: url("../images/btncool.gif"); }
 
-.statusAlivePressed {
+.alivePressed {
   width: 28;
   background-image: url("../images/btnsmile2.gif"); }
 

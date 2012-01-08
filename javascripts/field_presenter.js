@@ -9,32 +9,40 @@
       minesweeper_count += 1;
       minesweeper_id = "minesweeper" + minesweeper_count;
       $(minesweepers_locator).append("<div id=\"" + minesweeper_id + "\" class=\"minesweeper\"></div>");
-      return FieldPresenter.render("#" + minesweeper_id, opts);
+      return FieldPresenter.render("#" + minesweeper_id, opts, minesweeper_count);
     },
-    render: function(minesweeper_locator, opts) {
-      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, indicator_pressed, left_clicked, marked_mouseup, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, uncertain_mouseup, unclicked_mouseup;
+    render: function(minesweeper_locator, opts, index) {
+      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, left_clicked, marked_mouseup, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, timer, uncertain_mouseup, unclicked_mouseup;
+      if (index == null) index = 1;
+      id = function(name) {
+        return "g" + index + name;
+      };
+      selector = function(name) {
+        return "#" + (id(name));
+      };
       current = new Field(opts);
-      remaining_mines_lcd = new Lcd('minesRemaining');
+      remaining_mines_lcd = new Lcd(id('minesRemaining'));
       game_state = null;
+      timer = Timer.create(id('timer'));
       left_clicked = function(event) {
         return event.which === 1;
       };
       change_class_to = function(id, cls) {
-        return $("#" + id).attr('class', cls);
+        return $(selector(id)).attr('class', cls);
       };
       change_indicator_status_to = function(status) {
-        return change_class_to('indicator', "status" + status);
+        return change_class_to('indicator', "status " + status);
       };
       click_cell = function(cell) {
         var c, r;
         r = cell[0], c = cell[1];
-        return $("#r" + r + "c" + c).trigger({
+        return $(selector("r" + r + "c" + c)).trigger({
           type: 'mouseup',
           which: 1
         });
       };
       end_game = function(status) {
-        Timer.stop();
+        timer.stop();
         return change_indicator_status_to(status);
       };
       reveal_unclicked_cell = function(element) {
@@ -45,7 +53,7 @@
           _.each(current.opts.mines, function(cell) {
             return click_cell(cell);
           });
-          end_game('Dead');
+          end_game('dead');
           game_state.lose();
           return element.attr('class', 'mine');
         } else {
@@ -53,7 +61,7 @@
           adjacentCount = current.adjacentCount(row, col);
           element.attr('class', "mines" + adjacentCount);
           game_state.reveal_cell();
-          if (game_state.won) end_game('Won');
+          if (game_state.won) end_game('won');
           if (adjacentCount === 0) {
             return _.each(current.neighbours(row, col), function(cell) {
               return click_cell(cell);
@@ -106,7 +114,7 @@
         }
       };
       indicator_pressed = function() {
-        return $(this).attr('class', 'statusAlivePressed');
+        return $(this).attr('class', 'status alivePressed');
       };
       reset_game = function() {
         current.opts.mines = null;
@@ -123,19 +131,19 @@
           return false;
         });
         $('.unclicked').bind('mouseup', unclicked_mouseup);
-        $('#indicator').bind('mouseup', reset_game);
-        $('#indicator').bind('mousedown', indicator_pressed);
+        $("#g" + index + "indicator").bind('mouseup', reset_game);
+        $("#g" + index + "indicator").bind('mousedown', indicator_pressed);
         game_state = new GameState(current);
-        return Timer.start();
+        return timer.start();
       };
       renderParent = function(view) {
         var template;
-        template = "<div class=\"title\">\n  <span class=\"title_left\"></span>\n  <span class=\"title_right\"></span>        \n</div>\n<div class=\"outer\">\n  <div class=\"top\">\n    <div class=\"minesRemaining\">\n      <div id=\"minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"indicator\" class=\"statusAlive\"></span>\n    <div class=\"timer\">\n      <div id=\"timer100s\" class=\"lcd n0\"></div>\n      <div id=\"timer10s\" class=\"lcd n0\"></div>\n      <div id=\"timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div class=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
+        template = "<div class=\"title\">\n  <span class=\"title_left\"></span>\n  <span class=\"title_right\"></span>        \n</div>\n<div class=\"outer\">\n  <div class=\"top\">\n    <div class=\"minesRemaining\">\n      <div id=\"g" + index + "minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"g" + index + "indicator{{index}}\" class=\"status alive\"></span>\n    <div class=\"timer\">\n      <div id=\"g" + index + "timer100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div class=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
         return Mustache.to_html(template, view);
       };
       renderField = function(field) {
         var col, row, template;
-        template = "<table>\n{{#rows}}\n<tr class=\"field\">\n{{#cells}}\n<td class=\"{{state}}\" id=\"r{{row}}c{{col}}\"></td>\n{{/cells}}\n</tr>\n{{/rows}}\n</table>";
+        template = "<table>\n{{#rows}}\n<tr class=\"field\">\n{{#cells}}\n<td class=\"{{state}}\" id=\"g" + index + "r{{row}}c{{col}}\"></td>\n{{/cells}}\n</tr>\n{{/rows}}\n</table>";
         return Mustache.to_html(template, {
           rows: (function() {
             var _ref, _results;
