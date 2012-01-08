@@ -1,5 +1,8 @@
 class window.Field
-  constructor: (@opts) ->
+  constructor: (opts) ->
+    this.opts = opts
+    if opts.mineCount >= opts.rows * opts.cols
+      opts.mineCount = opts.rows * opts.cols - 1
 
   adjacentCount: (row,col) ->
     field = this

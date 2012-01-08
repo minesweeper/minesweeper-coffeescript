@@ -61,7 +61,7 @@
       });
     };
     it('should cycle through marked to uncertain to unclicked on right click', function() {
-      givenField("*");
+      givenField("* .");
       expect(cell_state(0, 0)).toEqual('unclicked');
       right_click(0, 0);
       expect(cell_state(0, 0)).toEqual('marked');
@@ -71,12 +71,12 @@
       return expect(cell_state(0, 0)).toEqual('unclicked');
     });
     it('should end the game when a cell containing mine is left clicked', function() {
-      givenField("*");
+      givenField("* .");
       left_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('mine');
     });
     it('should reveal cell with no adjacent mines', function() {
-      givenField(".");
+      givenField(". .");
       left_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('mines0');
     });
@@ -143,16 +143,16 @@
       return expect(cell_state(0, 0)).toEqual('unclicked');
     });
     it('should display initial mine count', function() {
-      givenField("*");
+      givenField("* .");
       return expect(remaining_mines()).toEqual(1);
     });
     it('should decrement mine count when a mine is marked', function() {
-      givenField("*");
+      givenField("* .");
       right_click(0, 0);
       return expect(remaining_mines()).toEqual(0);
     });
     it('should reincrement mine count when a mine is marked and then unmarked', function() {
-      givenField("*");
+      givenField("* .");
       right_click(0, 0);
       right_click(0, 0);
       return expect(remaining_mines()).toEqual(1);

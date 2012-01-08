@@ -4,6 +4,9 @@
 
     function Field(opts) {
       this.opts = opts;
+      if (opts.mineCount >= opts.rows * opts.cols) {
+        opts.mineCount = opts.rows * opts.cols - 1;
+      }
     }
 
     Field.prototype.adjacentCount = function(row, col) {

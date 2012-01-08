@@ -1,6 +1,17 @@
 (function() {
 
   describe('Field', function() {
+    describe('validation', function() {
+      return it('should decrease number of mines according to rows and columns', function() {
+        var field;
+        field = new Field({
+          rows: 3,
+          cols: 3,
+          mineCount: 9
+        });
+        return expect(field.opts.mineCount).toEqual(8);
+      });
+    });
     describe('neighbours', function() {
       var field;
       field = new Field({

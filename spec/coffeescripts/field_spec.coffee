@@ -1,4 +1,9 @@
 describe 'Field', ->
+  describe 'validation', ->
+    it 'should decrease number of mines according to rows and columns', ->
+      field = new Field rows: 3, cols: 3, mineCount: 9
+      expect(field.opts.mineCount).toEqual 8
+
   describe 'neighbours', ->
     field = new Field rows: 3, cols: 3
 
