@@ -127,10 +127,10 @@
         }));
         $(minesweeper_locator).draggable();
         remaining_mines_lcd.display(current.opts.mineCount);
-        $('.unclicked').bind('contextmenu', function() {
+        $("#g" + index + " .unclicked").bind('contextmenu', function() {
           return false;
         });
-        $('.unclicked').bind('mouseup', unclicked_mouseup);
+        $("#g" + index + " .unclicked").bind('mouseup', unclicked_mouseup);
         $("#g" + index + "indicator").bind('mouseup', reset_game);
         $("#g" + index + "indicator").bind('mousedown', indicator_pressed);
         game_state = new GameState(current);
@@ -138,7 +138,7 @@
       };
       renderParent = function(view) {
         var template;
-        template = "<div class=\"title\">\n  <span class=\"title_left\"></span>\n  <span class=\"title_right\"></span>        \n</div>\n<div class=\"outer\">\n  <div class=\"top\">\n    <div class=\"minesRemaining\">\n      <div id=\"g" + index + "minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"g" + index + "indicator{{index}}\" class=\"status alive\"></span>\n    <div class=\"timer\">\n      <div id=\"g" + index + "timer100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div class=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
+        template = "<div class=\"title\">\n  <span class=\"title_left\"></span>\n  <span class=\"title_right\"></span>        \n</div>\n<div class=\"outer\">\n  <div class=\"top\">\n    <div class=\"minesRemaining\">\n      <div id=\"g" + index + "minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"g" + index + "indicator{{index}}\" class=\"status alive\"></span>\n    <div class=\"timer\">\n      <div id=\"g" + index + "timer100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div id=\"g" + index + "\" class=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
         return Mustache.to_html(template, view);
       };
       renderField = function(field) {

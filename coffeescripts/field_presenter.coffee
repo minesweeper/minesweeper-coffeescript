@@ -107,8 +107,8 @@ window.FieldPresenter =
       $(minesweeper_locator).html renderParent field: renderField current
       $(minesweeper_locator).draggable();
       remaining_mines_lcd.display current.opts.mineCount
-      $('.unclicked').bind 'contextmenu', -> false
-      $('.unclicked').bind 'mouseup', unclicked_mouseup
+      $("#g#{index} .unclicked").bind 'contextmenu', -> false
+      $("#g#{index} .unclicked").bind 'mouseup', unclicked_mouseup
       $("#g#{index}indicator").bind 'mouseup', reset_game
       $("#g#{index}indicator").bind 'mousedown', indicator_pressed
       game_state = new GameState current
@@ -135,7 +135,7 @@ window.FieldPresenter =
               <div id="g#{index}timer1s" class="lcd n0"></div>            
             </div>
           </div>
-          <div class="bottom">
+          <div id="g#{index}" class="bottom">
           {{{field}}
           </div>
         </div>
