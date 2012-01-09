@@ -24,4 +24,4 @@ $ ->
   with_numeric_parameter 'mines', (number) ->
     opts.mineCount = number
 
-  create opts
+  create opts unless $.QueryString 'blank'

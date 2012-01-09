@@ -43,7 +43,7 @@
     with_numeric_parameter('mines', function(number) {
       return opts.mineCount = number;
     });
-    return create(opts);
+    if (!$.QueryString('blank')) return create(opts);
   });
 
 }).call(this);
