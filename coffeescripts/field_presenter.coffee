@@ -19,7 +19,7 @@ window.FieldPresenter =
     current = new Field opts
     remaining_mines_lcd = Lcd.new id 'minesRemaining'
     game_state = null
-    timer = Timer.create id 'timer'
+    timer = Timer.new id 'timer'
 
     left_clicked = (event) ->
       event.which == 1
@@ -41,6 +41,7 @@ window.FieldPresenter =
     reveal_unclicked_cell = (element) ->
       match = /r(\d+)c(\d+)/.exec element.attr 'id'
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
+      timer.start()
       if current.hasMine(row, col)
         _.each current.opts.mines, (cell) -> click_cell cell
         end_game 'dead'
@@ -100,6 +101,7 @@ window.FieldPresenter =
       $(this).attr 'class', 'status alivePressed'
 
     reset_game = ->
+      timer.stop()
       current.opts.mines = null
       set_game()
 
@@ -115,7 +117,6 @@ window.FieldPresenter =
       $("#g#{index}indicator").bind 'mouseup', reset_game
       $("#g#{index}indicator").bind 'mousedown', indicator_pressed
       game_state = new GameState current
-      timer.start()
 
     renderParent = (view) ->
       template =

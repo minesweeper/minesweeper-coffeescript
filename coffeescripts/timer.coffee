@@ -1,6 +1,6 @@
 window.Timer =
-  create: (name) ->
-    count = 0
+  new: (name) ->
+    count = null
     timer = null
     lcd = Lcd.new name
 
@@ -14,9 +14,9 @@ window.Timer =
 
     stop = -> 
       clearTimeout timer if timer
+      timer = null
       count = 0
 
     start: ->
-      stop()
-      timer = setTimeout increment_timer, 1000
+      timer = setTimeout increment_timer, 1000 unless timer
     stop: stop

@@ -1,9 +1,9 @@
 (function() {
 
   window.Timer = {
-    create: function(name) {
+    "new": function(name) {
       var count, increment_timer, lcd, stop, tick, timer;
-      count = 0;
+      count = null;
       timer = null;
       lcd = Lcd["new"](name);
       tick = function(increment) {
@@ -17,12 +17,12 @@
       };
       stop = function() {
         if (timer) clearTimeout(timer);
+        timer = null;
         return count = 0;
       };
       return {
         start: function() {
-          stop();
-          return timer = setTimeout(increment_timer, 1000);
+          if (!timer) return timer = setTimeout(increment_timer, 1000);
         },
         stop: stop
       };

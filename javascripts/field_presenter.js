@@ -23,7 +23,7 @@
       current = new Field(opts);
       remaining_mines_lcd = Lcd["new"](id('minesRemaining'));
       game_state = null;
-      timer = Timer.create(id('timer'));
+      timer = Timer["new"](id('timer'));
       left_clicked = function(event) {
         return event.which === 1;
       };
@@ -49,6 +49,7 @@
         var adjacentCount, col, match, row, _ref;
         match = /r(\d+)c(\d+)/.exec(element.attr('id'));
         _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
+        timer.start();
         if (current.hasMine(row, col)) {
           _.each(current.opts.mines, function(cell) {
             return click_cell(cell);
@@ -118,6 +119,7 @@
         return $(this).attr('class', 'status alivePressed');
       };
       reset_game = function() {
+        timer.stop();
         current.opts.mines = null;
         return set_game();
       };
@@ -137,8 +139,7 @@
         $("#g" + index + " .unclicked").bind('mouseup', unclicked_mouseup);
         $("#g" + index + "indicator").bind('mouseup', reset_game);
         $("#g" + index + "indicator").bind('mousedown', indicator_pressed);
-        game_state = new GameState(current);
-        return timer.start();
+        return game_state = new GameState(current);
       };
       renderParent = function(view) {
         var template;
