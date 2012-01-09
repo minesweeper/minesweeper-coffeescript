@@ -21,7 +21,7 @@
         return "#" + (id(name));
       };
       current = new Field(opts);
-      remaining_mines_lcd = new Lcd(id('minesRemaining'));
+      remaining_mines_lcd = Lcd["new"](id('minesRemaining'));
       game_state = null;
       timer = Timer.create(id('timer'));
       left_clicked = function(event) {

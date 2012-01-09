@@ -2,7 +2,7 @@ window.Timer =
   create: (name) ->
     count = 0
     timer = null
-    lcd = new Lcd name
+    lcd = Lcd.new name
 
     tick = (increment=1) ->
       count += increment

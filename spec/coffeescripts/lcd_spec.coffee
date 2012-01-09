@@ -1,5 +1,5 @@
 describe 'Lcd', ->
-  lcd = new Lcd 'prefix'
+  lcd = Lcd.new 'prefix'
   l = (number) -> "lcd n#{number}"
 
   beforeEach ->

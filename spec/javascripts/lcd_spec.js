@@ -2,7 +2,7 @@
 
   describe('Lcd', function() {
     var l, lcd;
-    lcd = new Lcd('prefix');
+    lcd = Lcd["new"]('prefix');
     l = function(number) {
       return "lcd n" + number;
     };

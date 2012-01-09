@@ -5,7 +5,7 @@
       var count, increment_timer, lcd, stop, tick, timer;
       count = 0;
       timer = null;
-      lcd = new Lcd(name);
+      lcd = Lcd["new"](name);
       tick = function(increment) {
         if (increment == null) increment = 1;
         count += increment;
