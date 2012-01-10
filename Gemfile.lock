@@ -29,6 +29,7 @@ GEM
     jasmine-core (1.1.0)
     multi_json (1.0.4)
     rack (1.4.0)
+    rake (0.9.2.2)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
       rspec-expectations (~> 2.7.0)
@@ -55,3 +56,4 @@ DEPENDENCIES
   guard-coffeescript
   guard-sass
   jasmine
+  rake
