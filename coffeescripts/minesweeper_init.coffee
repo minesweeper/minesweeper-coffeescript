@@ -14,6 +14,10 @@ $ ->
     with_parameter key, (number) ->
       action parseInt number 
 
+  with_eval_parameter = (key, action) ->
+    with_parameter key, (statement) ->
+      action eval statement
+      
   opts = presets['expert']
   with_parameter 'preset', (preset) ->
     opts = presets[preset]
@@ -21,7 +25,10 @@ $ ->
     opts.rows = number
   with_numeric_parameter 'cols', (number) ->
     opts.cols = number
-  with_numeric_parameter 'mines', (number) ->
+  with_numeric_parameter 'minescount', (number) ->
     opts.mineCount = number
-
+  with_eval_parameter 'mines', (mines) ->
+    opts.mineCount = mines.length
+    opts.mines = mines
+    
   create opts unless $.QueryString 'blank'
