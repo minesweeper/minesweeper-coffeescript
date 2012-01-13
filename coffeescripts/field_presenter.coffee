@@ -169,7 +169,7 @@ window.FieldPresenter =
           <div id="g#{index}" class="bottom">
           {{{field}}
           </div>
-		  <div id="test_mode"></div>
+          <div id="test_mode"></div>
         </div>
         """
       Mustache.to_html template, view

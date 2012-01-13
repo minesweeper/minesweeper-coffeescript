@@ -47,7 +47,7 @@ describe 'minesweeper', ->
       cols: 2
       rows: 2
       mines: [[0, 0]]
-    expect($("#test_mode").text()).toEqual 'TEST Ms DE' 		
+    expect($("#test_mode").text()).toEqual 'TEST MODE' 		
 
   it 'should not display test mode when using random mines', ->
       FieldPresenter.render '#jasmine_content',

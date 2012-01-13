@@ -72,7 +72,7 @@
         rows: 2,
         mines: [[0, 0]]
       });
-      return expect($("#test_mode").text()).toEqual('TEST Ms DE');
+      return expect($("#test_mode").text()).toEqual('TEST MODE');
     });
     it('should not display test mode when using random mines', function() {
       var mineCount;
