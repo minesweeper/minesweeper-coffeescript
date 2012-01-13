@@ -106,6 +106,7 @@ window.FieldPresenter =
       element.bind 'mousedown', unclicked_mousedown
 	  	  		
     revealed_dblclick = (event) ->
+      return if game_state.finished()
       match= /^mines(\d)$/.exec $(this).attr 'class'
       adjacentCount = parseInt(match[1])
       reveal_unmarked_neighbours $(this) unless adjacentCount != num_marked_neighbours $(this)
@@ -131,6 +132,7 @@ window.FieldPresenter =
           set_unclicked_to_marked $(this)
 
     unclicked_mousedown = (event) ->
+      return if game_state.finished()
       change_indicator_status_to 'scared' if left_clicked event
 
     indicator_pressed = ->

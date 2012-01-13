@@ -126,6 +126,7 @@
       };
       revealed_dblclick = function(event) {
         var adjacentCount, match;
+        if (game_state.finished()) return;
         match = /^mines(\d)$/.exec($(this).attr('class'));
         adjacentCount = parseInt(match[1]);
         if (adjacentCount === num_marked_neighbours($(this))) {
@@ -157,6 +158,7 @@
         }
       };
       unclicked_mousedown = function(event) {
+        if (game_state.finished()) return;
         if (left_clicked(event)) return change_indicator_status_to('scared');
       };
       indicator_pressed = function() {
