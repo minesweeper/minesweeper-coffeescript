@@ -66,6 +66,22 @@
         mineCount: mines.length
       });
     };
+    it('should display test mode when specifying mine locations', function() {
+      FieldPresenter.render('#jasmine_content', {
+        cols: 2,
+        rows: 2,
+        mines: [[0, 0]]
+      });
+      return expect($("#test_mode").text()).toEqual('TEST Ms DE');
+    });
+    it('should not display test mode when using random mines', function() {
+      var mineCount;
+      FieldPresenter.render('#jasmine_content', {
+        cols: 2,
+        rows: 2
+      }, mineCount = 1);
+      return expect($("#test_mode").text()).toEqual('');
+    });
     it('should cycle through marked to uncertain to unclicked on right click', function() {
       givenField("* .");
       expect(cell_state(0, 0)).toEqual('unclicked');

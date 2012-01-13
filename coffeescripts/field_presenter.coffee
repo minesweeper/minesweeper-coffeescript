@@ -136,6 +136,7 @@ window.FieldPresenter =
       count = 8 if count < 8
       $(minesweeper_locator).width (count * 16) + 20
       $(minesweeper_locator).html renderParent field: renderField current
+      $("#test_mode").text 'TEST MODE' if current.opts.mines
       $(minesweeper_locator).draggable();
       remaining_mines_lcd.display current.opts.mineCount
       $("#g#{index} .unclicked").bind 'contextmenu', -> false
@@ -168,6 +169,7 @@ window.FieldPresenter =
           <div id="g#{index}" class="bottom">
           {{{field}}
           </div>
+		  <div id="test_mode"></div>
         </div>
         """
       Mustache.to_html template, view

@@ -164,6 +164,7 @@
         $(minesweeper_locator).html(renderParent({
           field: renderField(current)
         }));
+        if (current.opts.mines) $("#test_mode").text('TEST MODE');
         $(minesweeper_locator).draggable();
         remaining_mines_lcd.display(current.opts.mineCount);
         $("#g" + index + " .unclicked").bind('contextmenu', function() {
@@ -176,7 +177,7 @@
       };
       renderParent = function(view) {
         var template;
-        template = "<div class=\"title\">\n  <span class=\"title_left\"></span>\n  <span class=\"title_right\"></span>        \n</div>\n<div class=\"outer\">\n  <div class=\"top\">\n    <div class=\"minesRemaining\">\n      <div id=\"g" + index + "minesRemaining100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "minesRemaining1s\" class=\"lcd n0\"></div>\n    </div>\n    <span id=\"g" + index + "indicator{{index}}\" class=\"status alive\"></span>\n    <div class=\"timer\">\n      <div id=\"g" + index + "timer100s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer10s\" class=\"lcd n0\"></div>\n      <div id=\"g" + index + "timer1s\" class=\"lcd n0\"></div>            \n    </div>\n  </div>\n  <div id=\"g" + index + "\" class=\"bottom\">\n  {{{field}}\n  </div>\n</div>";
+        template = "        <div class=\"title\">\n          <span class=\"title_left\"></span>\n          <span class=\"title_right\"></span>        \n        </div>\n        <div class=\"outer\">\n          <div class=\"top\">\n            <div class=\"minesRemaining\">\n              <div id=\"g" + index + "minesRemaining100s\" class=\"lcd n0\"></div>\n              <div id=\"g" + index + "minesRemaining10s\" class=\"lcd n0\"></div>\n              <div id=\"g" + index + "minesRemaining1s\" class=\"lcd n0\"></div>\n            </div>\n            <span id=\"g" + index + "indicator{{index}}\" class=\"status alive\"></span>\n            <div class=\"timer\">\n              <div id=\"g" + index + "timer100s\" class=\"lcd n0\"></div>\n              <div id=\"g" + index + "timer10s\" class=\"lcd n0\"></div>\n              <div id=\"g" + index + "timer1s\" class=\"lcd n0\"></div>            \n            </div>\n          </div>\n          <div id=\"g" + index + "\" class=\"bottom\">\n          {{{field}}\n          </div>\n<div id=\"test_mode\"></div>\n        </div>";
         return Mustache.to_html(template, view);
       };
       renderField = function(field) {
