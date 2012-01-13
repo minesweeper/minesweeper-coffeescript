@@ -66,7 +66,7 @@ window.FieldPresenter =
         _.each current.opts.mines, (cell) -> set_mined cell[0], cell[1]
         end_game 'dead'
         game_state.lose()
-        element.attr 'class', 'mine'
+        element.attr 'class', 'clicked_mine'
       else
         return if game_state.finished()
         adjacentCount = current.adjacentCount row, col

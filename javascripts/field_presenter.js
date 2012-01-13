@@ -80,7 +80,7 @@
           });
           end_game('dead');
           game_state.lose();
-          return element.attr('class', 'mine');
+          return element.attr('class', 'clicked_mine');
         } else {
           if (game_state.finished()) return;
           adjacentCount = current.adjacentCount(row, col);

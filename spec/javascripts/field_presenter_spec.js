@@ -98,11 +98,6 @@
       right_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('unclicked');
     });
-    it('should end the game when a cell containing mine is left clicked', function() {
-      givenField("* .");
-      left_click(0, 0);
-      return expect(cell_state(0, 0)).toEqual('mine');
-    });
     it('should reveal cell with no adjacent mines', function() {
       givenField(". .");
       left_click(0, 0);
@@ -199,7 +194,7 @@
     it('should reveal all mines when a mine is clicked', function() {
       givenField("* * .");
       left_click(0, 0);
-      expect(cell_state(0, 0)).toEqual('mine');
+      expect(cell_state(0, 0)).toEqual('clicked_mine');
       return expect(cell_state(0, 1)).toEqual('mine');
     });
     it('should ignore left clicks once a game has been lost', function() {
@@ -252,6 +247,16 @@
       expect(indicator_class()).toEqual('status scared');
       left_click(0, 1);
       return expect(indicator_class()).toEqual('status dead');
+    });
+    it('should end the game when a cell containing mine is left clicked', function() {
+      givenField("* .\n. .");
+      left_click(0, 0);
+      return expect(indicator_class()).toEqual('status dead');
+    });
+    it('should show a red mine on the mine you clicked on', function() {
+      givenField("* .\n. .");
+      left_click(0, 0);
+      return expect(cell_state(0, 0)).toEqual('clicked_mine');
     });
     it('should ignore left clicks once a game has been won', function() {
       givenField("* .");
@@ -310,7 +315,7 @@
       expect(cell_state(1, 0)).toEqual('marked');
       double_click(0, 1);
       expect(indicator_class()).toEqual('status dead');
-      expect(cell_state(0, 0)).toEqual('mine');
+      expect(cell_state(0, 0)).toEqual('clicked_mine');
       expect(cell_state(0, 1)).toEqual('mines1');
       expect(cell_state(0, 2)).toEqual('unclicked');
       expect(cell_state(1, 0)).toEqual('marked');
