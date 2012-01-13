@@ -12,7 +12,7 @@
       return FieldPresenter.render("#" + minesweeper_id, opts, minesweeper_count);
     },
     render: function(minesweeper_locator, opts, index) {
-      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, left_clicked, marked_mouseup, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mouseup;
+      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, is_marked, left_clicked, marked_mouseup, num_marked_neighbours, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mouseup;
       if (index == null) index = 1;
       id = function(name) {
         return "g" + index + name;
@@ -45,15 +45,26 @@
         timer.stop();
         return change_indicator_status_to(status);
       };
+      is_marked = function(row, col) {
+        return $(selector("r" + row + "c" + col)).attr('class') === 'marked';
+      };
       reveal_unmarked_neighbours = function(element) {
         var col, match, row, _ref;
         match = /r(\d+)c(\d+)/.exec(element.attr('id'));
         _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
         return _.each(current.neighbours(row, col), function(cell) {
-          if (!($(selector("r" + cell[0] + "c" + cell[1])).attr('class') === 'marked')) {
-            return click_cell(cell);
-          }
+          if (!is_marked(cell[0], cell[1])) return click_cell(cell);
         });
+      };
+      num_marked_neighbours = function(element) {
+        var col, match, n, row, _ref;
+        n = 0;
+        match = /r(\d+)c(\d+)/.exec(element.attr('id'));
+        _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
+        _.each(current.neighbours(row, col), function(cell) {
+          if (is_marked(cell[0], cell[1])) return n++;
+        });
+        return n;
       };
       reveal_unclicked_cell = function(element) {
         var adjacentCount, col, match, row, _ref;
@@ -106,7 +117,12 @@
         return element.bind('mouseup', unclicked_mouseup);
       };
       revealed_dblclick = function(event) {
-        return reveal_unmarked_neighbours($(this));
+        var adjacentCount, match;
+        match = /^mines(\d)$/.exec($(this).attr('class'));
+        adjacentCount = parseInt(match[1]);
+        if (adjacentCount === num_marked_neighbours($(this))) {
+          return reveal_unmarked_neighbours($(this));
+        }
       };
       marked_mouseup = function(event) {
         if (!left_clicked(event)) {

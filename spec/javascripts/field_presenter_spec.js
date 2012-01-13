@@ -217,7 +217,7 @@
       left_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('unclicked');
     });
-    return it('should click all non-marked neighbouring cells when double clicking a numeric cell', function() {
+    it('should click all non-marked neighbouring cells when double clicking a numeric cell', function() {
       givenField("* . .\n. . .\n. . * ");
       right_click(0, 0);
       expect(cell_state(0, 0)).toEqual('marked');
@@ -229,6 +229,51 @@
       expect(cell_state(1, 0)).toEqual('mines1');
       expect(cell_state(1, 1)).toEqual('mines2');
       return expect(cell_state(1, 2)).toEqual('mines1');
+    });
+    it('should do nothing when double clicking a numeric cell with no surrounding marked cells', function() {
+      givenField("* . .\n. . .\n. . * ");
+      left_click(0, 1);
+      expect(cell_state(0, 1)).toEqual('mines1');
+      double_click(0, 1);
+      expect(indicator_class()).toEqual('status alive');
+      expect(cell_state(0, 0)).toEqual('unclicked');
+      expect(cell_state(0, 2)).toEqual('unclicked');
+      expect(cell_state(1, 0)).toEqual('unclicked');
+      expect(cell_state(1, 1)).toEqual('unclicked');
+      return expect(cell_state(1, 2)).toEqual('unclicked');
+    });
+    it('should do nothing when double clicking a numeric cell with non-matching surrounding marked cells', function() {
+      givenField("* . .\n. . .\n. . * ");
+      left_click(1, 1);
+      expect(cell_state(1, 1)).toEqual('mines2');
+      right_click(0, 0);
+      expect(cell_state(0, 0)).toEqual('marked');
+      double_click(1, 1);
+      expect(indicator_class()).toEqual('status alive');
+      expect(cell_state(0, 0)).toEqual('marked');
+      expect(cell_state(0, 1)).toEqual('unclicked');
+      expect(cell_state(0, 2)).toEqual('unclicked');
+      expect(cell_state(1, 0)).toEqual('unclicked');
+      expect(cell_state(1, 1)).toEqual('mines2');
+      expect(cell_state(1, 2)).toEqual('unclicked');
+      expect(cell_state(2, 0)).toEqual('unclicked');
+      expect(cell_state(2, 1)).toEqual('unclicked');
+      return expect(cell_state(2, 2)).toEqual('unclicked');
+    });
+    return it('should end the game when double clicking a numeric cell with surrounding falsely marked cells', function() {
+      givenField("* . .\n. . .\n. . * ");
+      left_click(0, 1);
+      expect(cell_state(0, 1)).toEqual('mines1');
+      right_click(1, 0);
+      expect(cell_state(1, 0)).toEqual('marked');
+      double_click(0, 1);
+      expect(indicator_class()).toEqual('status dead');
+      expect(cell_state(0, 0)).toEqual('mine');
+      expect(cell_state(0, 1)).toEqual('mines1');
+      expect(cell_state(0, 2)).toEqual('unclicked');
+      expect(cell_state(1, 0)).toEqual('marked');
+      expect(cell_state(1, 1)).toEqual('unclicked');
+      return expect(cell_state(1, 2)).toEqual('unclicked');
     });
   });
 

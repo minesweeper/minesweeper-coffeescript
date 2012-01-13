@@ -38,13 +38,23 @@ window.FieldPresenter =
       timer.stop()
       change_indicator_status_to status
 
+    is_marked = (row, col) ->
+      $(selector "r#{row}c#{col}").attr('class') == 'marked'
+
     reveal_unmarked_neighbours = (element) ->
       match = /r(\d+)c(\d+)/.exec element.attr 'id'
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
       _.each current.neighbours(row, col), (cell) ->
-        click_cell cell unless ($(selector "r#{cell[0]}c#{cell[1]}").attr('class') == 'marked')
-          
+        click_cell cell unless is_marked cell[0], cell[1]
 
+    num_marked_neighbours = (element) ->
+      n = 0
+      match = /r(\d+)c(\d+)/.exec element.attr 'id'
+      [row,col] = [parseInt(match[1]),parseInt(match[2])]
+      _.each current.neighbours(row, col), (cell) ->
+        n++ if is_marked cell[0], cell[1]
+      return n
+          
     reveal_unclicked_cell = (element) ->
       match = /r(\d+)c(\d+)/.exec element.attr 'id'
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
@@ -89,7 +99,9 @@ window.FieldPresenter =
       element.bind 'mouseup', unclicked_mouseup
 	  	  		
     revealed_dblclick = (event) ->
-      reveal_unmarked_neighbours $(this)
+      match= /^mines(\d)$/.exec $(this).attr 'class'
+      adjacentCount = parseInt(match[1])
+      reveal_unmarked_neighbours $(this) unless adjacentCount != num_marked_neighbours $(this)
 	
     marked_mouseup = (event) ->
       unless left_clicked event
