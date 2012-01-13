@@ -12,7 +12,7 @@
       return FieldPresenter.render("#" + minesweeper_id, opts, minesweeper_count);
     },
     render: function(minesweeper_locator, opts, index) {
-      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, is_marked, left_clicked, marked_mouseup, num_marked_neighbours, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_mined, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mousedown, unclicked_mouseup;
+      var adjust_remaining, change_class_to, change_indicator_status_to, check_wrong_flag, click_cell, current, end_game, game_state, id, indicator_pressed, is_marked, left_clicked, marked_mouseup, num_marked_neighbours, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_mined, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mousedown, unclicked_mouseup;
       if (index == null) index = 1;
       id = function(name) {
         return "g" + index + name;
@@ -51,6 +51,11 @@
       set_mined = function(row, col) {
         return $(selector("r" + row + "c" + col)).attr('class', 'mine');
       };
+      check_wrong_flag = function(row, col) {
+        if (is_marked(row, col) && !current.hasMine(row, col)) {
+          return $(selector("r" + row + "c" + col)).attr('class', 'nomine');
+        }
+      };
       reveal_unmarked_neighbours = function(element) {
         var col, match, row, _ref;
         match = /r(\d+)c(\d+)/.exec(element.attr('id'));
@@ -70,7 +75,7 @@
         return n;
       };
       reveal_unclicked_cell = function(element) {
-        var adjacentCount, col, match, row, _ref;
+        var adjacentCount, c, col, match, r, row, _ref, _ref2, _ref3;
         match = /r(\d+)c(\d+)/.exec(element.attr('id'));
         _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
         timer.start();
@@ -78,6 +83,11 @@
           _.each(current.opts.mines, function(cell) {
             if (!is_marked(cell[0], cell[1])) return set_mined(cell[0], cell[1]);
           });
+          for (c = 0, _ref2 = current.opts.cols; 0 <= _ref2 ? c <= _ref2 : c >= _ref2; 0 <= _ref2 ? c++ : c--) {
+            for (r = 0, _ref3 = current.opts.rows; 0 <= _ref3 ? r <= _ref3 : r >= _ref3; 0 <= _ref3 ? r++ : r--) {
+              check_wrong_flag(r, c);
+            }
+          }
           end_game('dead');
           game_state.lose();
           return element.attr('class', 'clicked_mine');

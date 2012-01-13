@@ -236,9 +236,10 @@ describe 'minesweeper', ->
 
   it 'should ignore right clicks on marked once a game has been lost', ->
     givenField """
-    * .
+    * * .
     """
     right_click 0, 1
+    expect(cell_state(0, 1)).toEqual 'marked'
     left_click 0, 0
     right_click 0, 1
     expect(cell_state(0, 1)).toEqual 'marked'
@@ -311,6 +312,16 @@ describe 'minesweeper', ->
     right_click 0, 0
     left_click 0, 1
     expect(cell_state(0, 0)).toEqual 'marked'
+
+  it 'should show a incorrect flag on falsely marked mines when a cell containing mine is left clicked', ->
+    givenField """
+    . *
+    . .
+    """
+    right_click 0, 0
+    left_click 0, 1
+    expect(cell_state(0, 0)).toEqual 'nomine'
+
 
   it 'should ignore left clicks once a game has been won', ->
     givenField """
@@ -390,7 +401,7 @@ describe 'minesweeper', ->
     expect(cell_state(0 ,0)).toEqual 'clicked_mine'
     expect(cell_state(0 ,1)).toEqual 'mines1'     
     expect(cell_state(0 ,2)).toEqual 'unclicked'
-    expect(cell_state(1 ,0)).toEqual 'marked'
+    expect(cell_state(1 ,0)).toEqual 'nomine'
     expect(cell_state(1 ,1)).toEqual 'unclicked'
     expect(cell_state(1 ,2)).toEqual 'unclicked'
       

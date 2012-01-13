@@ -162,5 +162,8 @@ td.uncertain {
 td.mine {
   background-image: url("../images/mine.gif"); }
 
+td.nomine {
+  background-image: url("../images/nomine.gif"); }
+
 td.clicked_mine {
   background-image: url("../images/minered.gif"); }

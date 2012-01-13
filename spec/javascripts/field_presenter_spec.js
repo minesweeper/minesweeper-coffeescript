@@ -210,8 +210,9 @@
       return expect(cell_state(0, 1)).toEqual('unclicked');
     });
     it('should ignore right clicks on marked once a game has been lost', function() {
-      givenField("* .");
+      givenField("* * .");
       right_click(0, 1);
+      expect(cell_state(0, 1)).toEqual('marked');
       left_click(0, 0);
       right_click(0, 1);
       return expect(cell_state(0, 1)).toEqual('marked');
@@ -263,6 +264,12 @@
       right_click(0, 0);
       left_click(0, 1);
       return expect(cell_state(0, 0)).toEqual('marked');
+    });
+    it('should show a incorrect flag on falsely marked mines when a cell containing mine is left clicked', function() {
+      givenField(". *\n. .");
+      right_click(0, 0);
+      left_click(0, 1);
+      return expect(cell_state(0, 0)).toEqual('nomine');
     });
     it('should ignore left clicks once a game has been won', function() {
       givenField("* .");
@@ -324,7 +331,7 @@
       expect(cell_state(0, 0)).toEqual('clicked_mine');
       expect(cell_state(0, 1)).toEqual('mines1');
       expect(cell_state(0, 2)).toEqual('unclicked');
-      expect(cell_state(1, 0)).toEqual('marked');
+      expect(cell_state(1, 0)).toEqual('nomine');
       expect(cell_state(1, 1)).toEqual('unclicked');
       return expect(cell_state(1, 2)).toEqual('unclicked');
     });

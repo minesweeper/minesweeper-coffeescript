@@ -43,6 +43,10 @@ window.FieldPresenter =
         
     set_mined = (row, col) ->
       $(selector "r#{row}c#{col}").attr 'class', 'mine'
+        
+    check_wrong_flag = (row, col) ->
+      if is_marked(row, col) && !current.hasMine(row, col)
+        $(selector "r#{row}c#{col}").attr 'class', 'nomine' 
 
     reveal_unmarked_neighbours = (element) ->
       match = /r(\d+)c(\d+)/.exec element.attr 'id'
@@ -64,6 +68,7 @@ window.FieldPresenter =
       timer.start()
       if current.hasMine(row, col)
         _.each current.opts.mines, (cell) -> set_mined cell[0], cell[1] unless is_marked cell[0], cell[1]
+        check_wrong_flag(r, c) for r in [0..current.opts.rows] for c in [0..current.opts.cols]
         end_game 'dead'
         game_state.lose()
         element.attr 'class', 'clicked_mine'
