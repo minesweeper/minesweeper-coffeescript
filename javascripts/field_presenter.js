@@ -12,7 +12,7 @@
       return FieldPresenter.render("#" + minesweeper_id, opts, minesweeper_count);
     },
     render: function(minesweeper_locator, opts, index) {
-      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, left_clicked, marked_mouseup, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, timer, uncertain_mouseup, unclicked_mouseup;
+      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, left_clicked, marked_mouseup, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mouseup;
       if (index == null) index = 1;
       id = function(name) {
         return "g" + index + name;
@@ -45,6 +45,16 @@
         timer.stop();
         return change_indicator_status_to(status);
       };
+      reveal_unmarked_neighbours = function(element) {
+        var col, match, row, _ref;
+        match = /r(\d+)c(\d+)/.exec(element.attr('id'));
+        _ref = [parseInt(match[1]), parseInt(match[2])], row = _ref[0], col = _ref[1];
+        return _.each(current.neighbours(row, col), function(cell) {
+          if (!($(selector("r" + cell[0] + "c" + cell[1])).attr('class') === 'marked')) {
+            return click_cell(cell);
+          }
+        });
+      };
       reveal_unclicked_cell = function(element) {
         var adjacentCount, col, match, row, _ref;
         match = /r(\d+)c(\d+)/.exec(element.attr('id'));
@@ -62,6 +72,7 @@
           adjacentCount = current.adjacentCount(row, col);
           element.attr('class', "mines" + adjacentCount);
           game_state.reveal_cell();
+          set_unclicked_to_revealed(element);
           if (game_state.won) end_game('won');
           if (adjacentCount === 0) {
             return _.each(current.neighbours(row, col), function(cell) {
@@ -73,6 +84,9 @@
       adjust_remaining = function(increment) {
         game_state.remaining_mines += increment;
         return remaining_mines_lcd.display(game_state.remaining_mines);
+      };
+      set_unclicked_to_revealed = function(element) {
+        return element.bind('dblclick', revealed_dblclick);
       };
       set_unclicked_to_marked = function(element) {
         if (game_state.finished()) return;
@@ -90,6 +104,9 @@
         if (game_state.finished()) return;
         element.attr('class', 'unclicked');
         return element.bind('mouseup', unclicked_mouseup);
+      };
+      revealed_dblclick = function(event) {
+        return reveal_unmarked_neighbours($(this));
       };
       marked_mouseup = function(event) {
         if (!left_clicked(event)) {

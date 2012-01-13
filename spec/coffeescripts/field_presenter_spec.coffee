@@ -5,6 +5,9 @@ describe 'minesweeper', ->
   left_click = (row, col) ->
     $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 1    
 
+  double_click = (row, col) ->
+    $("#g1r#{row}c#{col}").trigger type: 'dblclick', which: 1
+
   indicator_press = ->
     $("#g1indicator").trigger type: 'mousedown'
 
@@ -253,3 +256,20 @@ describe 'minesweeper', ->
     left_click 0, 1
     left_click 0, 0
     expect(cell_state(0, 0)).toEqual 'unclicked'
+  
+  it 'should click all non-marked neighbouring cells when double clicking a numeric cell', ->
+    givenField """
+    * . .
+    . . .
+    . . * 
+    """
+    right_click 0, 0
+    expect(cell_state(0 ,0)).toEqual 'marked'
+    left_click  0, 1
+    expect(cell_state(0 ,1)).toEqual 'mines1'
+    double_click 0,1
+    expect(cell_state(0 ,0)).toEqual 'marked'
+    expect(cell_state(0 ,2)).toEqual 'mines0'
+    expect(cell_state(1 ,0)).toEqual 'mines1'
+    expect(cell_state(1 ,1)).toEqual 'mines2'
+    expect(cell_state(1 ,2)).toEqual 'mines1'

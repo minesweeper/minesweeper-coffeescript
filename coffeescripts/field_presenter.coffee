@@ -38,6 +38,13 @@ window.FieldPresenter =
       timer.stop()
       change_indicator_status_to status
 
+    reveal_unmarked_neighbours = (element) ->
+      match = /r(\d+)c(\d+)/.exec element.attr 'id'
+      [row,col] = [parseInt(match[1]),parseInt(match[2])]
+      _.each current.neighbours(row, col), (cell) ->
+        click_cell cell unless ($(selector "r#{cell[0]}c#{cell[1]}").attr('class') == 'marked')
+          
+
     reveal_unclicked_cell = (element) ->
       match = /r(\d+)c(\d+)/.exec element.attr 'id'
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
@@ -52,6 +59,7 @@ window.FieldPresenter =
         adjacentCount = current.adjacentCount row, col
         element.attr 'class', "mines#{adjacentCount}"
         game_state.reveal_cell()
+        set_unclicked_to_revealed(element)
         end_game 'won' if game_state.won
         if adjacentCount == 0
           _.each current.neighbours(row, col), (cell) -> click_cell cell
@@ -59,7 +67,10 @@ window.FieldPresenter =
     adjust_remaining = (increment) ->
       game_state.remaining_mines += increment
       remaining_mines_lcd.display game_state.remaining_mines
-
+	  
+    set_unclicked_to_revealed = (element) ->
+      element.bind 'dblclick', revealed_dblclick
+	  
     set_unclicked_to_marked = (element) ->
       return if game_state.finished()
       element.attr 'class', 'marked'
@@ -76,7 +87,10 @@ window.FieldPresenter =
       return if game_state.finished()
       element.attr 'class', 'unclicked'
       element.bind 'mouseup', unclicked_mouseup
-
+	  	  		
+    revealed_dblclick = (event) ->
+      reveal_unmarked_neighbours $(this)
+	
     marked_mouseup = (event) ->
       unless left_clicked event
         $(this).unbind event

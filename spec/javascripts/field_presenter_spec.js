@@ -1,7 +1,7 @@
 (function() {
 
   describe('minesweeper', function() {
-    var cell_state, cls, givenField, indicator_class, indicator_click, indicator_press, left_click, remaining_mines, right_click;
+    var cell_state, cls, double_click, givenField, indicator_class, indicator_click, indicator_press, left_click, remaining_mines, right_click;
     right_click = function(row, col) {
       return $("#g1r" + row + "c" + col).trigger({
         type: 'mouseup',
@@ -11,6 +11,12 @@
     left_click = function(row, col) {
       return $("#g1r" + row + "c" + col).trigger({
         type: 'mouseup',
+        which: 1
+      });
+    };
+    double_click = function(row, col) {
+      return $("#g1r" + row + "c" + col).trigger({
+        type: 'dblclick',
         which: 1
       });
     };
@@ -205,11 +211,24 @@
       left_click(0, 1);
       return expect(indicator_class()).toEqual('status won');
     });
-    return it('should ignore left clicks once a game has been won', function() {
+    it('should ignore left clicks once a game has been won', function() {
       givenField("* .");
       left_click(0, 1);
       left_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('unclicked');
+    });
+    return it('should click all non-marked neighbouring cells when double clicking a numeric cell', function() {
+      givenField("* . .\n. . .\n. . * ");
+      right_click(0, 0);
+      expect(cell_state(0, 0)).toEqual('marked');
+      left_click(0, 1);
+      expect(cell_state(0, 1)).toEqual('mines1');
+      double_click(0, 1);
+      expect(cell_state(0, 0)).toEqual('marked');
+      expect(cell_state(0, 2)).toEqual('mines0');
+      expect(cell_state(1, 0)).toEqual('mines1');
+      expect(cell_state(1, 1)).toEqual('mines2');
+      return expect(cell_state(1, 2)).toEqual('mines1');
     });
   });
 
