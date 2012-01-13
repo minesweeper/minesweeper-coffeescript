@@ -12,7 +12,7 @@
       return FieldPresenter.render("#" + minesweeper_id, opts, minesweeper_count);
     },
     render: function(minesweeper_locator, opts, index) {
-      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, is_marked, left_clicked, marked_mouseup, num_marked_neighbours, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mouseup;
+      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, is_marked, left_clicked, marked_mouseup, num_marked_neighbours, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mousedown, unclicked_mouseup;
       if (index == null) index = 1;
       id = function(name) {
         return "g" + index + name;
@@ -84,7 +84,11 @@
           element.attr('class', "mines" + adjacentCount);
           game_state.reveal_cell();
           set_unclicked_to_revealed(element);
-          if (game_state.won) end_game('won');
+          if (game_state.won) {
+            end_game('won');
+          } else {
+            change_indicator_status_to('alive');
+          }
           if (adjacentCount === 0) {
             return _.each(current.neighbours(row, col), function(cell) {
               return click_cell(cell);
@@ -114,7 +118,8 @@
       set_uncertain_to_unclicked = function(element) {
         if (game_state.finished()) return;
         element.attr('class', 'unclicked');
-        return element.bind('mouseup', unclicked_mouseup);
+        element.bind('mouseup', unclicked_mouseup);
+        return element.bind('mousedown', unclicked_mousedown);
       };
       revealed_dblclick = function(event) {
         var adjacentCount, match;
@@ -148,6 +153,9 @@
           }
         }
       };
+      unclicked_mousedown = function(event) {
+        if (left_clicked(event)) return change_indicator_status_to('scared');
+      };
       indicator_pressed = function() {
         return $(this).attr('class', 'status alivePressed');
       };
@@ -171,6 +179,7 @@
           return false;
         });
         $("#g" + index + " .unclicked").bind('mouseup', unclicked_mouseup);
+        $("#g" + index + " .unclicked").bind('mousedown', unclicked_mousedown);
         $("#g" + index + "indicator").bind('mouseup', reset_game);
         $("#g" + index + "indicator").bind('mousedown', indicator_pressed);
         return game_state = new GameState(current);

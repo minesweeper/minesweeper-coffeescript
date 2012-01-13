@@ -1,7 +1,7 @@
 (function() {
 
   describe('minesweeper', function() {
-    var cell_state, cls, double_click, givenField, indicator_class, indicator_click, indicator_press, left_click, remaining_mines, right_click;
+    var cell_state, cls, double_click, givenField, indicator_class, indicator_click, indicator_press, left_click, left_press, remaining_mines, right_click;
     right_click = function(row, col) {
       return $("#g1r" + row + "c" + col).trigger({
         type: 'mouseup',
@@ -11,6 +11,12 @@
     left_click = function(row, col) {
       return $("#g1r" + row + "c" + col).trigger({
         type: 'mouseup',
+        which: 1
+      });
+    };
+    left_press = function(row, col) {
+      return $("#g1r" + row + "c" + col).trigger({
+        type: 'mousedown',
         which: 1
       });
     };
@@ -226,6 +232,25 @@
       givenField("* .");
       left_click(0, 1);
       return expect(indicator_class()).toEqual('status won');
+    });
+    it('should change game indicator status to scared when the user is about to reveal a cell', function() {
+      givenField("* .");
+      left_press(0, 1);
+      return expect(indicator_class()).toEqual('status scared');
+    });
+    it('should change game indicator status back from scared to alive when the user is has revealed a cell that does not have a mine', function() {
+      givenField(". *\n. .");
+      left_press(0, 0);
+      expect(indicator_class()).toEqual('status scared');
+      left_click(0, 0);
+      return expect(indicator_class()).toEqual('status alive');
+    });
+    it('should change game indicator status back from scared to dead when the user is has revealed a cell that has a mine', function() {
+      givenField(". *\n. .");
+      left_press(0, 1);
+      expect(indicator_class()).toEqual('status scared');
+      left_click(0, 1);
+      return expect(indicator_class()).toEqual('status dead');
     });
     it('should ignore left clicks once a game has been won', function() {
       givenField("* .");

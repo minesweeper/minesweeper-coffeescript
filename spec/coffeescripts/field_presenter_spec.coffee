@@ -3,7 +3,10 @@ describe 'minesweeper', ->
     $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 2
 
   left_click = (row, col) ->
-    $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 1    
+    $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 1 
+
+  left_press = (row, col) ->
+    $("#g1r#{row}c#{col}").trigger type: 'mousedown', which: 1    
 
   double_click = (row, col) ->
     $("#g1r#{row}c#{col}").trigger type: 'dblclick', which: 1
@@ -262,6 +265,33 @@ describe 'minesweeper', ->
     """
     left_click 0, 1
     expect(indicator_class()).toEqual 'status won'
+
+  it 'should change game indicator status to scared when the user is about to reveal a cell', ->
+    givenField """
+    * .
+    """
+    left_press 0, 1
+    expect(indicator_class()).toEqual 'status scared'
+
+  it 'should change game indicator status back from scared to alive when the user is has revealed a cell that does not have a mine', ->
+    givenField """
+    . *
+    . .
+    """
+    left_press 0, 0
+    expect(indicator_class()).toEqual 'status scared'
+    left_click 0, 0
+    expect(indicator_class()).toEqual 'status alive'
+
+  it 'should change game indicator status back from scared to dead when the user is has revealed a cell that has a mine', ->
+    givenField """
+    . *
+    . .
+    """
+    left_press 0, 1
+    expect(indicator_class()).toEqual 'status scared'
+    left_click 0, 1
+    expect(indicator_class()).toEqual 'status dead'
 
   it 'should ignore left clicks once a game has been won', ->
     givenField """

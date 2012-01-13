@@ -70,7 +70,10 @@ window.FieldPresenter =
         element.attr 'class', "mines#{adjacentCount}"
         game_state.reveal_cell()
         set_unclicked_to_revealed(element)
-        end_game 'won' if game_state.won
+        if game_state.won
+          end_game 'won'
+        else 
+          change_indicator_status_to 'alive'
         if adjacentCount == 0
           _.each current.neighbours(row, col), (cell) -> click_cell cell
 
@@ -97,6 +100,7 @@ window.FieldPresenter =
       return if game_state.finished()
       element.attr 'class', 'unclicked'
       element.bind 'mouseup', unclicked_mouseup
+      element.bind 'mousedown', unclicked_mousedown
 	  	  		
     revealed_dblclick = (event) ->
       match= /^mines(\d)$/.exec $(this).attr 'class'
@@ -123,6 +127,9 @@ window.FieldPresenter =
           $(this).unbind event
           set_unclicked_to_marked $(this)
 
+    unclicked_mousedown = (event) ->
+      change_indicator_status_to 'scared' if left_clicked event
+
     indicator_pressed = ->
       $(this).attr 'class', 'status alivePressed'
 
@@ -141,6 +148,7 @@ window.FieldPresenter =
       remaining_mines_lcd.display current.opts.mineCount
       $("#g#{index} .unclicked").bind 'contextmenu', -> false
       $("#g#{index} .unclicked").bind 'mouseup', unclicked_mouseup
+      $("#g#{index} .unclicked").bind 'mousedown', unclicked_mousedown
       $("#g#{index}indicator").bind 'mouseup', reset_game
       $("#g#{index}indicator").bind 'mousedown', indicator_pressed
       game_state = new GameState current
