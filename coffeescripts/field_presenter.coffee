@@ -91,17 +91,20 @@ window.FieldPresenter =
 	  
     set_unclicked_to_revealed = (element) ->
       element.bind 'dblclick', revealed_dblclick
+      element.unbind 'mousedown'
 	  
     set_unclicked_to_marked = (element) ->
       return if game_state.finished()
       element.attr 'class', 'marked'
       element.bind 'mouseup', marked_mouseup
+      element.unbind 'mousedown'
       adjust_remaining -1
 
     set_marked_to_uncertain = (element) ->
       return if game_state.finished()
       element.attr 'class', 'uncertain'
       element.bind 'mouseup', uncertain_mouseup
+      element.unbind 'mousedown'
       adjust_remaining 1
 
     set_uncertain_to_unclicked = (element) ->

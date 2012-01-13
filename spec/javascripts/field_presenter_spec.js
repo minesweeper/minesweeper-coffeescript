@@ -235,6 +235,25 @@
       left_press(0, 1);
       return expect(indicator_class()).toEqual('status scared');
     });
+    it('should not change game indicator status to scared on a revealed cell', function() {
+      givenField("* . .");
+      left_click(0, 1);
+      left_press(0, 1);
+      return expect(indicator_class()).toEqual('status alive');
+    });
+    it('should not change game indicator status to scared on a marked cell', function() {
+      givenField("* . .");
+      right_click(0, 1);
+      left_press(0, 1);
+      return expect(indicator_class()).toEqual('status alive');
+    });
+    it('should not change game indicator status to scared on an uncertain cell', function() {
+      givenField("* . .");
+      right_click(0, 1);
+      right_click(0, 1);
+      left_press(0, 1);
+      return expect(indicator_class()).toEqual('status alive');
+    });
     it('should change game indicator status back from scared to alive when the user is has revealed a cell that does not have a mine', function() {
       givenField(". *\n. .");
       left_press(0, 0);

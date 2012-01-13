@@ -114,18 +114,21 @@
         return remaining_mines_lcd.display(game_state.remaining_mines);
       };
       set_unclicked_to_revealed = function(element) {
-        return element.bind('dblclick', revealed_dblclick);
+        element.bind('dblclick', revealed_dblclick);
+        return element.unbind('mousedown');
       };
       set_unclicked_to_marked = function(element) {
         if (game_state.finished()) return;
         element.attr('class', 'marked');
         element.bind('mouseup', marked_mouseup);
+        element.unbind('mousedown');
         return adjust_remaining(-1);
       };
       set_marked_to_uncertain = function(element) {
         if (game_state.finished()) return;
         element.attr('class', 'uncertain');
         element.bind('mouseup', uncertain_mouseup);
+        element.unbind('mousedown');
         return adjust_remaining(1);
       };
       set_uncertain_to_unclicked = function(element) {
