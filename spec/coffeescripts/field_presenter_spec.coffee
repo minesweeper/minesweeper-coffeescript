@@ -222,6 +222,7 @@ describe 'minesweeper', ->
     * * .
     """
     left_click 0, 0
+    expect(cell_state(0, 0)).toEqual 'mine'
     expect(cell_state(0, 1)).toEqual 'mine'
 
   it 'should ignore left clicks once a game has been lost', ->

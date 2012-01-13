@@ -199,6 +199,7 @@
     it('should reveal all mines when a mine is clicked', function() {
       givenField("* * .");
       left_click(0, 0);
+      expect(cell_state(0, 0)).toEqual('mine');
       return expect(cell_state(0, 1)).toEqual('mine');
     });
     it('should ignore left clicks once a game has been lost', function() {

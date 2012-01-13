@@ -40,6 +40,9 @@ window.FieldPresenter =
 
     is_marked = (row, col) ->
       $(selector "r#{row}c#{col}").attr('class') == 'marked'
+        
+    set_mined = (row, col) ->
+      $(selector "r#{row}c#{col}").attr 'class', 'mine'
 
     reveal_unmarked_neighbours = (element) ->
       match = /r(\d+)c(\d+)/.exec element.attr 'id'
@@ -60,7 +63,7 @@ window.FieldPresenter =
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
       timer.start()
       if current.hasMine(row, col)
-        _.each current.opts.mines, (cell) -> click_cell cell
+        _.each current.opts.mines, (cell) -> set_mined cell[0], cell[1]
         end_game 'dead'
         game_state.lose()
         element.attr 'class', 'mine'

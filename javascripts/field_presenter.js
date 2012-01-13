@@ -12,7 +12,7 @@
       return FieldPresenter.render("#" + minesweeper_id, opts, minesweeper_count);
     },
     render: function(minesweeper_locator, opts, index) {
-      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, is_marked, left_clicked, marked_mouseup, num_marked_neighbours, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mousedown, unclicked_mouseup;
+      var adjust_remaining, change_class_to, change_indicator_status_to, click_cell, current, end_game, game_state, id, indicator_pressed, is_marked, left_clicked, marked_mouseup, num_marked_neighbours, remaining_mines_lcd, renderField, renderParent, reset_game, reveal_unclicked_cell, reveal_unmarked_neighbours, revealed_dblclick, selector, set_game, set_marked_to_uncertain, set_mined, set_uncertain_to_unclicked, set_unclicked_to_marked, set_unclicked_to_revealed, timer, uncertain_mouseup, unclicked_mousedown, unclicked_mouseup;
       if (index == null) index = 1;
       id = function(name) {
         return "g" + index + name;
@@ -48,6 +48,9 @@
       is_marked = function(row, col) {
         return $(selector("r" + row + "c" + col)).attr('class') === 'marked';
       };
+      set_mined = function(row, col) {
+        return $(selector("r" + row + "c" + col)).attr('class', 'mine');
+      };
       reveal_unmarked_neighbours = function(element) {
         var col, match, row, _ref;
         match = /r(\d+)c(\d+)/.exec(element.attr('id'));
@@ -73,7 +76,7 @@
         timer.start();
         if (current.hasMine(row, col)) {
           _.each(current.opts.mines, function(cell) {
-            return click_cell(cell);
+            return set_mined(cell[0], cell[1]);
           });
           end_game('dead');
           game_state.lose();
