@@ -76,7 +76,7 @@
         timer.start();
         if (current.hasMine(row, col)) {
           _.each(current.opts.mines, function(cell) {
-            return set_mined(cell[0], cell[1]);
+            if (!is_marked(cell[0], cell[1])) return set_mined(cell[0], cell[1]);
           });
           end_game('dead');
           game_state.lose();

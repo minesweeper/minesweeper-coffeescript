@@ -253,10 +253,16 @@
       left_click(0, 0);
       return expect(indicator_class()).toEqual('status dead');
     });
-    it('should show a red mine on the mine you clicked on', function() {
+    it('should show a red mine on the mine you clicked on when a cell containing mine is left clicked', function() {
       givenField("* .\n. .");
       left_click(0, 0);
       return expect(cell_state(0, 0)).toEqual('clicked_mine');
+    });
+    it('should keep the flags on marked mines when a cell containing mine is left clicked', function() {
+      givenField("* *\n. .");
+      right_click(0, 0);
+      left_click(0, 1);
+      return expect(cell_state(0, 0)).toEqual('marked');
     });
     it('should ignore left clicks once a game has been won', function() {
       givenField("* .");

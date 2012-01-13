@@ -63,7 +63,7 @@ window.FieldPresenter =
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
       timer.start()
       if current.hasMine(row, col)
-        _.each current.opts.mines, (cell) -> set_mined cell[0], cell[1]
+        _.each current.opts.mines, (cell) -> set_mined cell[0], cell[1] unless is_marked cell[0], cell[1]
         end_game 'dead'
         game_state.lose()
         element.attr 'class', 'clicked_mine'

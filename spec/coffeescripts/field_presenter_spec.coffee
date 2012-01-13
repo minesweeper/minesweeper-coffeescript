@@ -295,13 +295,22 @@ describe 'minesweeper', ->
     left_click 0, 0
     expect(indicator_class()).toEqual 'status dead'
   
-  it 'should show a red mine on the mine you clicked on', ->
+  it 'should show a red mine on the mine you clicked on when a cell containing mine is left clicked', ->
     givenField """
     * .
     . .
     """
     left_click 0, 0
     expect(cell_state(0, 0)).toEqual 'clicked_mine'
+
+  it 'should keep the flags on marked mines when a cell containing mine is left clicked', ->
+    givenField """
+    * *
+    . .
+    """
+    right_click 0, 0
+    left_click 0, 1
+    expect(cell_state(0, 0)).toEqual 'marked'
 
   it 'should ignore left clicks once a game has been won', ->
     givenField """
