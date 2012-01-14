@@ -1,35 +1,35 @@
 describe 'Field', ->
   describe 'validation', ->
     it 'should decrease number of mines according to rows and columns', ->
-      field = new Field rows: 3, cols: 3, mineCount: 9
+      field = Field.new rows: 3, cols: 3, mineCount: 9
       expect(field.opts.mineCount).toEqual 8
 
     it 'should set rows to 1 if unspecified', ->
-      field = new Field {}
+      field = Field.new {}
       expect(field.opts.rows).toEqual 1
 
     it 'should set rows to 1 if less than 1', ->
-      field = new Field rows: 0
+      field = Field.new rows: 0
       expect(field.opts.rows).toEqual 1
 
     it 'should set cols to 2 if unspecified', ->
-      field = new Field {}
+      field = Field.new {}
       expect(field.opts.cols).toEqual 2
 
     it 'should set cols to 2 if less than 1', ->
-      field = new Field cols: 1
+      field = Field.new cols: 1
       expect(field.opts.cols).toEqual 2
 
     it 'should set mineCount to 1 if unspecified', ->
-      field = new Field {}
+      field = Field.new {}
       expect(field.opts.mineCount).toEqual 1
 
     it 'should set mineCount to 1 if less than 1', ->
-      field = new Field mineCount: 0
+      field = Field.new mineCount: 0
       expect(field.opts.mineCount).toEqual 1
 
   describe 'neighbours', ->
-    field = new Field rows: 3, cols: 3
+    field = Field.new rows: 3, cols: 3
 
     it 'should determine neighbours for middle', ->
       expect(field.neighbours(1,1)).toEqual [
@@ -51,7 +51,7 @@ describe 'Field', ->
       ]
 
   describe 'has mine', ->
-    field = new Field rows: 3, cols: 3, mines: [[1,1]]
+    field = Field.new rows: 3, cols: 3, mines: [[1,1]]
 
     it 'should find mine when there is one', ->
       expect(field.hasMine(1,1)).toEqual true
@@ -60,7 +60,7 @@ describe 'Field', ->
       expect(field.hasMine(0,0)).toEqual false
 
   describe 'mine placement', ->
-    field = new Field rows: 1, cols:2, mineCount: 1
+    field = Field.new rows: 1, cols:2, mineCount: 1
 
     it 'should place a mine after a call to hasMine', ->
       expect(field.hasMine(0,0)).toEqual false
@@ -78,7 +78,7 @@ describe 'Field', ->
         lastrow = line.split " "
         _.each lastrow, (char, col) ->
           mines.push [row, col] if char=='*'
-      field = new Field cols: lastrow.length, rows: lines.length, mines: mines, mineCount: mines.length
+      field = Field.new cols: lastrow.length, rows: lines.length, mines: mines, mineCount: mines.length
 
     expect_counts = (s) ->
       _.each s.split("\n"), (line, row) ->

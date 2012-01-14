@@ -1,6 +1,6 @@
 describe 'GameState', ->
   game_state = null
-  field = new Field mineCount: 1, rows: 1, cols: 3
+  field = Field.new mineCount: 1, rows: 1, cols: 3
 
   beforeEach -> 
     game_state = new GameState field

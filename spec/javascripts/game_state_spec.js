@@ -3,7 +3,7 @@
   describe('GameState', function() {
     var field, game_state;
     game_state = null;
-    field = new Field({
+    field = Field["new"]({
       mineCount: 1,
       rows: 1,
       cols: 3

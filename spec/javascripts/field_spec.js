@@ -4,7 +4,7 @@
     describe('validation', function() {
       it('should decrease number of mines according to rows and columns', function() {
         var field;
-        field = new Field({
+        field = Field["new"]({
           rows: 3,
           cols: 3,
           mineCount: 9
@@ -13,36 +13,36 @@
       });
       it('should set rows to 1 if unspecified', function() {
         var field;
-        field = new Field({});
+        field = Field["new"]({});
         return expect(field.opts.rows).toEqual(1);
       });
       it('should set rows to 1 if less than 1', function() {
         var field;
-        field = new Field({
+        field = Field["new"]({
           rows: 0
         });
         return expect(field.opts.rows).toEqual(1);
       });
       it('should set cols to 2 if unspecified', function() {
         var field;
-        field = new Field({});
+        field = Field["new"]({});
         return expect(field.opts.cols).toEqual(2);
       });
       it('should set cols to 2 if less than 1', function() {
         var field;
-        field = new Field({
+        field = Field["new"]({
           cols: 1
         });
         return expect(field.opts.cols).toEqual(2);
       });
       it('should set mineCount to 1 if unspecified', function() {
         var field;
-        field = new Field({});
+        field = Field["new"]({});
         return expect(field.opts.mineCount).toEqual(1);
       });
       return it('should set mineCount to 1 if less than 1', function() {
         var field;
-        field = new Field({
+        field = Field["new"]({
           mineCount: 0
         });
         return expect(field.opts.mineCount).toEqual(1);
@@ -50,7 +50,7 @@
     });
     describe('neighbours', function() {
       var field;
-      field = new Field({
+      field = Field["new"]({
         rows: 3,
         cols: 3
       });
@@ -66,7 +66,7 @@
     });
     describe('has mine', function() {
       var field;
-      field = new Field({
+      field = Field["new"]({
         rows: 3,
         cols: 3,
         mines: [[1, 1]]
@@ -80,7 +80,7 @@
     });
     describe('mine placement', function() {
       var field;
-      field = new Field({
+      field = Field["new"]({
         rows: 1,
         cols: 2,
         mineCount: 1
@@ -105,7 +105,7 @@
             if (char === '*') return mines.push([row, col]);
           });
         });
-        return field = new Field({
+        return field = Field["new"]({
           cols: lastrow.length,
           rows: lines.length,
           mines: mines,

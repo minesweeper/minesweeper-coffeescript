@@ -16,7 +16,7 @@ window.FieldPresenter =
     selector = (name) ->
       "##{id name}"
 
-    current = new Field opts
+    current = Field.new opts
     remaining_mines_lcd = Lcd.new id 'minesRemaining'
     game_state = null
     timer = Timer.new id 'timer'
