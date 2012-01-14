@@ -97,7 +97,7 @@
           element.attr('class', "mines" + adjacentCount);
           game_state.reveal_cell();
           set_unclicked_to_revealed(element);
-          if (game_state.won) {
+          if (game_state.won()) {
             end_game('won');
           } else {
             change_indicator_status_to('alive');
@@ -110,8 +110,8 @@
         }
       };
       adjust_remaining = function(increment) {
-        game_state.remaining_mines += increment;
-        return remaining_mines_lcd.display(game_state.remaining_mines);
+        game_state.increment_remaining_mines(increment);
+        return remaining_mines_lcd.display(game_state.remaining_mines());
       };
       set_unclicked_to_revealed = function(element) {
         element.bind('dblclick', revealed_dblclick);
@@ -164,7 +164,7 @@
           if (game_state.finished()) return;
           return reveal_unclicked_cell($(this));
         } else {
-          if (game_state.remaining_mines !== 0) {
+          if (game_state.remaining_mines() !== 0) {
             $(this).unbind(event);
             return set_unclicked_to_marked($(this));
           }
@@ -200,7 +200,7 @@
         $("#g" + index + " .unclicked").bind('mousedown', unclicked_mousedown);
         $("#g" + index + "indicator").bind('mouseup', reset_game);
         $("#g" + index + "indicator").bind('mousedown', indicator_pressed);
-        return game_state = new GameState(current);
+        return game_state = GameState["new"](current);
       };
       renderParent = function(view) {
         var template;

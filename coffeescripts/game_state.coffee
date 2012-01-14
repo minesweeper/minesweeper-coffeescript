@@ -1,16 +1,29 @@
-class window.GameState
-  constructor: (@field) ->
-    this.remaining_mines = field.opts.mineCount
-    this.remaining_cells = field.opts.rows * field.opts.cols - field.opts.mineCount
-    this.lost = false
-    this.won = false
+window.GameState =
+  new: (field) ->
+    mines_remaining = field.opts.mineCount
+    cells_remaining = field.opts.rows * field.opts.cols - field.opts.mineCount
+    have_lost = false
+    have_won = false
 
-  lose: ->
-    this.lost = true
+    reveal_cell = ->
+      cells_remaining -= 1
+      have_won = true if cells_remaining < 1
 
-  reveal_cell: ->
-    this.remaining_cells -= 1
-    this.won = true if this.remaining_cells < 1
+    increment_remaining_mines = (increment) ->
+      mines_remaining += increment
 
-  finished: ->
-    this.won or this.lost
+    lose = -> have_lost = true    
+    finished = -> have_won or have_lost
+    remaining_mines = -> mines_remaining
+    remaining_cells = -> cells_remaining
+    won = -> have_won
+    lost = -> have_lost
+
+    lose: lose
+    reveal_cell: reveal_cell
+    finished: finished
+    won: won
+    lost: lost
+    remaining_mines: remaining_mines
+    remaining_cells: remaining_cells
+    increment_remaining_mines: increment_remaining_mines

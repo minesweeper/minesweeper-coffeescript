@@ -61,7 +61,7 @@ window.FieldPresenter =
       _.each current.neighbours(row, col), (cell) ->
         n++ if is_marked cell[0], cell[1]
       return n
-          
+
     reveal_unclicked_cell = (element) ->
       match = /r(\d+)c(\d+)/.exec element.attr 'id'
       [row,col] = [parseInt(match[1]),parseInt(match[2])]
@@ -78,7 +78,7 @@ window.FieldPresenter =
         element.attr 'class', "mines#{adjacentCount}"
         game_state.reveal_cell()
         set_unclicked_to_revealed(element)
-        if game_state.won
+        if game_state.won()
           end_game 'won'
         else 
           change_indicator_status_to 'alive'
@@ -86,9 +86,9 @@ window.FieldPresenter =
           _.each current.neighbours(row, col), (cell) -> click_cell cell
 
     adjust_remaining = (increment) ->
-      game_state.remaining_mines += increment
-      remaining_mines_lcd.display game_state.remaining_mines
-	  
+      game_state.increment_remaining_mines increment
+      remaining_mines_lcd.display game_state.remaining_mines()
+
     set_unclicked_to_revealed = (element) ->
       element.bind 'dblclick', revealed_dblclick
       element.unbind 'mousedown'
@@ -135,7 +135,7 @@ window.FieldPresenter =
         return if game_state.finished()
         reveal_unclicked_cell $(this)
       else
-        unless game_state.remaining_mines == 0
+        unless game_state.remaining_mines() == 0
           $(this).unbind event
           set_unclicked_to_marked $(this)
 
@@ -164,7 +164,7 @@ window.FieldPresenter =
       $("#g#{index} .unclicked").bind 'mousedown', unclicked_mousedown
       $("#g#{index}indicator").bind 'mouseup', reset_game
       $("#g#{index}indicator").bind 'mousedown', indicator_pressed
-      game_state = new GameState current
+      game_state = GameState.new current
 
     renderParent = (view) ->
       template =
