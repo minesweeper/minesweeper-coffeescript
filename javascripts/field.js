@@ -3,7 +3,6 @@
   window.Field = {
     "new": function(opts) {
       var adjacentCount, hasMine, neighbours;
-      this.opts = opts;
       if (!opts.rows) opts.rows = 1;
       if (!(opts.rows > 0)) opts.rows = 1;
       if (!opts.cols) opts.cols = 2;
@@ -14,21 +13,18 @@
         opts.mineCount = opts.rows * opts.cols - 1;
       }
       adjacentCount = function(row, col) {
-        var field, iterator;
-        field = this;
+        var iterator;
         iterator = function(memo, neighbour) {
-          if (field.hasMine(neighbour[0], neighbour[1])) memo += 1;
+          if (hasMine(neighbour[0], neighbour[1])) memo += 1;
           return memo;
         };
-        return _.reduce(this.neighbours(row, col), iterator, 0);
+        return _(neighbours(row, col)).reduce(iterator, 0);
       };
       neighbours = function(row, col) {
-        var append, c, cols, r, result, rows, _ref, _ref2, _ref3, _ref4;
+        var append, c, r, result, _ref, _ref2, _ref3, _ref4;
         result = [];
-        rows = opts.rows;
-        cols = opts.cols;
         append = function(r, c) {
-          if (!((r === row && c === col) || r < 0 || c < 0 || r >= rows || c >= cols)) {
+          if (!((r === row && c === col) || r < 0 || c < 0 || r >= opts.rows || c >= opts.cols)) {
             return result.push([r, c]);
           }
         };
@@ -60,7 +56,7 @@
             addMine();
           }
         }
-        return _.any(opts.mines, function(mine) {
+        return _(opts.mines).any(function(mine) {
           return mine[0] === row && mine[1] === col;
         });
       };
