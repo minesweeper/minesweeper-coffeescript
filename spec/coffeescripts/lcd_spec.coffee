@@ -4,13 +4,11 @@ describe 'Lcd', ->
 
   beforeEach ->
     $('#jasmine_content').html """
-    <table>
-      <tr>
-        <td class="lcd n0" id="prefix100s" />
-        <td class="lcd n0" id="prefix10s" />
-        <td class="lcd n0" id="prefix1s" />
-      </tr>
-    </table>
+    <div id="prefix" class="minesRemaining">
+      <div class="lcd n0" id="prefix100s" />
+      <div class="lcd n0" id="prefix10s" />
+      <div class="lcd n0" id="prefix1s" />
+    </div>
     """
 
   it 'should display 0', ->
@@ -36,3 +34,7 @@ describe 'Lcd', ->
     expect($('#prefix1s').attr 'class').toEqual l(0)
     expect($('#prefix10s').attr 'class').toEqual l(0)
     expect($('#prefix100s').attr 'class').toEqual l(1)
+  
+  it 'should support displaying the value as title', ->
+    lcd.display 888
+    expect($("#prefix").attr 'title').toEqual '888'

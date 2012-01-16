@@ -175,13 +175,13 @@ window.FieldPresenter =
         </div>
         <div class="outer">
           <div class="top">
-            <div class="minesRemaining">
+            <div id="g#{index}minesRemaining" class="minesRemaining" title="0">
               <div id="g#{index}minesRemaining100s" class="lcd n0"></div>
               <div id="g#{index}minesRemaining10s" class="lcd n0"></div>
               <div id="g#{index}minesRemaining1s" class="lcd n0"></div>
             </div>
             <span id="g#{index}indicator{{index}}" class="status alive"></span>
-            <div class="timer">
+            <div id="g#{index}timer" class="timer" title="0">
               <div id="g#{index}timer100s" class="lcd n0"></div>
               <div id="g#{index}timer10s" class="lcd n0"></div>
               <div id="g#{index}timer1s" class="lcd n0"></div>            
