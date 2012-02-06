@@ -25,6 +25,8 @@ $ ->
     opts.rows = number
   with_numeric_parameter 'cols', (number) ->
     opts.cols = number
+  with_numeric_parameter 'minecount', (number) ->
+    opts.mineCount = number
   with_numeric_parameter 'minescount', (number) ->
     opts.mineCount = number
   with_eval_parameter 'mines', (mines) ->

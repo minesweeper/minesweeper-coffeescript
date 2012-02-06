@@ -45,6 +45,9 @@
     with_numeric_parameter('cols', function(number) {
       return opts.cols = number;
     });
+    with_numeric_parameter('minecount', function(number) {
+      return opts.mineCount = number;
+    });
     with_numeric_parameter('minescount', function(number) {
       return opts.mineCount = number;
     });
