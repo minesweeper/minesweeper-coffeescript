@@ -3,10 +3,10 @@ describe 'minesweeper', ->
     $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 2
 
   left_click = (row, col) ->
-    $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 1 
+    $("#g1r#{row}c#{col}").trigger type: 'mouseup', which: 1
 
   left_press = (row, col) ->
-    $("#g1r#{row}c#{col}").trigger type: 'mousedown', which: 1    
+    $("#g1r#{row}c#{col}").trigger type: 'mousedown', which: 1
 
   double_click = (row, col) ->
     $("#g1r#{row}c#{col}").trigger type: 'dblclick', which: 1
@@ -44,20 +44,20 @@ describe 'minesweeper', ->
       rows: lines.length
       mines: mines
       mineCount: mines.length
-	  
+
   it 'should display test mode when specifying mine locations', ->
     FieldPresenter.render '#jasmine_content',
       cols: 2
       rows: 2
       mines: [[0, 0]]
-    expect($("#test_mode").text()).toEqual 'TEST MODE' 		
+    expect($("#test_mode").text()).toEqual 'TEST MODE'
 
   it 'should not display test mode when using random mines', ->
       FieldPresenter.render '#jasmine_content',
         cols: 2
         rows: 2
         mineCount = 1
-      expect($("#test_mode").text()).toEqual '' 		
+      expect($("#test_mode").text()).toEqual ''
 
   it 'should cycle through marked to uncertain to unclicked on right click', ->
     givenField """
@@ -179,7 +179,7 @@ describe 'minesweeper', ->
     * .
     """
     expect(remaining_mines()).toEqual 1
-  
+
   it 'should decrement mine count when a mine is marked', ->
     givenField """
     * .
@@ -320,7 +320,7 @@ describe 'minesweeper', ->
     """
     left_click 0, 0
     expect(indicator_class()).toEqual 'status dead'
-  
+
   it 'should show a red mine on the mine you clicked on when a cell containing mine is left clicked', ->
     givenField """
     * .
@@ -355,12 +355,12 @@ describe 'minesweeper', ->
     left_click 0, 1
     left_click 0, 0
     expect(cell_state(0, 0)).toEqual 'unclicked'
-  
+
   it 'should click all non-marked neighbouring cells when double clicking a numeric cell', ->
     givenField """
     * . .
     . . .
-    . . * 
+    . . *
     """
     right_click 0, 0
     expect(cell_state(0 ,0)).toEqual 'marked'
@@ -372,12 +372,12 @@ describe 'minesweeper', ->
     expect(cell_state(1 ,0)).toEqual 'mines1'
     expect(cell_state(1 ,1)).toEqual 'mines2'
     expect(cell_state(1 ,2)).toEqual 'mines1'
-    
+
   it 'should do nothing when double clicking a numeric cell with no surrounding marked cells', ->
     givenField """
     * . .
     . . .
-    . . * 
+    . . *
     """
     left_click  0, 1
     expect(cell_state(0 ,1)).toEqual 'mines1'
@@ -388,47 +388,44 @@ describe 'minesweeper', ->
     expect(cell_state(1 ,0)).toEqual 'unclicked'
     expect(cell_state(1 ,1)).toEqual 'unclicked'
     expect(cell_state(1 ,2)).toEqual 'unclicked'
-    
+
   it 'should do nothing when double clicking a numeric cell with non-matching surrounding marked cells', ->
     givenField """
     * . .
     . . .
-    . . * 
+    . . *
     """
     left_click  1, 1
     expect(cell_state(1 ,1)).toEqual 'mines2'
     right_click 0, 0
-    expect(cell_state(0, 0)).toEqual 'marked'      
-    double_click 1, 1 
-    expect(indicator_class()).toEqual 'status alive'  
-    expect(cell_state(0, 0)).toEqual 'marked'     
-    expect(cell_state(0, 1)).toEqual 'unclicked'  
-    expect(cell_state(0, 2)).toEqual 'unclicked' 
-    expect(cell_state(1, 0)).toEqual 'unclicked' 
-    expect(cell_state(1, 1)).toEqual 'mines2' 
-    expect(cell_state(1, 2)).toEqual 'unclicked' 
-    expect(cell_state(2, 0)).toEqual 'unclicked' 
+    expect(cell_state(0, 0)).toEqual 'marked'
+    double_click 1, 1
+    expect(indicator_class()).toEqual 'status alive'
+    expect(cell_state(0, 0)).toEqual 'marked'
+    expect(cell_state(0, 1)).toEqual 'unclicked'
+    expect(cell_state(0, 2)).toEqual 'unclicked'
+    expect(cell_state(1, 0)).toEqual 'unclicked'
+    expect(cell_state(1, 1)).toEqual 'mines2'
+    expect(cell_state(1, 2)).toEqual 'unclicked'
+    expect(cell_state(2, 0)).toEqual 'unclicked'
     expect(cell_state(2, 1)).toEqual 'unclicked'
     expect(cell_state(2, 2)).toEqual 'unclicked'
-   
+
   it 'should end the game when double clicking a numeric cell with surrounding falsely marked cells', ->
     givenField """
     * . .
     . . .
-    . . * 
+    . . *
     """
     left_click  0, 1
     expect(cell_state(0 ,1)).toEqual 'mines1'
     right_click 1, 0
-    expect(cell_state(1, 0)).toEqual 'marked'     
+    expect(cell_state(1, 0)).toEqual 'marked'
     double_click 0, 1
     expect(indicator_class()).toEqual 'status dead'
     expect(cell_state(0 ,0)).toEqual 'clicked_mine'
-    expect(cell_state(0 ,1)).toEqual 'mines1'     
+    expect(cell_state(0 ,1)).toEqual 'mines1'
     expect(cell_state(0 ,2)).toEqual 'unclicked'
     expect(cell_state(1 ,0)).toEqual 'nomine'
     expect(cell_state(1 ,1)).toEqual 'unclicked'
     expect(cell_state(1 ,2)).toEqual 'unclicked'
-      
-      
-      

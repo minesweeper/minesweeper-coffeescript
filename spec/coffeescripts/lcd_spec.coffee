@@ -34,7 +34,7 @@ describe 'Lcd', ->
     expect($('#prefix1s').attr 'class').toEqual l(0)
     expect($('#prefix10s').attr 'class').toEqual l(0)
     expect($('#prefix100s').attr 'class').toEqual l(1)
-  
+
   it 'should support displaying the value as title', ->
     lcd.display 888
     expect($("#prefix").attr 'title').toEqual '888'

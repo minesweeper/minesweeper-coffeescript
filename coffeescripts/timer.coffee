@@ -12,7 +12,7 @@ window.Timer =
       tick 1
       timer = setTimeout increment_timer, 1000
 
-    stop = -> 
+    stop = ->
       clearTimeout timer if timer
       timer = null
       count = 0

@@ -12,7 +12,7 @@ window.GameState =
     increment_remaining_mines = (increment) ->
       mines_remaining += increment
 
-    lose = -> have_lost = true    
+    lose = -> have_lost = true
     finished = -> have_won or have_lost
     remaining_mines = -> mines_remaining
     remaining_cells = -> cells_remaining
