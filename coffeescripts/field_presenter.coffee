@@ -40,10 +40,10 @@ window.FieldPresenter =
 
     is_marked = (row, col) ->
       $(selector "r#{row}c#{col}").attr('class') == 'marked'
-        
+
     set_mined = (row, col) ->
       $(selector "r#{row}c#{col}").attr 'class', 'mine'
-        
+
     check_wrong_flag = (row, col) ->
       if is_marked(row, col) && !current.hasMine(row, col)
         $(selector "r#{row}c#{col}").attr 'class', 'nomine' 
@@ -92,7 +92,7 @@ window.FieldPresenter =
     set_unclicked_to_revealed = (element) ->
       element.bind 'dblclick', revealed_dblclick
       element.unbind 'mousedown'
-	  
+
     set_unclicked_to_marked = (element) ->
       return if game_state.finished()
       element.attr 'class', 'marked'
@@ -112,13 +112,13 @@ window.FieldPresenter =
       element.attr 'class', 'unclicked'
       element.bind 'mouseup', unclicked_mouseup
       element.bind 'mousedown', unclicked_mousedown
-	  	  		
+
     revealed_dblclick = (event) ->
       return if game_state.finished()
       match= /^mines(\d)$/.exec $(this).attr 'class'
       adjacentCount = parseInt(match[1])
       reveal_unmarked_neighbours $(this) unless adjacentCount != num_marked_neighbours $(this)
-	
+
     marked_mouseup = (event) ->
       unless left_clicked event
         $(this).unbind event
@@ -171,7 +171,7 @@ window.FieldPresenter =
         """
         <div class="title">
           <span class="title_left"></span>
-          <span class="title_right"></span>        
+          <span class="title_right"></span>
         </div>
         <div class="outer">
           <div class="top">
@@ -184,7 +184,7 @@ window.FieldPresenter =
             <div id="g#{index}timer" class="timer" title="0">
               <div id="g#{index}timer100s" class="lcd n0"></div>
               <div id="g#{index}timer10s" class="lcd n0"></div>
-              <div id="g#{index}timer1s" class="lcd n0"></div>            
+              <div id="g#{index}timer1s" class="lcd n0"></div>
             </div>
           </div>
           <div id="g#{index}" class="bottom">
